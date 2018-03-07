@@ -8,19 +8,19 @@ import org.springframework.stereotype.Component;
 public class ValidAmountBean {
 
 	@NotNull
-	int amount;
+	Integer amount;
 
-	public int getAmount() {
+	public Integer getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
 
 	@Override
 	public String toString() {
-		return "amount";
+		return amount.toString();
 	}
 	
 	

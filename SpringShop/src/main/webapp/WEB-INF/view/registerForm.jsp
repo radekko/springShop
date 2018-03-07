@@ -8,7 +8,6 @@
 	color: #ff0000;
 }
 
-}
 </style>
 <title>Insert title here</title>
 </head>

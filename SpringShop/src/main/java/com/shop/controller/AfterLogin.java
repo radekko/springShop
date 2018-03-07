@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shop.service.CartService;
+import com.shop.service.OfferService;
 import com.shop.service.ProductService;
+import com.shop.utils.IntegerValidator;
 
 @Controller
 @RequestMapping(value = "/after")
@@ -18,6 +20,9 @@ public class AfterLogin {
 	ProductService productService;
 	
 	@Autowired
+	OfferService offerService;
+	
+	@Autowired
 	CartService cartService;
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -25,15 +30,21 @@ public class AfterLogin {
 		addOfferToModel(model);
 		return "afterLogin";
 	}
-	//tu dac line item z validacja
+
 	@RequestMapping(method=RequestMethod.POST)
-	public String addProductToCart(@RequestParam("amount") String amount,
+	public String addProductToCart(
+			@RequestParam("amount") String amount,
 			@RequestParam("uniqueProductCode") String uniqueProductCode,
 			@RequestParam("name") String name,
 			@RequestParam("price") String price, 
 			Model model){	
-		cartService.addToCart(amount,uniqueProductCode,price,name);
-		addChosenProductToModel(amount, name, model);
+		
+		if(IntegerValidator.isPositiveInteger(amount)) {
+			cartService.addToCart(amount,uniqueProductCode,price,name);
+			addChosenProductToModel(amount, name, model);
+		} else
+			addErrorMessageToModel(model);
+		
 		addOfferToModel(model);
 		return "afterLogin";
 	}
@@ -59,7 +70,9 @@ public class AfterLogin {
 	}
 	
 	private void addOfferToModel(Model model) {
-		model.addAttribute("products", productService.findAllProduct());
+		model.addAttribute("offer", offerService.getOffer());
 	}
-
+	private void addErrorMessageToModel(Model model) {
+		model.addAttribute("error", "Amount must be a natural number");
+	}
 }

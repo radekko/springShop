@@ -16,6 +16,9 @@ public class LineItem implements Serializable{
 		this.uniqueProductCode = uniqueProductCode;
 	}
 	
+	
+	public LineItem() {
+	}
 	public LineItem(String name, String uniqueProductCode, double currentPrice, int amount) {
 		this.name = name;
 		this.uniqueProductCode = uniqueProductCode;
