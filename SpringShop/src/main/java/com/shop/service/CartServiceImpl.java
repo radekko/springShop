@@ -1,7 +1,8 @@
 package com.shop.service;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -25,11 +26,7 @@ public class CartServiceImpl implements CartService, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private ProductDao productDao;
 	
-	@Autowired
-	private UserDao userDao;
 	
 	@Autowired
     private OrderDao orderDao;
@@ -42,8 +39,8 @@ public class CartServiceImpl implements CartService, Serializable {
 	}
 
 	@Override
-	public Collection<LineItem> getCart() {
-		return cartWithChosenProducts.values();
+	public List<LineItem> getCart() {
+		return  new ArrayList<LineItem>(cartWithChosenProducts.values());
 	}
 
 	@Override
@@ -114,8 +111,7 @@ public class CartServiceImpl implements CartService, Serializable {
 	
 	@Override
 	public void storeCartToDatabase() {
-		// z product dao pobierz Product na podstawie line item
-//		orderDao.saveOrder(cart.getChosenProducts(),userDao.getByUsername(username),1);
+		orderDao.saveOrder(getCart(),username,1);
 	}
 	
 	private LineItem createItem(String amount, String uniqueProductCode,

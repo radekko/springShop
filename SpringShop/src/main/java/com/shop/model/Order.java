@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -27,10 +28,11 @@ public class Order {
             name = "username")
 	private User userId;
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(
-		      name="Order_Product",
-		      joinColumns=@JoinColumn(name="Order_ID", referencedColumnName="orderId"),
-		      inverseJoinColumns=@JoinColumn(name="Product_ID", referencedColumnName="productId"))
+	@JoinTable(name="Order_Product")
+//	@JoinTable(
+//		      name="Order_Product",
+//		      joinColumns=@JoinColumn(name="Order_ID", referencedColumnName="orderId"),
+//		      inverseJoinColumns=@JoinColumn(name="Product_ID", referencedColumnName="productId"))
 	private List<Product> products = new ArrayList<Product>();
 	private double productPrice;
 	private int productAmount;
@@ -38,7 +40,7 @@ public class Order {
 	public User getUserId() {
 		return userId;
 	}
-	public void setUserId(User userId) {
+	public void setUser(User userId) {
 		this.userId = userId;
 	}
 	public List<Product> getProducts() {

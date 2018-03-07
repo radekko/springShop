@@ -22,7 +22,7 @@ public class ProductDaoImpl extends AbstractDao<Integer, Product> implements Pro
 	@Override
 	public Product getByUniqueCode(String uniquecode) {
 		Criteria criteria = createEntityCriteria();
-		criteria.add(Restrictions.eq("uniqueproductCode", uniquecode));
+		criteria.add(Restrictions.eq("uniqueProductCode", uniquecode));
 		return (Product) criteria.uniqueResult();
 	}
 
