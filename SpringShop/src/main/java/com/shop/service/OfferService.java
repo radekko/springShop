@@ -5,6 +5,5 @@ import java.util.List;
 import com.shop.model.LineItem;
 
 public interface OfferService {
-
-	List<LineItem> getOffer(); 
+	List<LineItem> getOfferForClient(); 
 }

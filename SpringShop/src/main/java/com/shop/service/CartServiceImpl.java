@@ -25,17 +25,17 @@ public class CartServiceImpl implements CartService, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private Map<String,LineItem> cartWithChosenProducts = new TreeMap<String,LineItem>();
+	@Autowired
+	private ProductDao productDao;
+	
+	@Autowired
+	private UserDao userDao;
 	
 	@Autowired
     private OrderDao orderDao;
-
-	@Autowired
-	private UserDao userDao;
-
-	@Autowired
-	private ProductDao productDao;
-
+	
+	private Map<String,LineItem> cartWithChosenProducts = new TreeMap<String,LineItem>();
+	
 	private String username;
 	
 	public CartServiceImpl() {

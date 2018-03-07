@@ -48,6 +48,6 @@
     	You added ${currentChosenAmount} ${currentChosenName}.
 	</c:if>     
 	<br/> 
-    <a href="<c:url value='/after/displayCart' />">Display cart</a>
+    <a href="<c:url value='/main/displayCart' />">Display cart</a>
 </body>
 </html>

@@ -38,7 +38,7 @@ public class LoginController {
 			return "loginForm";
 		}
 		cartService.setUsername(user.getUsername());
-		return "redirect:/after";
+		return "redirect:/main";
 	}
 
 }

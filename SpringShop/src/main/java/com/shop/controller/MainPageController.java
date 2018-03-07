@@ -9,15 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shop.service.CartService;
 import com.shop.service.OfferService;
-import com.shop.service.ProductService;
 import com.shop.utils.IntegerValidator;
 
 @Controller
-@RequestMapping(value = "/after")
-public class AfterLogin {
-
-	@Autowired
-	ProductService productService;
+@RequestMapping(value = "/main")
+public class MainPageController {
 	
 	@Autowired
 	OfferService offerService;
@@ -28,7 +24,7 @@ public class AfterLogin {
 	@RequestMapping(method = RequestMethod.GET)
 	public String homePageAfterLogin(Model model) {
 		addOfferToModel(model);
-		return "afterLogin";
+		return "mainForm";
 	}
 
 	@RequestMapping(method=RequestMethod.POST)
@@ -46,31 +42,16 @@ public class AfterLogin {
 			addErrorMessageToModel(model);
 		
 		addOfferToModel(model);
-		return "afterLogin";
+		return "mainForm";
 	}
 
-	@RequestMapping(value="/displayCart", method=RequestMethod.GET)
-	public String displayCart(Model model)
-	{
-		model.addAttribute("orders", cartService.getCart());
-		return "cartForm";
-	}
-	
-	@RequestMapping(value="/displayCart", method=RequestMethod.POST)
-	public String acceptOrder(Model model)
-	{
-		model.addAttribute("orders", cartService.getCart());
-		cartService.storeCartToDatabase();
-		return "cartForm";
-	}
-	
 	private void addChosenProductToModel(String amount, String name, Model model) {
 		model.addAttribute("currentChosenName", name);
 		model.addAttribute("currentChosenAmount", amount);
 	}
 	
 	private void addOfferToModel(Model model) {
-		model.addAttribute("offer", offerService.getOffer());
+		model.addAttribute("offer", offerService.getOfferForClient());
 	}
 	private void addErrorMessageToModel(Model model) {
 		model.addAttribute("error", "Amount must be a natural number");
