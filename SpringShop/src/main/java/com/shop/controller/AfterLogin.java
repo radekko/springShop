@@ -25,7 +25,7 @@ public class AfterLogin {
 		addOfferToModel(model);
 		return "afterLogin";
 	}
-	
+	//tu dac line item z validacja
 	@RequestMapping(method=RequestMethod.POST)
 	public String addProductToCart(@RequestParam("amount") String amount,
 			@RequestParam("uniqueProductCode") String uniqueProductCode,

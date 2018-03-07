@@ -48,25 +48,29 @@ public class CartServiceImpl implements CartService, Serializable {
 
 	@Override
 	public void addToCart(String amount, String uniqueProductCode, String price, String name) {
-		LineItem itemToAdd = createLineItem(amount, uniqueProductCode, price, name);
+		LineItem itemToAdd = createItem(amount, uniqueProductCode, price, name);
 		
-		if(ifInCart(uniqueProductCode)) 
+		if(ifItemInCart(uniqueProductCode)) 
 			updateCart(itemToAdd);
 		else
-			addToCart(itemToAdd);
+			addItemToCart(itemToAdd);
 	}
 
 	private void updateCart(LineItem itemToUpdate) {
-		LineItem editedItem = cartWithChosenProducts.get(itemToUpdate.getUniqueProductCode());
-		editedItem.setAmount(editedItem.getAmount()+itemToUpdate.getAmount());
-		addToCart(editedItem);
+		addItemToCart(updateAmountInItem(itemToUpdate));
 	}
 	
-	private void addToCart(LineItem itemToAdd) {
+	private void addItemToCart(LineItem itemToAdd) {
 		cartWithChosenProducts.put(itemToAdd.getUniqueProductCode(), itemToAdd);
 	}
 
-	private boolean ifInCart(String uniqueProductCode) {
+	private LineItem updateAmountInItem(LineItem itemToUpdate) {
+		LineItem editedItem = cartWithChosenProducts.get(itemToUpdate.getUniqueProductCode());
+		editedItem.setAmount(editedItem.getAmount()+itemToUpdate.getAmount());
+		return editedItem;
+	}
+
+	private boolean ifItemInCart(String uniqueProductCode) {
 		return cartWithChosenProducts.containsKey(uniqueProductCode);
 	}
 
@@ -114,7 +118,7 @@ public class CartServiceImpl implements CartService, Serializable {
 //		orderDao.saveOrder(cart.getChosenProducts(),userDao.getByUsername(username),1);
 	}
 	
-	private LineItem createLineItem(String amount, String uniqueProductCode,
+	private LineItem createItem(String amount, String uniqueProductCode,
 			String currentPrice, String name) {
 		LineItem item = new LineItem(name, uniqueProductCode, Double.valueOf(currentPrice), Integer.valueOf(amount));
 		return item;
