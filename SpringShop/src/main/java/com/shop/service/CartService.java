@@ -1,11 +1,11 @@
 package com.shop.service;
 
-import java.util.List;
+import java.util.Collection;
 
 import com.shop.model.LineItem;
 
 public interface CartService {
-	List<LineItem> getCart();
+	Collection<LineItem> getCart();
 	void addToCart(String amount, String uniqueCode, String price,String name);
 	void storeCartToDatabase();
 	String getUsername();

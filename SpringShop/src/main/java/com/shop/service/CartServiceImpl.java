@@ -1,9 +1,9 @@
 package com.shop.service;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.Collection;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -25,9 +25,8 @@ public class CartServiceImpl implements CartService, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	//zamiast listy set?
-	private List<LineItem> cartWithChosenProducts = new ArrayList<LineItem>();
-
+	private Map<String,LineItem> cartWithChosenProducts = new TreeMap<String,LineItem>();
+	
 	@Autowired
     private OrderDao orderDao;
 
@@ -41,42 +40,72 @@ public class CartServiceImpl implements CartService, Serializable {
 	
 	public CartServiceImpl() {
 	}
-	
+
 	@Override
-	public List<LineItem> getCart() {
-		return cartWithChosenProducts;
+	public Collection<LineItem> getCart() {
+		return cartWithChosenProducts.values();
 	}
 
+	@Override
+	public void addToCart(String amount, String uniqueProductCode, String price, String name) {
+		LineItem itemToAdd = createLineItem(amount, uniqueProductCode, price, name);
+		
+		if(ifInCart(uniqueProductCode)) 
+			updateCart(itemToAdd);
+		else
+			addToCart(itemToAdd);
+	}
+
+	private void updateCart(LineItem itemToUpdate) {
+		LineItem editedItem = cartWithChosenProducts.get(itemToUpdate.getUniqueProductCode());
+		editedItem.setAmount(editedItem.getAmount()+itemToUpdate.getAmount());
+		addToCart(editedItem);
+	}
 	
+	private void addToCart(LineItem itemToAdd) {
+		cartWithChosenProducts.put(itemToAdd.getUniqueProductCode(), itemToAdd);
+	}
+
+	private boolean ifInCart(String uniqueProductCode) {
+		return cartWithChosenProducts.containsKey(uniqueProductCode);
+	}
+
 	//if cart is list
 	//---------------------------------------------------------------------------------------------------------------
-	@Override
-	public void addToCart(String amount, String uniqueCode,
-			String price,String name) {
-		LineItem itemToAdd = createLineItem(amount, uniqueCode, price, name);
-		
-		int index = cartWithChosenProducts.indexOf(itemToAdd);
-
-		if(existInCart(index))
-			addUpdatedItem(itemToAdd.getAmount(), index);
-		else 
-			addItem(itemToAdd);
-	}
+//	private List<LineItem> cartWithChosenProducts = new ArrayList<LineItem>();
 	
-	private boolean existInCart(int index) {
-		return index != -1;
-	}
+//	@Override
+//	public List<LineItem> getCart() {
+//		return cartWithChosenProducts;
+//	}
 
-	private void addItem(LineItem itemToAddOrUpdate) {
-		cartWithChosenProducts.add(itemToAddOrUpdate);
-	}
-
-	private void addUpdatedItem(int amount, int index) {
-		LineItem itemToUpdate = cartWithChosenProducts.get(index);
-		int newAmount = itemToUpdate.getAmount() + amount;
-		itemToUpdate.setAmount(newAmount);
-		cartWithChosenProducts.set(index,itemToUpdate);
-	}
+//	@Override
+//	public void addToCart(String amount, String uniqueCode,
+//			String price,String name) {
+//		LineItem itemToAdd = createLineItem(amount, uniqueCode, price, name);
+//		
+//		int index = cartWithChosenProducts.indexOf(itemToAdd);
+//
+//		if(existInCart(index))
+//			addUpdatedItem(itemToAdd.getAmount(), index);
+//		else 
+//			addItem(itemToAdd);
+//	}
+//	
+//	private boolean existInCart(int index) {
+//		return index != -1;
+//	}
+//
+//	private void addItem(LineItem itemToAddOrUpdate) {
+//		cartWithChosenProducts.add(itemToAddOrUpdate);
+//	}
+//
+//	private void addUpdatedItem(int amount, int index) {
+//		LineItem itemToUpdate = cartWithChosenProducts.get(index);
+//		int newAmount = itemToUpdate.getAmount() + amount;
+//		itemToUpdate.setAmount(newAmount);
+//		cartWithChosenProducts.set(index,itemToUpdate);
+//	}
 	//---------------------------------------------------------------------------------------------------------------
 	
 	@Override
@@ -98,8 +127,5 @@ public class CartServiceImpl implements CartService, Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-
-	
 
 }
