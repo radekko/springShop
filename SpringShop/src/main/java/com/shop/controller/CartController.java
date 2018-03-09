@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.service.CartService;
 
@@ -24,17 +25,18 @@ public class CartController {
 	}
 	
 	@RequestMapping(value="/displayCart",params = "order", method=RequestMethod.POST)
-	public String makeOrder(Model model)
+	public String makeOrder(RedirectAttributes redirectAttributes,Model model)
 	{
 		//TODO: return info about order
 		model.addAttribute("orders", cartService.getCart());
 		cartService.storeCartToDatabase();
 		cartService.clearCart();
+		redirectAttributes.addFlashAttribute("success", "true");
 		return "redirect:/main";
 	}
 	
     @RequestMapping(value="/displayCart",params = "back", method = RequestMethod.POST)
-    public String backToOffer(/*HttpServletRequest request*/) {
+    public String backToOffer() {
         return "redirect:/main";
     }
 	

@@ -16,6 +16,10 @@
 
 <h1>You logged</h1>
 
+<c:if test="${success eq true}">
+  Order successfull!
+</c:if>
+
 <h2>List of Products</h2>  
 
     <table>
