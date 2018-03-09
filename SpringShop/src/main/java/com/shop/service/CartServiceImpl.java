@@ -14,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.shop.dao.OrderDao;
-import com.shop.dao.ProductDao;
-import com.shop.dao.UserDao;
 import com.shop.model.LineItem;
 
 @Service
@@ -26,8 +24,6 @@ public class CartServiceImpl implements CartService, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private static int counter =1;
-	
 	@Autowired
     private OrderDao orderDao;
 	
@@ -136,7 +132,4 @@ public class CartServiceImpl implements CartService, Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-
-
 }

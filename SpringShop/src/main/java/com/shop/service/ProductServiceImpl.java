@@ -12,7 +12,7 @@ import com.shop.model.Product;
 @Service
 @Transactional
 public class ProductServiceImpl implements ProductService{
-	///to powinno zawierac liste produktow i dostarczac operacje na nich?
+
 	@Autowired
     private ProductDao dao;
 	

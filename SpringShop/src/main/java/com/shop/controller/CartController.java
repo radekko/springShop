@@ -27,7 +27,6 @@ public class CartController {
 	@RequestMapping(value="/displayCart",params = "order", method=RequestMethod.POST)
 	public String makeOrder(RedirectAttributes redirectAttributes,Model model)
 	{
-		//TODO: return info about order
 		model.addAttribute("orders", cartService.getCart());
 		cartService.storeCartToDatabase();
 		cartService.clearCart();

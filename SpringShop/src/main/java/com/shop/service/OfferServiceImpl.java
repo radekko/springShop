@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.shop.dao.OrderDao;
-import com.shop.dao.ProductDao;
-import com.shop.dao.UserDao;
 import com.shop.model.LineItem;
 import com.shop.model.Product;
 
