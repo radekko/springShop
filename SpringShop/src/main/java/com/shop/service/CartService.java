@@ -6,10 +6,9 @@ import com.shop.model.LineItem;
 
 public interface CartService {
 	List<LineItem> getCart();
-	void addToCart(String amount, String uniqueCode, String price,String name);
-	void storeCartToDatabase();
+	void addItem(String amount, String uniqueCode, String price,String name);
+	void makeOrder();
+	void removeItem(String uniqueProductCode);
 	String getUsername();
 	void setUsername(String username);
-	void remove(String uniqueProductCode);
-	void clearCart();
 }

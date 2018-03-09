@@ -28,8 +28,7 @@ public class CartController {
 	public String makeOrder(RedirectAttributes redirectAttributes,Model model)
 	{
 		model.addAttribute("orders", cartService.getCart());
-		cartService.storeCartToDatabase();
-		cartService.clearCart();
+		cartService.makeOrder();
 		redirectAttributes.addFlashAttribute("success", "true");
 		return "redirect:/main";
 	}
@@ -41,7 +40,7 @@ public class CartController {
 	
     @RequestMapping(value="/delete/{uniqueProductCode}",method = RequestMethod.GET)  
     public String deleteChosenItem(@PathVariable String uniqueProductCode){  
-    	cartService.remove(uniqueProductCode);
+    	cartService.removeItem(uniqueProductCode);
         return "redirect:/main/displayCart";  
     }  
     

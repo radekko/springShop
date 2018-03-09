@@ -36,7 +36,7 @@ public class MainPageController {
 			Model model){	
 		
 		if(IntegerValidator.isPositiveInteger(amount)) {
-			cartService.addToCart(amount,uniqueProductCode,price,name);
+			cartService.addItem(amount,uniqueProductCode,price,name);
 			addChosenProductToModel(amount, name, model);
 		} else
 			addErrorMessageToModel(model);

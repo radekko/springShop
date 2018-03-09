@@ -22,14 +22,19 @@ public class OrderDaoImpl extends AbstractDao<Integer, Order> implements OrderDa
 	public void saveOrder(List<LineItem> orderList, String username, int generatedNumber) {
 		User supportedUser = userDao.getByUsername(username);
 		for(LineItem item: orderList) {
-			Order order = new Order();
-			order.setProductAmount(item.getAmount());
-			order.setProductPrice(item.getCurrentPrice());
-			order.addProduct(productDao.getByUniqueCode(item.getUniqueProductCode()));
-			order.setUser(supportedUser);
-			order.setOrderIdentifier(generatedNumber);
+			Order order = convertLineItemToOrder(generatedNumber, supportedUser, item);
 			save(order);
 		}
+	}
+
+	private Order convertLineItemToOrder(int generatedNumber, User supportedUser, LineItem item) {
+		Order order = new Order();
+		order.setProductAmount(item.getAmount());
+		order.setProductPrice(item.getCurrentPrice());
+		order.addProduct(productDao.getByUniqueCode(item.getUniqueProductCode()));
+		order.setUser(supportedUser);
+		order.setOrderIdentifier(generatedNumber);
+		return order;
 	}
 
 }
