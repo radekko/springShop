@@ -9,7 +9,6 @@
 <title>Your cart</title>
 </head>
 <body>
-
 <form:form method="POST">
 	<table>
 		<tr>
@@ -25,12 +24,12 @@
 				<td><c:out value="${order.name}" /></td>
 				<td><c:out value="${order.currentPrice}" /></td>
 				<td><c:out value="${order.amount}" /></td>
+			<td><a href="delete/${order.uniqueProductCode}">Delete</a></td>  
 			</tr>
 		</c:forEach>
-		<tr><td><input type="submit" value="Make order" /></td></tr>
+		<tr><td><input type="submit" name="order" value="Make order" /></td>
+		<td><input type="submit" name="back" value="Back to offer" /></td></tr>
 	</table>
 </form:form>
-	
-
 </body>
 </html>

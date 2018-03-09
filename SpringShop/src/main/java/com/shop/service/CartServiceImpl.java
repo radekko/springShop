@@ -26,7 +26,7 @@ public class CartServiceImpl implements CartService, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	
+	private static int counter =1;
 	
 	@Autowired
     private OrderDao orderDao;
@@ -41,6 +41,10 @@ public class CartServiceImpl implements CartService, Serializable {
 	@Override
 	public List<LineItem> getCart() {
 		return  new ArrayList<LineItem>(cartWithChosenProducts.values());
+	}
+	@Override
+	public void clearCart() {
+		cartWithChosenProducts.clear();
 	}
 
 	@Override
@@ -69,6 +73,11 @@ public class CartServiceImpl implements CartService, Serializable {
 
 	private boolean ifItemInCart(String uniqueProductCode) {
 		return cartWithChosenProducts.containsKey(uniqueProductCode);
+	}
+	
+	@Override
+	public void remove(String uniqueProductCode) {
+		cartWithChosenProducts.remove(uniqueProductCode);
 	}
 
 	//if cart is list
@@ -108,7 +117,7 @@ public class CartServiceImpl implements CartService, Serializable {
 //		cartWithChosenProducts.set(index,itemToUpdate);
 //	}
 	//---------------------------------------------------------------------------------------------------------------
-	
+	//TODO: ORDERNUMBER GENERATOR
 	@Override
 	public void storeCartToDatabase() {
 		orderDao.saveOrder(getCart(),username,1);
@@ -127,5 +136,7 @@ public class CartServiceImpl implements CartService, Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+
 
 }

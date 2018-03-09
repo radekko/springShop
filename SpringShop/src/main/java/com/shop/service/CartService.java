@@ -10,4 +10,6 @@ public interface CartService {
 	void storeCartToDatabase();
 	String getUsername();
 	void setUsername(String username);
+	void remove(String uniqueProductCode);
+	void clearCart();
 }

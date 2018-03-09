@@ -3,6 +3,7 @@ package com.shop.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,11 +23,25 @@ public class CartController {
 		return "cartForm";
 	}
 	
-	@RequestMapping(value="/displayCart", method=RequestMethod.POST)
+	@RequestMapping(value="/displayCart",params = "order", method=RequestMethod.POST)
 	public String makeOrder(Model model)
 	{
+		//TODO: return info about order
 		model.addAttribute("orders", cartService.getCart());
 		cartService.storeCartToDatabase();
-		return "cartForm";
+		cartService.clearCart();
+		return "redirect:/main";
 	}
+	
+    @RequestMapping(value="/displayCart",params = "back", method = RequestMethod.POST)
+    public String backToOffer(/*HttpServletRequest request*/) {
+        return "redirect:/main";
+    }
+	
+    @RequestMapping(value="/delete/{uniqueProductCode}",method = RequestMethod.GET)  
+    public String deleteChosenItem(@PathVariable String uniqueProductCode){  
+    	cartService.remove(uniqueProductCode);
+        return "redirect:/main/displayCart";  
+    }  
+    
 }
