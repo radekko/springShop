@@ -11,4 +11,5 @@ public interface CartService {
 	void removeItem(String uniqueProductCode);
 	String getUsername();
 	void setUsername(String username);
+	void clearCart();
 }

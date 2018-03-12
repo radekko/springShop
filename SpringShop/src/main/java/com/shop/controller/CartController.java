@@ -37,7 +37,7 @@ public class CartController {
     public String backToOffer() {
         return "redirect:/main";
     }
-	
+	//TODO: change RequestMethod.GET to DELETE
     @RequestMapping(value="/delete/{uniqueProductCode}",method = RequestMethod.GET)  
     public String deleteChosenItem(@PathVariable String uniqueProductCode){  
     	cartService.removeItem(uniqueProductCode);

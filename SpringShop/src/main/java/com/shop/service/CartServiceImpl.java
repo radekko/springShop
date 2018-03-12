@@ -54,8 +54,7 @@ public class CartServiceImpl implements CartService, Serializable {
 
 	@Override
 	public void makeOrder() {
-		storeCartToDatabase();
-		clearCart();
+		orderDao.saveOrder(getCart(), username, 1);
 	}
 
 	@Override
@@ -67,8 +66,8 @@ public class CartServiceImpl implements CartService, Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	private void clearCart() {
+	@Override
+	public void clearCart() {
 		cartWithChosenProducts.clear();
 	}
 	
@@ -88,10 +87,6 @@ public class CartServiceImpl implements CartService, Serializable {
 
 	private boolean isInCart(String uniqueProductCode) {
 		return cartWithChosenProducts.containsKey(uniqueProductCode);
-	}
-
-	private void storeCartToDatabase() {
-		orderDao.saveOrder(getCart(), username, 1);
 	}
 
 	private LineItem createItem(String amount, String uniqueProductCode, String currentPrice, String name) {
