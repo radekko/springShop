@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.shop.config.RootConfig;
+import com.shop.model.LineItem;
 import com.shop.service.CartService;
 
 
@@ -22,43 +23,45 @@ public class CartControllerTest {
 	@Autowired
 	CartService cartService;
 	
-	String [] bookArray;
-	String [] appleArray;
+	LineItem bookArray;
+	LineItem appleArray;
 	String username;
+	String BOOK_UNIQUE_CODE = "aa";
+	String APPLE_UNIQUE_CODE = "bb";
 	
 	@Before
 	public void initializeLineItems() {
-		 bookArray = new String[] {"5", "aa", "2.0", "book"};
-		 appleArray = new String[] {"7", "bb", "7.2", "apple"};
+		 bookArray = new LineItem("book",BOOK_UNIQUE_CODE,5.0,2);
+		 appleArray = new LineItem("apple",APPLE_UNIQUE_CODE,25.0,3);
 		 username = "testUser";
 		 cartService.setUsername(username);
 	}
 	
 	@Test
 	public void testItemsAddintgToCartAreUnique() throws Exception{
-		cartService.addItem(bookArray[0],bookArray[1],bookArray[2],bookArray[3]);
-		cartService.addItem(bookArray[0],bookArray[1],bookArray[2],bookArray[3]);
+		cartService.addItem(bookArray);
+		cartService.addItem(bookArray);
 		assertEquals(1, getCartSize());
 	}
 	
 	@Test
 	public void testItemsRemovingFromCart() throws Exception{
-		cartService.addItem(bookArray[0],bookArray[1],bookArray[2],bookArray[3]);
-		cartService.addItem(appleArray[0],appleArray[1],appleArray[2],appleArray[3]);
+		cartService.addItem(bookArray);
+		cartService.addItem(appleArray);
 		assertEquals(2, cartService.getCart().size() );
-		cartService.removeItem("bb");
+		cartService.removeItem(APPLE_UNIQUE_CODE);
 		assertEquals(1, getCartSize());
 	}
 	
 	@Test
 	public void testClearCart() throws Exception{
-		cartService.addItem(bookArray[0],bookArray[1],bookArray[2],bookArray[3]);
-		cartService.addItem(appleArray[0],appleArray[1],appleArray[2],appleArray[3]);
+		cartService.addItem(bookArray);
+		cartService.addItem(bookArray);
 		cartService.clearCart();
 		assertEquals(0, getCartSize());
 	}
 	
-	public int getCartSize() {
+	private int getCartSize() {
 		return cartService.getCart().size();
 	}
 }

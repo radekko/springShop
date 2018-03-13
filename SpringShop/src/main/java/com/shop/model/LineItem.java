@@ -2,13 +2,18 @@ package com.shop.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Min;
+
+
 public class LineItem implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String uniqueProductCode;
 	private double currentPrice;
-	private int amount;
+	@Min(value = 1L)
+	private Integer amount;
+	
 	public LineItem() {}
 	public LineItem(String name, String uniqueProductCode, double currentPrice, int amount) {
 		this.name = name;
@@ -33,11 +38,11 @@ public class LineItem implements Serializable{
 		this.currentPrice = currentPrice;
 	}
 	
-	public int getAmount() {
+	public Integer  getAmount() {
 		return amount;
 	}
 	
-	public void setAmount(int amount) {
+	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
 	

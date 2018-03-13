@@ -31,14 +31,15 @@
         </tr>
         <c:forEach items="${offer}" var="lineItem">
             <tr>
-            <form:form method="POST" modelAttribute="validAmountBean">
+<%--             <form:form method="POST" modelAttribute="validAmountBean"> --%>
+				<form:form method="POST" modelAttribute="lineItem">
             		<td><c:out value="${lineItem.name}"/></td>
             		<td><c:out value="${lineItem.currentPrice}"/></td>
-					<td><input type="text" name="amount" maxlength="4" size="4" /></td>
+					<td><form:input path="amount" /></td>
 					<td colspan="2"><input type="submit" value="Add to cart" /></td>
-					<td><input type="hidden" name="uniqueProductCode"  value="${lineItem.uniqueProductCode}"/></td>
-					<td><input type="hidden" name="price"  value="${lineItem.currentPrice}"/></td>
-					<td><input type="hidden" name="name"  value="${lineItem.name}"/></td>
+					<td><form:input type="hidden" path="uniqueProductCode"  value="${lineItem.uniqueProductCode}"/></td>
+					<td><form:input type="hidden" path="currentPrice"  value="${lineItem.currentPrice}"/></td>
+					<td><form:input type="hidden" path="name"  value="${lineItem.name}"/></td>
 				</form:form>
 			</tr>
         </c:forEach>

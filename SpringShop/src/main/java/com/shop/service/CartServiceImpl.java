@@ -38,10 +38,8 @@ public class CartServiceImpl implements CartService, Serializable {
 	}
 
 	@Override
-	public void addItem(String amount, String uniqueProductCode, String price, String name) {
-		LineItem itemToAdd = createItem(amount, uniqueProductCode, price, name);
-
-		if (isInCart(uniqueProductCode))
+	public void addItem(LineItem itemToAdd) {
+		if (isInCart(itemToAdd.getUniqueProductCode()))
 			updateCart(itemToAdd);
 		else
 			addItemToCart(itemToAdd);
@@ -88,10 +86,4 @@ public class CartServiceImpl implements CartService, Serializable {
 	private boolean isInCart(String uniqueProductCode) {
 		return cartWithChosenProducts.containsKey(uniqueProductCode);
 	}
-
-	private LineItem createItem(String amount, String uniqueProductCode, String currentPrice, String name) {
-		LineItem item = new LineItem(name, uniqueProductCode, Double.valueOf(currentPrice), Integer.valueOf(amount));
-		return item;
-	}
-
 }

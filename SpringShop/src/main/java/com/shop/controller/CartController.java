@@ -29,6 +29,7 @@ public class CartController {
 	{
 		model.addAttribute("orders", cartService.getCart());
 		cartService.makeOrder();
+		cartService.clearCart();
 		redirectAttributes.addFlashAttribute("success", "true");
 		return "redirect:/main";
 	}

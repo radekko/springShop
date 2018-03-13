@@ -6,7 +6,8 @@ import com.shop.model.LineItem;
 
 public interface CartService {
 	List<LineItem> getCart();
-	void addItem(String amount, String uniqueCode, String price,String name);
+//	void addItem(String amount, String uniqueCode, String price,String name);
+	void addItem(LineItem itemToAdd);
 	void makeOrder();
 	void removeItem(String uniqueProductCode);
 	String getUsername();

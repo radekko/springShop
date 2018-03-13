@@ -1,15 +1,17 @@
 package com.shop.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.shop.model.LineItem;
 import com.shop.service.CartService;
 import com.shop.service.OfferService;
-import com.shop.utils.IntegerValidator;
 
 @Controller
 @RequestMapping(value = "/main")
@@ -24,30 +26,28 @@ public class MainPageController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String homePageAfterLogin(Model model) {
 		addOfferToModel(model);
+		model.addAttribute(new LineItem());
 		return "mainForm";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String addProductToCart(
-			@RequestParam("amount") String amount,
-			@RequestParam("uniqueProductCode") String uniqueProductCode,
-			@RequestParam("name") String name,
-			@RequestParam("price") String price, 
-			Model model){	
-		
-		if(IntegerValidator.isPositiveInteger(amount)) {
-			cartService.addItem(amount,uniqueProductCode,price,name);
-			addChosenProductToModel(amount, name, model);
-		} else
+	public String addProductToCart(@Valid LineItem lineItem, BindingResult errors,Model model){	
+
+		if(errors.hasErrors()) 
 			addErrorMessageToModel(model);
+		else {
+			cartService.addItem(lineItem);
+			addInfoAboutCurrentChosenProductToModel(lineItem, model);
+		}
 		
 		addOfferToModel(model);
+		model.addAttribute(new LineItem());
 		return "mainForm";
 	}
 
-	private void addChosenProductToModel(String amount, String name, Model model) {
-		model.addAttribute("currentChosenName", name);
-		model.addAttribute("currentChosenAmount", amount);
+	private void addInfoAboutCurrentChosenProductToModel(LineItem lineItem, Model model) {
+		model.addAttribute("currentChosenName", lineItem.getName());
+		model.addAttribute("currentChosenAmount", lineItem.getAmount());
 	}
 	
 	private void addOfferToModel(Model model) {
