@@ -14,6 +14,16 @@ import javax.validation.constraints.Size;
 @Table(name="EMPLOYEE")
 public class User {
 
+	
+	public User() {
+		super();
+	}
+	public User(@NotNull @Size(min = 2, max = 20) String username, @NotNull @Size(min = 2, max = 20) String password,
+			@NotNull @Email String email) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+	}
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

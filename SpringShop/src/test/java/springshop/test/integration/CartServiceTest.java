@@ -1,4 +1,4 @@
-package test.springshop;
+package springshop.test.integration;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,16 +18,16 @@ import com.shop.service.CartService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=RootConfig.class)
 @WebAppConfiguration
-public class CartControllerTest {
+public class CartServiceTest {
 
 	@Autowired
-	CartService cartService;
+	private CartService cartService;
 	
-	LineItem bookArray;
-	LineItem appleArray;
-	String username;
-	String BOOK_UNIQUE_CODE = "aa";
-	String APPLE_UNIQUE_CODE = "bb";
+	private LineItem bookArray;
+	private LineItem appleArray;
+	private String username;
+	private String BOOK_UNIQUE_CODE = "aa";
+	private String APPLE_UNIQUE_CODE = "bb";
 	
 	@Before
 	public void initializeLineItems() {

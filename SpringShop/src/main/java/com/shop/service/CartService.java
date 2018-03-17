@@ -1,12 +1,12 @@
 package com.shop.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.shop.model.LineItem;
 
-public interface CartService {
+public interface CartService extends Serializable{
 	List<LineItem> getCart();
-//	void addItem(String amount, String uniqueCode, String price,String name);
 	void addItem(LineItem itemToAdd);
 	void makeOrder();
 	void removeItem(String uniqueProductCode);
