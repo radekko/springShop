@@ -6,9 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.model.User;
-import com.shop.service.CartService;
 import com.shop.service.UserService;
 
 @Controller
@@ -18,8 +18,8 @@ public class LoginController {
 	@Autowired
 	UserService service;
 	
-    @Autowired
-    CartService cartService;
+//    @Autowired
+//    CartService cartService;
 
 	public LoginController() {
 	}
@@ -31,13 +31,15 @@ public class LoginController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String afterIntruduceLoginData(@ModelAttribute User user, Model model) {
+	public String afterIntruduceLoginData(@ModelAttribute User user,
+			RedirectAttributes redirectAttributes, Model model) {
 		if (!service.findIfExist(user))
 		{
 			model.addAttribute("notExist", "Invalid username or password");
 			return "loginForm";
 		}
-		cartService.setUsername(user.getUsername());
+//		cartService.setUsername(user.getUsername());
+		redirectAttributes.addFlashAttribute("username", user.getUsername());
 		return "redirect:/main";
 	}
 

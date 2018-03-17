@@ -31,7 +31,6 @@
         </tr>
         <c:forEach items="${offer}" var="lineItem">
             <tr>
-<%--             <form:form method="POST" modelAttribute="validAmountBean"> --%>
 				<form:form method="POST" modelAttribute="lineItem">
             		<td><c:out value="${lineItem.name}"/></td>
             		<td><c:out value="${lineItem.currentPrice}"/></td>
