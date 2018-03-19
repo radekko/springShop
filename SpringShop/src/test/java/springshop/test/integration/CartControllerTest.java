@@ -9,6 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -34,32 +36,27 @@ public class CartControllerTest {
 
 	private MockMvc mockMvc;
 	
-	@Autowired
+	@Mock
 	CartService cartService;
 	
-	@Autowired MockHttpSession session;
+	@InjectMocks
+	CartController cartController;
+	
+//	@Autowired MockHttpSession session;
 	
 	@Before
 	public void initializeLineItems() {
-		CartController registerController = new CartController();
-		mockMvc = standaloneSetup(registerController).build();
+		mockMvc = standaloneSetup(cartController).build();
 	}
 	
 	@Test
 	public void testItemsAddintgToCartAreUnique() throws Exception{
-//		session.setAttribute("theme", "blue");
 		mockMvc.perform(get("/main/displayCart"))
 		.andDo(print())
 		.andExpect(status().isOk())
 //		.andExpect(view().name("cartForm"))
 		;
 	}
-	
-}
-
-@Configuration()
-@ComponentScan(basePackages={"com.shop"})
-class TestConfig {
 	
 }
 
