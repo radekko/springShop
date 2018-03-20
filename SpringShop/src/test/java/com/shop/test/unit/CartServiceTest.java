@@ -1,4 +1,4 @@
-package springshop.test.integration;
+package com.shop.test.unit;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.shop.config.RootConfig;
-import com.shop.model.LineItem;
+import com.shop.model.entity.domain.LineItem;
 import com.shop.service.CartService;
 
 
@@ -25,16 +25,13 @@ public class CartServiceTest {
 	
 	private LineItem bookArray;
 	private LineItem appleArray;
-	private String username;
-	private String BOOK_UNIQUE_CODE = "aa";
-	private String APPLE_UNIQUE_CODE = "bb";
+	private static final String BOOK_UNIQUE_CODE = "aa";
+	private static final String APPLE_UNIQUE_CODE = "bb";
 	
 	@Before
 	public void initializeLineItems() {
 		 bookArray = new LineItem("book",BOOK_UNIQUE_CODE,5.0,2);
 		 appleArray = new LineItem("apple",APPLE_UNIQUE_CODE,25.0,3);
-		 username = "testUser";
-		 cartService.setUsername(username);
 	}
 	
 	@Test
@@ -48,7 +45,7 @@ public class CartServiceTest {
 	public void testItemsRemovingFromCart() throws Exception{
 		cartService.addItem(bookArray);
 		cartService.addItem(appleArray);
-		assertEquals(2, cartService.getCart().size() );
+		assertEquals(2, cartService.getCart().size());
 		cartService.removeItem(APPLE_UNIQUE_CODE);
 		assertEquals(1, getCartSize());
 	}

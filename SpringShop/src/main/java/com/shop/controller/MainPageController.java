@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.shop.model.LineItem;
+import com.shop.model.entity.domain.LineItem;
 import com.shop.service.CartService;
 import com.shop.service.OfferService;
+
 
 @Controller
 @RequestMapping(value = "/main")
@@ -30,11 +31,10 @@ public class MainPageController {
 		if(!"".equals(username))
 			cartService.setUsername(username);
 		
-		addOfferToModel(model);
-		model.addAttribute(new LineItem());
+		prepareModel(model);
 		return "mainForm";
 	}
-	
+
 	@RequestMapping(method=RequestMethod.POST)
 	public String addProductToCart(@Valid LineItem lineItem, BindingResult errors,Model model){	
 
@@ -45,9 +45,13 @@ public class MainPageController {
 			addInfoAboutCurrentChosenProductToModel(lineItem, model);
 		}
 		
+		prepareModel(model);
+		return "mainForm";
+	}
+	
+	private void prepareModel(Model model) {
 		addOfferToModel(model);
 		model.addAttribute(new LineItem());
-		return "mainForm";
 	}
 
 	private void addInfoAboutCurrentChosenProductToModel(LineItem lineItem, Model model) {

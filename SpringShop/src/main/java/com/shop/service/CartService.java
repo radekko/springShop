@@ -3,7 +3,7 @@ package com.shop.service;
 import java.io.Serializable;
 import java.util.List;
 
-import com.shop.model.LineItem;
+import com.shop.model.entity.domain.LineItem;
 
 public interface CartService extends Serializable{
 	List<LineItem> getCart();

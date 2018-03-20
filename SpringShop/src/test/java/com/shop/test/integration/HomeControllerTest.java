@@ -1,4 +1,4 @@
-package springshop.test.integration;
+package com.shop.test.integration;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -8,8 +8,6 @@ import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.shop.controller.HomePageController;
-
-
 
 public class HomeControllerTest {
 	@Test

@@ -1,4 +1,4 @@
-package springshop.test.integration;
+package com.shop.test.integration;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -22,7 +22,6 @@ import com.shop.config.RootConfig;
 import com.shop.controller.RegisterUserController;
 import com.shop.service.UserService;
 
-
 @RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(classes = { RootConfig.class })
 @WebAppConfiguration
@@ -36,7 +35,12 @@ public class RegisterUserControllerTest {
 	@InjectMocks
 	private RegisterUserController registerController;
 	
-	private final static String REGISTER_FORM_NAME = "registerForm";
+	private static final String REGISTER_FORM_NAME = "registerForm";
+	private static final String SUCCESSED_REGISTER_FORM_NAME = "successRegistered";
+	private static final String VALID_USER = "asd2";
+	private static final String VALID_PASSWORD = "asd2";
+	private static final String INVALID_EMAIL = "aaa";
+	private static final String VALID_EMAIL = "a@aa";
 	
 	@Before
 	public void initializeLineItems() {
@@ -46,19 +50,19 @@ public class RegisterUserControllerTest {
 	@Test
 	public void testRegisterIsSuccess() throws Exception {
 		mockMvc.perform(post("/register")
-                .param("username", "asd2").param("password", "asd2").param("email", "a@aa"))
+                .param("username", VALID_USER).param("password", VALID_PASSWORD).param("email", VALID_EMAIL))
 				.andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("successRegistered"))
+                .andExpect(view().name(SUCCESSED_REGISTER_FORM_NAME))
                 .andExpect(model().attributeHasNoErrors("user"));
 	}
 	
 	@Test
 	public void testRegisterIsFailed() throws Exception {
 		mockMvc.perform(post("/register")
-                .param("username", "asd2").param("password", "asd2").param("email", "aaa"))
+                .param("username", VALID_USER).param("password", VALID_PASSWORD).param("email", INVALID_EMAIL))
 				.andDo(print())
-                .andExpect( model().attributeHasFieldErrors("user", "email"))
+                .andExpect(model().attributeHasFieldErrors("user", "email"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(REGISTER_FORM_NAME));
 	}
@@ -70,7 +74,5 @@ public class RegisterUserControllerTest {
 		mockMvc.perform(get("/register"))
 			.andExpect(view().name(REGISTER_FORM_NAME)).andExpect(model().attributeExists("user"));
 	}
-	
-
 	
 }

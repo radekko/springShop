@@ -1,4 +1,4 @@
-package com.shop.model;
+package com.shop.model.entity.persistent;
 
 import java.util.List;
 

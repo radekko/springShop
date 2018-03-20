@@ -1,4 +1,4 @@
-package springshop.test.integration;
+package com.shop.test.integration;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -29,8 +30,8 @@ import com.shop.controller.CartController;
 import com.shop.service.CartService;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes= {RootConfig.class, WebConfig.class})
+@RunWith(MockitoJUnitRunner.class)
+@ContextConfiguration(classes= {RootConfig.class})
 @WebAppConfiguration
 public class CartControllerTest {
 
@@ -50,12 +51,11 @@ public class CartControllerTest {
 	}
 	
 	@Test
-	public void testItemsAddintgToCartAreUnique() throws Exception{
+	public void testIfReturnProperlyView() throws Exception{
 		mockMvc.perform(get("/main/displayCart"))
 		.andDo(print())
 		.andExpect(status().isOk())
-//		.andExpect(view().name("cartForm"))
-		;
+		.andExpect(view().name("cartForm"));
 	}
 	
 }

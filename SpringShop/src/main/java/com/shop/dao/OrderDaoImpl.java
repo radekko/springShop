@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.shop.model.LineItem;
-import com.shop.model.Order;
-import com.shop.model.User;
+import com.shop.model.entity.domain.LineItem;
+import com.shop.model.entity.persistent.Order;
+import com.shop.model.entity.persistent.User;
 
 @Repository
 public class OrderDaoImpl extends AbstractDao<Integer, Order> implements OrderDao {

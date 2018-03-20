@@ -22,8 +22,7 @@
 				<td><c:out value="${order.uniqueProductCode}" /></td>
 				<td><c:out value="${order.name}" /></td>
 				<td><c:out value="${order.currentPrice}" /></td>
-				<td><c:out value="${order.amount}" /></td>
-<%-- 				<td><a href="delete/${order.uniqueProductCode}">Delete</a></td>  --%>
+				<td><c:out value="${order.amount}"/></td>
 				<form:form method="POST">
 					<td><input type="submit" value="remove item" /></td> 
 					<td><input type="hidden" name="_method" value="delete"></td> 
@@ -42,6 +41,5 @@
 		</tr>
 	</table>
 	</form:form>
-	
 </body>
 </html>

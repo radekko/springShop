@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shop.dao.ProductDao;
-import com.shop.model.Product;
+import com.shop.model.entity.persistent.Product;
 
 @Service
 @Transactional

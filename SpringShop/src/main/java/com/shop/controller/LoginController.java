@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.shop.model.User;
+import com.shop.model.entity.persistent.User;
 import com.shop.service.UserService;
 
 @Controller

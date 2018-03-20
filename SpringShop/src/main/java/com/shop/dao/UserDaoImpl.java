@@ -4,7 +4,7 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.shop.model.User;
+import com.shop.model.entity.persistent.User;
 
 @Repository
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {

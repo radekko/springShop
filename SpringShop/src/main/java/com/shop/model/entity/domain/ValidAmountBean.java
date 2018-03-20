@@ -1,4 +1,4 @@
-package com.shop.model;
+package com.shop.model.entity.domain;
 
 import javax.validation.constraints.NotNull;
 

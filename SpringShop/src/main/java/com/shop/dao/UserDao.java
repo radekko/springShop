@@ -1,6 +1,6 @@
 package com.shop.dao;
 
-import com.shop.model.User;
+import com.shop.model.entity.persistent.User;
 
 public interface UserDao {
 	void addUser(User user);

@@ -2,7 +2,7 @@ package com.shop.service;
 
 import java.util.List;
 
-import com.shop.model.LineItem;
+import com.shop.model.entity.domain.LineItem;
 
 public interface OfferService {
 	List<LineItem> getOfferForClient(); 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shop.dao.UserDao;
-import com.shop.model.User;
+import com.shop.model.entity.persistent.User;
 
 @Service
 @Transactional

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.shop.dao.OrderDao;
-import com.shop.model.LineItem;
+import com.shop.model.entity.domain.LineItem;
 
 @Service
 @Transactional

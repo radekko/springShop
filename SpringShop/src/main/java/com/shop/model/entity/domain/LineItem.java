@@ -1,9 +1,8 @@
-package com.shop.model;
+package com.shop.model.entity.domain;
 
 import java.io.Serializable;
 
 import javax.validation.constraints.Min;
-
 
 public class LineItem implements Serializable{
 
