@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.shop.dao.PaginationResult;
 import com.shop.model.entity.domain.LineItem;
 import com.shop.model.entity.persistent.Product;
 
@@ -23,6 +24,16 @@ public class OfferServiceImpl implements OfferService {
 		List<LineItem> lineItemList = createLineItemList(productList);
 		return lineItemList;
 	}
+	
+	@Override
+	public PaginationResult<LineItem> getPaginationOfferForClient(int page) {
+		PaginationResult<Product> productList = productService.paginateProducts(page);
+		
+		List<LineItem> lineItemList= createLineItemList(productList.getList());
+		PaginationResult<LineItem> lineItemPaginationList = new PaginationResult(productList,lineItemList);
+		lineItemPaginationList.getNavigationPages().stream().forEach(System.out::println);
+		return lineItemPaginationList;
+	}
 
 	private List<LineItem> createLineItemList(List<Product> productList) {
 		List<LineItem> lineItemList = new ArrayList<LineItem>();
@@ -35,6 +46,10 @@ public class OfferServiceImpl implements OfferService {
 		return lineItemList;
 	}
 	
-	
+//	private PaginationResult<LineItem> createLineItemPaginationList(PaginationResult<Product> productList) {
+//		PaginationResult<LineItem> lineItemList = PaginationResult.changeListType(productList, LineItem.class);
+//		
+//		return lineItemList;
+//	}
 
 }

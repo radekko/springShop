@@ -26,4 +26,10 @@ public class ProductDaoImpl extends AbstractDao<Integer, Product> implements Pro
 		return (Product) criteria.uniqueResult();
 	}
 
+	@Override
+	public PaginationResult<Product> paginateProducts(int page) {
+		PaginationResult<Product> result = getPaginationResult(page);
+		return result;
+	}
+
 }

@@ -29,12 +29,12 @@
             <td>Amount</td>
             <td>Add to cart</td>
         </tr>
-        <c:forEach items="${offer}" var="lineItem">
+        <c:forEach items="${offer.list}" var="lineItem">
             <tr>
 				<form:form method="POST" modelAttribute="lineItem">
             		<td><c:out value="${lineItem.name}"/></td>
             		<td><c:out value="${lineItem.currentPrice}"/></td>
-					<td><form:input path="amount" id ="amo" value="3"/></td>
+					<td><form:input path="amount" value="3"/></td>
 					<td colspan="2"><input type="submit" value="Add to cart" /></td>
 					<td><form:input type="hidden" path="uniqueProductCode"  value="${lineItem.uniqueProductCode}"/></td>
 					<td><form:input type="hidden" path="currentPrice"  value="${lineItem.currentPrice}"/></td>
@@ -43,6 +43,28 @@
 			</tr>
         </c:forEach>
     </table>
+    
+    
+<%--     <c:if test="${offer.totalPages > 1}"> --%>
+<%--           <c:forEach items="${offer.navigationPages}" var = "page"> --%>
+<%--                 <a href="${pageContext.request.contextPath}/productList?page=${page}">${page}</a> --%>
+<%--           </c:forEach> --%>
+<%--    </c:if> --%>
+   
+    <c:if test="${offer.totalPages > 1}">
+<!--        <div class="page-navigator"> -->
+          <c:forEach items="${offer.navigationPages}" var = "page">
+<%--               <c:if test="${page != -1 }"> --%>
+                <a href="${pageContext.request.contextPath}/${currentPath}/productList?page=${page}" class="nav-item">${page}</a>
+<%--               </c:if> --%>
+<%--               <c:if test="${page == -1 }"> --%>
+<!--                 <span class="nav-item"> ... </span> -->
+<%--               </c:if> --%>
+          </c:forEach>
+          
+<!--        </div> -->
+   </c:if>
+   
     <br/>
     <c:if test="${not empty error}">
 		 <td>${error}</td>
