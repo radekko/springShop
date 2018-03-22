@@ -44,25 +44,11 @@
         </c:forEach>
     </table>
     
-    
-<%--     <c:if test="${offer.totalPages > 1}"> --%>
-<%--           <c:forEach items="${offer.navigationPages}" var = "page"> --%>
-<%--                 <a href="${pageContext.request.contextPath}/productList?page=${page}">${page}</a> --%>
-<%--           </c:forEach> --%>
-<%--    </c:if> --%>
    
     <c:if test="${offer.totalPages > 1}">
-<!--        <div class="page-navigator"> -->
           <c:forEach items="${offer.navigationPages}" var = "page">
-<%--               <c:if test="${page != -1 }"> --%>
                 <a href="${pageContext.request.contextPath}/${currentPath}/productList?page=${page}" class="nav-item">${page}</a>
-<%--               </c:if> --%>
-<%--               <c:if test="${page == -1 }"> --%>
-<!--                 <span class="nav-item"> ... </span> -->
-<%--               </c:if> --%>
           </c:forEach>
-          
-<!--        </div> -->
    </c:if>
    
     <br/>

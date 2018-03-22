@@ -1,23 +1,16 @@
 package com.shop.dao;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.ScrollMode;
-import org.hibernate.ScrollableResults;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class PaginationResult<E> {
 
 	private int totalRecords;
 	private int currentPage;
-	private List list;
+	private List<?> list;
 	private int maxResult;
 	private int totalPages;
 
@@ -51,7 +44,7 @@ public class PaginationResult<E> {
 		this.calcNavigationPages();
 	}
 
-	public PaginationResult(PaginationResult<E> p, List list) {
+	public PaginationResult(PaginationResult<E> p, List<?> list) {
 		this.list = list;
 		this.totalRecords = p.totalRecords;
 		this.currentPage = p.currentPage;
@@ -84,7 +77,6 @@ public class PaginationResult<E> {
 					break;
 				
 				navigationPages.add(start);
-				System.out.println("start: "+start + " totalPages: " + totalPages);
 				start++;
 			}
 		}
@@ -104,7 +96,7 @@ public class PaginationResult<E> {
 	}
 
 	public List<E> getList() {
-		return list;
+		return (List<E>) list;
 	}
 
 	public void SetList(List<E> list) {

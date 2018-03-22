@@ -18,15 +18,13 @@ public class CartController {
 	CartService cartService;
 	
 	@RequestMapping(value="/displayCart", method=RequestMethod.GET)
-	public String displayCart(Model model)
-	{
+	public String displayCart(Model model) {
 		model.addAttribute("orders", cartService.getCart());
 		return "cartForm";
 	}
 	
 	@RequestMapping(value="/displayCart",params = "order", method=RequestMethod.POST)
-	public String makeOrder(RedirectAttributes redirectAttributes,Model model)
-	{
+	public String makeOrder(RedirectAttributes redirectAttributes,Model model){
 		model.addAttribute("orders", cartService.getCart());
 		cartService.makeOrder();
 		cartService.clearCart();
@@ -44,16 +42,10 @@ public class CartController {
     public String backToOffer() {
         return "redirect:/main";
     }
+    
     @RequestMapping(value="/displayCart", method = RequestMethod.DELETE)
     public String deleteLineItem(@RequestParam("uniqueProductCode") String uniqueProductCode) {
     	cartService.removeItem(uniqueProductCode);
         return "redirect:/main/displayCart";
     }
-	//TODO: change RequestMethod.GET to DELETE
-//    @RequestMapping(value="/delete/{uniqueProductCode}",method = RequestMethod.GET)  
-//    public String deleteChosenItem(@PathVariable String uniqueProductCode){  
-//    	cartService.removeItem(uniqueProductCode);
-//        return "redirect:/main/displayCart";  
-//    }  
-    
 }

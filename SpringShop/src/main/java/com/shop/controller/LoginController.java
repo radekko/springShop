@@ -17,9 +17,6 @@ public class LoginController {
 
 	@Autowired
 	UserService service;
-	
-//    @Autowired
-//    CartService cartService;
 
 	public LoginController() {
 	}
@@ -38,7 +35,6 @@ public class LoginController {
 			model.addAttribute("notExist", "Invalid username or password");
 			return "loginForm";
 		}
-//		cartService.setUsername(user.getUsername());
 		redirectAttributes.addFlashAttribute("username", user.getUsername());
 		return "redirect:/main";
 	}

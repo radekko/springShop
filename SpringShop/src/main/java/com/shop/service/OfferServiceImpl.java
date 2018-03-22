@@ -28,10 +28,8 @@ public class OfferServiceImpl implements OfferService {
 	@Override
 	public PaginationResult<LineItem> getPaginationOfferForClient(int page) {
 		PaginationResult<Product> productList = productService.paginateProducts(page);
-		
 		List<LineItem> lineItemList= createLineItemList(productList.getList());
 		PaginationResult<LineItem> lineItemPaginationList = new PaginationResult(productList,lineItemList);
-		lineItemPaginationList.getNavigationPages().stream().forEach(System.out::println);
 		return lineItemPaginationList;
 	}
 
@@ -45,11 +43,5 @@ public class OfferServiceImpl implements OfferService {
 		}
 		return lineItemList;
 	}
-	
-//	private PaginationResult<LineItem> createLineItemPaginationList(PaginationResult<Product> productList) {
-//		PaginationResult<LineItem> lineItemList = PaginationResult.changeListType(productList, LineItem.class);
-//		
-//		return lineItemList;
-//	}
 
 }
