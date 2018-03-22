@@ -29,7 +29,7 @@ public class OfferServiceImpl implements OfferService {
 	public PaginationResult<LineItem> getPaginationOfferForClient(int page) {
 		PaginationResult<Product> productList = productService.paginateProducts(page);
 		List<LineItem> lineItemList= createLineItemList(productList.getList());
-		PaginationResult<LineItem> lineItemPaginationList = new PaginationResult(productList,lineItemList);
+		PaginationResult<LineItem> lineItemPaginationList = new PaginationResult<LineItem>(productList,lineItemList);
 		return lineItemPaginationList;
 	}
 

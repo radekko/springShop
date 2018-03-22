@@ -8,54 +8,50 @@ import org.hibernate.criterion.Projections;
 
 public class PaginationResult<E> {
 
-	private int totalRecords;
+	private Long totalRecords;
 	private int currentPage;
-	private List<?> list;
+	private List<?> entitiesOnChosenPage;
 	private int maxResult;
-	private int totalPages;
-
+	private Long totalPages;
 	private int maxNavigationPage;
-
 	private List<Integer> navigationPages;
 
-	public <E> PaginationResult(Criteria selectCriteria, Criteria projectionCriteria, int page, int maxResult,
+	public PaginationResult(Criteria selectCriteria, Criteria projectionCriteria, int page, int maxResult,
 			int maxNavigationPage) {
+		
+		this.entitiesOnChosenPage = selectEntityToCurrentPage(selectCriteria, page, maxResult);
+		this.totalRecords = countTotalRecords(projectionCriteria);
+		this.currentPage = page;
+		this.maxResult = maxResult;
+		this.totalPages = (this.totalRecords / this.maxResult) + 1;
+		this.maxNavigationPage = maxNavigationPage;
+		this.navigationPages = calcNavigationPages(page,maxNavigationPage);
+	}
+
+	private Long countTotalRecords(Criteria projectionCriteria) {
+		projectionCriteria.setProjection(Projections.rowCount());
+		return (Long) projectionCriteria.uniqueResult();
+	}
+
+	private List<?> selectEntityToCurrentPage(Criteria selectCriteria, int page, int maxResult) {
 		int previousAmount = (page * maxResult) - maxResult;
 		selectCriteria.setFirstResult(previousAmount);
 		selectCriteria.setMaxResults(maxResult);
-		List<E> currPrintedPage = selectCriteria.list();
-
-		projectionCriteria.setProjection(Projections.rowCount());
-		Long count = (Long) projectionCriteria.uniqueResult();
-		Integer i = (int) (long) count;
-
-		this.totalRecords = i;
-		this.currentPage = page;
-		this.list = currPrintedPage;
-		this.maxResult = maxResult;
-
-		this.totalPages = (this.totalRecords / this.maxResult) + 1;
-		this.maxNavigationPage = maxNavigationPage;
-
-		if (maxNavigationPage < totalPages) {
-			this.maxNavigationPage = maxNavigationPage;
-		}
-
-		this.calcNavigationPages();
+		return selectCriteria.list();
 	}
 
-	public PaginationResult(PaginationResult<E> p, List<?> list) {
-		this.list = list;
-		this.totalRecords = p.totalRecords;
-		this.currentPage = p.currentPage;
-		this.maxResult = p.maxResult;
-		this.totalPages = p.totalPages;
-		this.maxNavigationPage = p.maxNavigationPage;
-		this.navigationPages = p.navigationPages;
+	public PaginationResult(PaginationResult<?> productList, List<?> list) {
+		this.entitiesOnChosenPage = list;
+		this.totalRecords = productList.totalRecords;
+		this.currentPage = productList.currentPage;
+		this.maxResult = productList.maxResult;
+		this.totalPages = productList.totalPages;
+		this.maxNavigationPage = productList.maxNavigationPage;
+		this.navigationPages = productList.navigationPages;
 	}
 
-	private void calcNavigationPages() {
-		this.navigationPages = new ArrayList<Integer>();
+	private List<Integer> calcNavigationPages(int page, int maxNavigationPage) {
+		List<Integer> navigationPages = new ArrayList<Integer>();
 		int start = currentPage;
 		int count = maxNavigationPage;
 
@@ -80,14 +76,14 @@ public class PaginationResult<E> {
 				start++;
 			}
 		}
-
+		return navigationPages;
 	}
 
-	public int getTotalPages() {
+	public Long getTotalPages() {
 		return totalPages;
 	}
 
-	public int getTotalRecords() {
+	public Long getTotxalRecords() {
 		return totalRecords;
 	}
 
@@ -96,11 +92,11 @@ public class PaginationResult<E> {
 	}
 
 	public List<E> getList() {
-		return (List<E>) list;
+		return (List<E>) entitiesOnChosenPage;
 	}
 
 	public void SetList(List<E> list) {
-		this.list = list;
+		this.entitiesOnChosenPage = list;
 	}
 
 	public int getMaxResult() {
