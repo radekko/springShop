@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public PaginationResult paginateProducts(int page) {
+	public PaginationResult<Product> paginateProducts(int page) {
 		int maxResult = 3;
 		int maxNavigationPage = 5;
 		return ps.getPaginationResult(page,maxResult,maxNavigationPage, (AbstractDao<?, Product>) dao);

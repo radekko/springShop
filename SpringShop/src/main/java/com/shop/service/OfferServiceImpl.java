@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shop.dao.PaginationResult;
 import com.shop.model.entity.domain.LineItem;
 import com.shop.model.entity.persistent.Product;
-/* Service to convert product to line item */
+/* Service to convert products to line items */
 @Service
 @Transactional
 public class OfferServiceImpl implements OfferService {
@@ -26,12 +26,11 @@ public class OfferServiceImpl implements OfferService {
 	}
 	
 	@Override
-	public PaginationResult getPaginationOfferForClient(int page) {
-		PaginationResult paginationResult = productService.paginateProducts(page);
-		
-		List<LineItem> lineItemList= createLineItemList((List<Product>) paginationResult.getEntitiesOnChosenPage());
-		PaginationResult lineItemPaginationList = new PaginationResult(paginationResult,lineItemList);
-		
+	public PaginationResult<LineItem> getPaginationOfferForClient(int page) {
+		PaginationResult<Product> paginationProducts = productService.paginateProducts(page);
+		List<Product> productList = paginationProducts.getEntitiesOnChosenPage();
+		List<LineItem> lineItemList =createLineItemList(productList);
+		PaginationResult<LineItem> lineItemPaginationList = new PaginationResult<LineItem>(paginationProducts,lineItemList);
 		return lineItemPaginationList;
 	}
 

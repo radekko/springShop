@@ -11,22 +11,23 @@ import com.shop.dao.PaginationResult;
 @Service
 public class PaginationService<E> {
 	
-	PaginationResult pr;
+	private PaginationResult<E> pr;
 	private Long count;
+	private Long totalPages;
 	
 
 	public PaginationService( ) {
-		pr = new PaginationResult();
+		pr = new PaginationResult<E>();
 	}
 
-	public PaginationResult getPaginationResult(int page, int maxResult,int maxNavigationPage, AbstractDao<?, E>  ab) {
-		List<E> l = (List<E>) selectEntityToCurrentPage(page, maxResult,ab);
-		pr.setEntitiesOnChosenPage(l);
+	public PaginationResult<E> getPaginationResult(int page, int maxResult,int maxNavigationPage, AbstractDao<?, E>  ab) {
+		pr.setEntitiesOnChosenPage(selectEntityToCurrentPage(page, maxResult,ab));
 		count = countTotalRecords(ab);
 		pr.setTotalRecords(count);
 		pr.setCurrentPage(page);
 		pr.setMaxResult(maxResult);
-		pr.setTotalPages((count/ maxResult) + 1);
+		totalPages = (count/ maxResult) + 1;
+		pr.setTotalPages(totalPages);
 		pr.setMaxNavigationPage(maxNavigationPage);
 		pr.setNavigationPages(calcNavigationPages(page,maxNavigationPage));
 		
@@ -43,23 +44,23 @@ public class PaginationService<E> {
 
 	private List<Integer> calcNavigationPages(int page, int maxNavigationPage) {
 		List<Integer> navigationPages = new ArrayList<Integer>();
-		int start = pr.getCurrentPage();
+		int start = page;
 		int count = maxNavigationPage;
 		navigationPages.add(1);
 
-		if (pr.getCurrentPage() > 0 && pr.getCurrentPage() < 4) {
+		if (page > 0 && page < 4) {
 			start = 2;
 			for (int i = 1; i <= count; i++) {
-				if (start > pr.getTotalPages())
+				if (start > totalPages)
 					break;
 				
 				navigationPages.add(start);
 				start++;
 			}
 		} else {
-			start = pr.getCurrentPage();
+			start = page;
 			for (int i = 1; i <= count; i++) {
-				if (start >= pr.getTotalPages())
+				if (start >= totalPages)
 					break;
 				
 				navigationPages.add(start);

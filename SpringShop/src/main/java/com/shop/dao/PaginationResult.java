@@ -2,11 +2,11 @@ package com.shop.dao;
 
 import java.util.List;
 
-public class PaginationResult {
+public class PaginationResult<E> {
 
 	private Long totalRecords;
 	private int currentPage;
-	private List<?> entitiesOnChosenPage;
+	private List<E> entitiesOnChosenPage;
 	private int maxResult;
 	private Long totalPages;
 	private int maxNavigationPage;
@@ -15,14 +15,14 @@ public class PaginationResult {
 	public PaginationResult() {
 	}
 	
-	public PaginationResult(PaginationResult productList, List<?> list) {
+	public PaginationResult(PaginationResult<?> paginationResult, List<E> list) {
 		this.entitiesOnChosenPage = list;
-		this.totalRecords = productList.totalRecords;
-		this.currentPage = productList.currentPage;
-		this.maxResult = productList.maxResult;
-		this.totalPages = productList.totalPages;
-		this.maxNavigationPage = productList.maxNavigationPage;
-		this.navigationPages = productList.navigationPages;
+		this.totalRecords = paginationResult.totalRecords;
+		this.currentPage = paginationResult.currentPage;
+		this.maxResult = paginationResult.maxResult;
+		this.totalPages = paginationResult.totalPages;
+		this.maxNavigationPage = paginationResult.maxNavigationPage;
+		this.navigationPages = paginationResult.navigationPages;
 	}
 
 	public Long getTotalRecords() {
@@ -41,11 +41,11 @@ public class PaginationResult {
 		this.currentPage = currentPage;
 	}
 
-	public List<?> getEntitiesOnChosenPage() {
+	public List<E> getEntitiesOnChosenPage() {
 		return entitiesOnChosenPage;
 	}
 
-	public void setEntitiesOnChosenPage(List<?> list) {
+	public void setEntitiesOnChosenPage(List<E> list) {
 		this.entitiesOnChosenPage = list;
 	}
 
