@@ -9,6 +9,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractDao<PK extends Serializable, T>{
@@ -52,10 +53,19 @@ public abstract class AbstractDao<PK extends Serializable, T>{
 		getSession().merge(entity);
 	}
 	
-	public PaginationResult<T> getPaginationResult(int page){
-		return new PaginationResult<T>(
-				createEntityCriteria(),createEntityCriteria(),page,3,4);
+	public Long countTotalRecords() {
+		Criteria projectionCriteria = createEntityCriteria();
+		projectionCriteria.setProjection(Projections.rowCount());
+		return (Long) projectionCriteria.uniqueResult();
 	}
+
+	public <E> List<E> selectEntityToCurrentPage(int from, int to) {
+		Criteria selectCriteria = createEntityCriteria();
+		selectCriteria.setFirstResult(from);
+		selectCriteria.setMaxResults(to);
+		return selectCriteria.list();
+	}
+	
 
 	protected Criteria createEntityCriteria() {
 		return getSession().createCriteria(persistentClass);

@@ -17,6 +17,9 @@ public class ProductServiceImpl implements ProductService{
 	@Autowired
     private ProductDao dao;
 	
+	@Autowired
+	private PaginationService ps;
+	
 	@Override
 	public void addProduct(Product product) {
 		dao.addProduct(product);
@@ -28,8 +31,10 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public PaginationResult<Product> paginateProducts(int page) {
-		return dao.paginateProducts(page);
+	public PaginationResult paginateProducts(int page) {
+		int maxResult = 3;
+		int maxNavigationPage = 5;
+		return ps.getPaginationResult(page,maxResult,maxNavigationPage, dao);
 	}
 
 }

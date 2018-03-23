@@ -29,7 +29,7 @@
             <td>Amount</td>
             <td>Add to cart</td>
         </tr>
-        <c:forEach items="${offer.list}" var="lineItem">
+        <c:forEach items="${offer.entitiesOnChosenPage}" var="lineItem">
             <tr>
 				<form:form method="POST" modelAttribute="lineItem">
             		<td><c:out value="${lineItem.name}"/></td>
