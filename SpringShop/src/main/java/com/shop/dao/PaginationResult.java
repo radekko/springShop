@@ -2,13 +2,11 @@ package com.shop.dao;
 
 import java.util.List;
 
-import com.shop.model.entity.persistent.Product;
-
 public class PaginationResult {
 
 	private Long totalRecords;
 	private int currentPage;
-	private List entitiesOnChosenPage;
+	private List<?> entitiesOnChosenPage;
 	private int maxResult;
 	private Long totalPages;
 	private int maxNavigationPage;
@@ -17,7 +15,7 @@ public class PaginationResult {
 	public PaginationResult() {
 	}
 	
-	public PaginationResult(PaginationResult productList, List list) {
+	public PaginationResult(PaginationResult productList, List<?> list) {
 		this.entitiesOnChosenPage = list;
 		this.totalRecords = productList.totalRecords;
 		this.currentPage = productList.currentPage;
@@ -47,7 +45,7 @@ public class PaginationResult {
 		return entitiesOnChosenPage;
 	}
 
-	public void setEntitiesOnChosenPage(List<Product> list) {
+	public void setEntitiesOnChosenPage(List<?> list) {
 		this.entitiesOnChosenPage = list;
 	}
 
@@ -82,6 +80,5 @@ public class PaginationResult {
 	public void setNavigationPages(List<Integer> navigationPages) {
 		this.navigationPages = navigationPages;
 	}
-	
 
 }

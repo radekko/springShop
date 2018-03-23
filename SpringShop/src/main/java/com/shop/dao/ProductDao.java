@@ -8,6 +8,4 @@ public interface ProductDao {
 	void addProduct(Product product);
 	List<Product> findAllProduct();
 	Product getByUniqueCode(String uniquecode);
-	List<Product> selectEntityToCurrentPage(int page, int maxResult);
-	Long countTotalRecords();
 }

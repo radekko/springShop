@@ -59,6 +59,7 @@ public abstract class AbstractDao<PK extends Serializable, T>{
 		return (Long) projectionCriteria.uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
 	public <E> List<E> selectEntityToCurrentPage(int from, int to) {
 		Criteria selectCriteria = createEntityCriteria();
 		selectCriteria.setFirstResult(from);

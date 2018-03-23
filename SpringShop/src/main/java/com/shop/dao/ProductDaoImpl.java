@@ -3,7 +3,6 @@ package com.shop.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -26,13 +25,4 @@ public class ProductDaoImpl extends AbstractDao<Integer, Product> implements Pro
 		criteria.add(Restrictions.eq("uniqueProductCode", uniquecode));
 		return (Product) criteria.uniqueResult();
 	}
-	@Override
-	public Long countTotalRecords() {
-		return super.countTotalRecords();
-	}
-	@Override
-	public List<Product> selectEntityToCurrentPage(int page, int maxResult){
-		return super.selectEntityToCurrentPage(page,maxResult);
-	}
-
 }

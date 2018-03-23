@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.shop.dao.AbstractDao;
 import com.shop.dao.PaginationResult;
 import com.shop.dao.ProductDao;
 import com.shop.model.entity.persistent.Product;
@@ -18,7 +19,7 @@ public class ProductServiceImpl implements ProductService{
     private ProductDao dao;
 	
 	@Autowired
-	private PaginationService ps;
+	private PaginationService<Product> ps;
 	
 	@Override
 	public void addProduct(Product product) {
@@ -34,7 +35,7 @@ public class ProductServiceImpl implements ProductService{
 	public PaginationResult paginateProducts(int page) {
 		int maxResult = 3;
 		int maxNavigationPage = 5;
-		return ps.getPaginationResult(page,maxResult,maxNavigationPage, dao);
+		return ps.getPaginationResult(page,maxResult,maxNavigationPage, (AbstractDao<?, Product>) dao);
 	}
 
 }

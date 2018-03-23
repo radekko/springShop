@@ -5,25 +5,23 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.shop.dao.AbstractDao;
 import com.shop.dao.PaginationResult;
-import com.shop.dao.ProductDao;
 import com.shop.model.entity.persistent.Product;
 
 @Service
-public class PaginationService {
+public class PaginationService<E> {
 	
 	PaginationResult pr;
-	private ProductDao ab;
 	private Long count;
 	
 
-	public <T> PaginationService( ) {
+	public PaginationService( ) {
 		pr = new PaginationResult();
 	}
 
-	public PaginationResult getPaginationResult(int page, int maxResult,int maxNavigationPage, ProductDao  ab) {
-		List<Product> l = selectEntityToCurrentPage(page, maxResult,ab);
-		System.out.println("size: "+ l.size());
+	public PaginationResult getPaginationResult(int page, int maxResult,int maxNavigationPage, AbstractDao<?, E>  ab) {
+		List<E> l = (List<E>) selectEntityToCurrentPage(page, maxResult,ab);
 		pr.setEntitiesOnChosenPage(l);
 		count = countTotalRecords(ab);
 		pr.setTotalRecords(count);
@@ -32,17 +30,16 @@ public class PaginationService {
 		pr.setTotalPages((count/ maxResult) + 1);
 		pr.setMaxNavigationPage(maxNavigationPage);
 		pr.setNavigationPages(calcNavigationPages(page,maxNavigationPage));
-		this.ab =  ab;
 		
 		return pr;
 	}
 
-	private Long countTotalRecords(ProductDao ab) {
+	private Long countTotalRecords(AbstractDao<?, ?> ab) {
 		return ab.countTotalRecords();
 	}
 
-	private List<Product> selectEntityToCurrentPage(int page, int maxResult, ProductDao ab) {
-		return  ab.selectEntityToCurrentPage(page, maxResult);
+	private List<Product> selectEntityToCurrentPage(int page, int maxResult, AbstractDao<?, E> ab) {
+		return ab.selectEntityToCurrentPage(page, maxResult);
 	}
 
 	private List<Integer> calcNavigationPages(int page, int maxNavigationPage) {
