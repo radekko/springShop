@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.shop.dao.AbstractDao;
 import com.shop.dao.PaginationResult;
-import com.shop.model.entity.persistent.Product;
 
 @Service
 public class PaginationService<E> {
@@ -38,7 +37,7 @@ public class PaginationService<E> {
 		return ab.countTotalRecords();
 	}
 
-	private List<Product> selectEntityToCurrentPage(int page, int maxResult, AbstractDao<?, E> ab) {
+	private List<E> selectEntityToCurrentPage(int page, int maxResult, AbstractDao<?, E> ab) {
 		return ab.selectEntityToCurrentPage(page, maxResult);
 	}
 
