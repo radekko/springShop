@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 //@Component
 public class PaginationResult<E> {
 
-	private Long totalRecords;
+	private int totalRecords;
 	private int currentPage;
 	private List<E> entitiesOnChosenPage;
 	private int maxResult;
-	private Long totalPages;
+	private int totalPages;
 	private int maxNavigationPage;
 	private List<Integer> navigationPages;
 
@@ -28,11 +28,11 @@ public class PaginationResult<E> {
 		this.navigationPages = paginationResult.navigationPages;
 	}
 
-	public Long getTotalRecords() {
+	public int getTotalRecords() {
 		return totalRecords;
 	}
 
-	public void setTotalRecords(Long totalRecords) {
+	public void setTotalRecords(int totalRecords) {
 		this.totalRecords = totalRecords;
 	}
 
@@ -60,11 +60,11 @@ public class PaginationResult<E> {
 		this.maxResult = maxResult;
 	}
 
-	public Long getTotalPages() {
+	public int getTotalPages() {
 		return totalPages;
 	}
 
-	public void setTotalPages(Long totalPages) {
+	public void setTotalPages(int totalPages) {
 		this.totalPages = totalPages;
 	}
 

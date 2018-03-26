@@ -12,8 +12,8 @@ import com.shop.model.entity.domain.PaginationResult;
 public class PaginationService<E> {
 	
 	private PaginationResult<E> pr;
-	private Long totalRecords;
-	private Long totalPages;
+	private int totalRecords;
+	private int totalPages;
 	
 
 	public PaginationService( ) {
@@ -35,12 +35,12 @@ public class PaginationService<E> {
 		return pr;
 	}
 
-	private Long countTotalRecords(AbstractDao<?, ?> ab) {
+	private int countTotalRecords(AbstractDao<?, ?> ab) {
 		return ab.countTotalRecords();
 	}
 
 	private List<E> selectEntityToCurrentPage(int page, int maxResult, AbstractDao<?, E> ab) {
-		int startIndex = (page -1)*maxResult;
+		int startIndex = (page - 1 ) * maxResult;
 		return ab.selectEntityToCurrentPage(startIndex, maxResult);
 	}
 
@@ -48,23 +48,25 @@ public class PaginationService<E> {
 		List<Integer> navigationPages = new ArrayList<Integer>();
 		int start = page;
 		int count = maxNavigationPage;
+		int total = totalPages;
 		navigationPages.add(1);
 
-		if (page > 0 && page < 4) {
+		if (page <= maxNavigationPage - total + maxNavigationPage ) { //1
 			start = 2;
-			for (int i = 1; i <= count; i++) {
-				if (start > totalPages)
-					break;
-				
+			for (int i = 1; i <= maxNavigationPage - 1; i++) {
 				navigationPages.add(start);
 				start++;
 			}
-		} else {
-			start = page;
-			for (int i = 1; i <= count; i++) {
-				if (start >= totalPages)
-					break;
-				
+		} else if (page >= total - page + maxNavigationPage ) {  //3
+			start = total - (maxNavigationPage - 2);
+			for (int i = 1; i <= maxNavigationPage - 1; i++) {
+				navigationPages.add(start);
+				start++;
+			}
+		}
+		else {  //2
+			start = page - 1;
+			for (int i = 1; i <= maxNavigationPage - 1; i++) {
 				navigationPages.add(start);
 				start++;
 			}

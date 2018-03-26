@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
+import static java.lang.Math.toIntExact;
 
 public abstract class AbstractDao<PK extends Serializable, T>{
 	private final Class<T> persistentClass;
@@ -53,10 +54,11 @@ public abstract class AbstractDao<PK extends Serializable, T>{
 		getSession().merge(entity);
 	}
 	
-	public Long countTotalRecords() {
+	public int countTotalRecords() {
 		Criteria projectionCriteria = createEntityCriteria();
 		projectionCriteria.setProjection(Projections.rowCount());
-		return (Long) projectionCriteria.uniqueResult();
+		Long l = (Long) projectionCriteria.uniqueResult();
+		return toIntExact(l);
 	}
 
 	@SuppressWarnings("unchecked")
