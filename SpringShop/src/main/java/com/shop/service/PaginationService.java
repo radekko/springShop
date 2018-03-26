@@ -6,13 +6,13 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.shop.dao.AbstractDao;
-import com.shop.dao.PaginationResult;
+import com.shop.model.entity.domain.PaginationResult;
 
 @Service
 public class PaginationService<E> {
 	
 	private PaginationResult<E> pr;
-	private Long count;
+	private Long totalRecords;
 	private Long totalPages;
 	
 
@@ -22,11 +22,12 @@ public class PaginationService<E> {
 
 	public PaginationResult<E> getPaginationResult(int page, int maxResult,int maxNavigationPage, AbstractDao<?, E>  ab) {
 		pr.setEntitiesOnChosenPage(selectEntityToCurrentPage(page, maxResult,ab));
-		count = countTotalRecords(ab);
-		pr.setTotalRecords(count);
+		totalRecords = countTotalRecords(ab);
+		totalPages = (totalRecords/ maxResult) + 1;
+		
+		pr.setTotalRecords(totalRecords);
 		pr.setCurrentPage(page);
 		pr.setMaxResult(maxResult);
-		totalPages = (count/ maxResult) + 1;
 		pr.setTotalPages(totalPages);
 		pr.setMaxNavigationPage(maxNavigationPage);
 		pr.setNavigationPages(calcNavigationPages(page,maxNavigationPage));

@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource({ "classpath:application.properties" })
+@PropertySource({ "classpath:dataAccess.properties" })
 public class PersistenceConfig {
 
 	@Autowired

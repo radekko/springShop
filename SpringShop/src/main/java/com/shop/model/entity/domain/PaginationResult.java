@@ -1,4 +1,4 @@
-package com.shop.dao;
+package com.shop.model.entity.domain;
 
 import java.util.List;
 

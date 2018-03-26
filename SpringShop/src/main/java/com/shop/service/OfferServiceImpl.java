@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.shop.dao.PaginationResult;
 import com.shop.model.entity.domain.LineItem;
+import com.shop.model.entity.domain.PaginationResult;
 import com.shop.model.entity.persistent.Product;
 /* Service to convert products to line items */
 @Service
@@ -27,7 +27,7 @@ public class OfferServiceImpl implements OfferService {
 	
 	@Override
 	public PaginationResult<LineItem> getPaginationOfferForClient(int page) {
-		PaginationResult<Product> paginationProducts = productService.paginateProducts(page);
+		PaginationResult<Product> paginationProducts = productService.getPaginateProducts(page);
 		List<Product> productList = paginationProducts.getEntitiesOnChosenPage();
 		List<LineItem> lineItemList =createLineItemList(productList);
 		PaginationResult<LineItem> lineItemPaginationList = new PaginationResult<LineItem>(paginationProducts,lineItemList);
