@@ -2,6 +2,9 @@ package com.shop.model.entity.domain;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+//@Component
 public class PaginationResult<E> {
 
 	private Long totalRecords;

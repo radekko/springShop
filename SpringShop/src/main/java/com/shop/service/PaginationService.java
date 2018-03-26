@@ -40,7 +40,8 @@ public class PaginationService<E> {
 	}
 
 	private List<E> selectEntityToCurrentPage(int page, int maxResult, AbstractDao<?, E> ab) {
-		return ab.selectEntityToCurrentPage(page, maxResult);
+		int startIndex = (page -1)*maxResult;
+		return ab.selectEntityToCurrentPage(startIndex, maxResult);
 	}
 
 	private List<Integer> calcNavigationPages(int page, int maxNavigationPage) {
