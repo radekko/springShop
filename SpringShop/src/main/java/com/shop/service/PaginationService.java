@@ -20,7 +20,7 @@ public class PaginationService<E> {
 		totalRecords = countTotalRecords(ab);
 		pr.setTotalRecords(totalRecords);
 		
-		totalPages = (totalRecords % maxResult == 0 ? totalRecords/ maxResult : (totalRecords/ maxResult) + 1);
+		totalPages = (totalRecords % maxResult == 0 ? totalRecords/maxResult : (totalRecords/maxResult) + 1);
 		pr.setCurrentPage(page);
 		pr.setMaxResult(maxResult);
 		pr.setTotalPages(totalPages);

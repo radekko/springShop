@@ -7,37 +7,38 @@ public class NavigationPagesCreator {
 
 	public static List<Integer> createNavigationPages(int numberOfChosenPage, int maxNavigationPages, int totalPages) {
 		List<Integer> navigationPages = new ArrayList<Integer>();
-		int start = numberOfChosenPage;
-		int count = maxNavigationPages;
+		int cur = numberOfChosenPage;
+		int maxNav = maxNavigationPages;
 		int total = totalPages;
-		navigationPages.add(1);
-System.out.println("Total: " + total);
-		if (numberOfChosenPage <= count - total + count ) { //1
-			start = 2;
-			for (int i = 1; i <= count - 1; i++) {
-				navigationPages.add(start);
-				if(start ==  totalPages)
-					break;
-				start++;
-			}
-		} else if (numberOfChosenPage >= total - numberOfChosenPage + count ) {  //3
-			start = total - (count - 2);
-			for (int i = 1; i <= count - 1; i++) {
-				navigationPages.add(start);
-				if(start ==  totalPages)
-					break;
-				start++;
-			}
+		
+		
+		if(total <= maxNav) {
+			for(int i=1; i<=total; i++)
+				navigationPages.add(i);
 		}
-		else {  //2
-			start = numberOfChosenPage - 1;
-			for (int i = 1; i <= count - 1; i++) {
-				navigationPages.add(start);
-				if(start ==  totalPages)
-					break;
-				start++;
+		else {
+			navigationPages.add(1);
+			
+			//1
+			if(cur<=2) {
+				for(int i=2; i<maxNav; i++){
+					navigationPages.add(i);
+				}
 			}
+			//2
+			else if(cur>2 && cur < total- ( maxNav - 2)) {
+				for(int i=cur; i<maxNav + (cur - 2) ; i++) {
+					navigationPages.add(i);
+				}
+			} //3
+			else {
+				for(int i= total - (maxNav - 2); i<total; i++) {
+					navigationPages.add(i);
+				}
+			}
+			navigationPages.add(totalPages);
 		}
+
 		return navigationPages;
 	}
 	
