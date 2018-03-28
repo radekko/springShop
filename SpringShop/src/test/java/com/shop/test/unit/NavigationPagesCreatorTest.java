@@ -15,9 +15,9 @@ import com.shop.service.NavigationPagesCreator;
 
 public class NavigationPagesCreatorTest {
 
-	private List<Integer> list1 = new ArrayList<Integer>(Arrays.asList(1,2,3,4,7));
-	private List<Integer> list2 = new ArrayList<Integer>(Arrays.asList(1,3,4,5,7));
-	private List<Integer> list3 = new ArrayList<Integer>(Arrays.asList(1,4,5,6,7));
+	private List<Integer> list1 = new ArrayList<Integer>(Arrays.asList(1,2,3,4,-1,7));
+	private List<Integer> list2 = new ArrayList<Integer>(Arrays.asList(1,-1,3,4,5,-1,7));
+	private List<Integer> list3 = new ArrayList<Integer>(Arrays.asList(1,-1,4,5,6,7));
 	private int maxNavigationPages = 5;
 	private int totalPages = 7;
 	
@@ -25,9 +25,7 @@ public class NavigationPagesCreatorTest {
 	public void testCreateNavigationPages() throws Exception{
 		assertThat(getNP(1),getResult(list1));
 		assertThat(getNP(2),getResult(list1));
-		
 		assertThat(getNP(3),getResult(list2));
-		
 		assertThat(getNP(4),getResult(list3));
 		assertThat(getNP(5),getResult(list3));
 		assertThat(getNP(6),getResult(list3));

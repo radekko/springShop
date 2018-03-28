@@ -11,15 +11,35 @@ public class NavigationPagesCreator {
 		int maxNav = maxNavigationPages;
 		int total = totalPages;
 
-		if (total <= maxNav) 
+		if(total <= maxNav) 
 			p1234N(navigationPages, total);
 		 else {
 			addFirstNavPage(navigationPages);
 			addCentralNavPages(navigationPages, cur, maxNav, total);
 			addLastNavPage(navigationPages, total);
+			addEmptySigns(navigationPages);
 		 }
-
 		return navigationPages;
+	}
+
+	private static void addEmptySigns(List<Integer> navigationPages) {
+		checkIfAddEmptySignOnTheEnd(navigationPages);
+		checkIfAddEmptySignOnTheBeginning(navigationPages);
+	}
+
+	private static void checkIfAddEmptySignOnTheEnd(List<Integer> navigationPages) {
+		int lastIndex = navigationPages.size() - 1;
+
+		int nextToLastEl = navigationPages.get(lastIndex - 1);
+		int lastEl = navigationPages.get(lastIndex);
+		
+		if(lastEl != nextToLastEl + 1)
+			navigationPages.add(lastIndex,-1);
+	}
+	
+	private static void checkIfAddEmptySignOnTheBeginning(List<Integer> navigationPages) {
+		if(navigationPages.get(1) != 2)
+			navigationPages.add(1, -1);
 	}
 
 	private static void addLastNavPage(List<Integer> navigationPages, int total) {

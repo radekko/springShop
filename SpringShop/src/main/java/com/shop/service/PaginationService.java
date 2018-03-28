@@ -16,15 +16,15 @@ public class PaginationService<E> {
 	
 	public PaginationResult<E> getPaginationResult(int page, int maxResult,int maxNavigationPage, AbstractDao<?, E>  ab) {
 		pr = new PaginationResult<E>();
-		pr.setEntitiesOnChosenPage(selectEntityToCurrentPage(page, maxResult,ab));
-		totalRecords = countTotalRecords(ab);
-		pr.setTotalRecords(totalRecords);
-		
-		totalPages = (totalRecords % maxResult == 0 ? totalRecords/maxResult : (totalRecords/maxResult) + 1);
 		pr.setCurrentPage(page);
 		pr.setMaxResult(maxResult);
-		pr.setTotalPages(totalPages);
 		pr.setMaxNavigationPage(maxNavigationPage);
+		pr.setEntitiesOnChosenPage(selectEntityToCurrentPage(page, maxResult,ab));
+		
+		totalRecords = countTotalRecords(ab);
+		pr.setTotalRecords(totalRecords);
+		totalPages = (totalRecords % maxResult == 0 ? totalRecords/maxResult : (totalRecords/maxResult) + 1);
+		pr.setTotalPages(totalPages);
 		pr.setNavigationPages(NavigationPagesCreator.createNavigationPages(page,maxNavigationPage,totalPages));
 		
 		return pr;

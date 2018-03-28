@@ -45,11 +45,17 @@
     </table>
     
    
-    <c:if test="${offer.totalPages > 1}">
-          <c:forEach items="${offer.navigationPages}" var = "page">
-                <a href="${pageContext.request.contextPath}/${currentPath}/productList?page=${page}" class="nav-item">${page}</a>
-          </c:forEach>
-   </c:if>
+  <c:if test="${offer.totalPages > 1}">
+    <c:forEach items="${offer.navigationPages}" var = "page">
+       <c:if test="${page != -1 }">
+             <a href="${pageContext.request.contextPath}/${currentPath}/productList?page=${page}" class="nav-item">${page}</a>
+       </c:if>
+       <c:if test="${page == -1 }">
+             <span> ... </span>
+       </c:if>
+    
+    </c:forEach>
+  </c:if>
    
     <br/>
     <c:if test="${not empty error}">
