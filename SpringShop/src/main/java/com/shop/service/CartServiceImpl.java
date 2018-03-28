@@ -34,7 +34,9 @@ public class CartServiceImpl implements CartService, Serializable {
 
 	@Override
 	public List<LineItem> getCart() {
-		return new ArrayList<LineItem>(cartWithChosenProducts.values());
+		List<LineItem> lineItemsList = new ArrayList<LineItem>(cartWithChosenProducts.values());
+		sortItemsInCart(lineItemsList);
+		return lineItemsList;
 	}
 
 	@Override
@@ -68,6 +70,11 @@ public class CartServiceImpl implements CartService, Serializable {
 	public void clearCart() {
 		cartWithChosenProducts.clear();
 	}
+	
+	private void sortItemsInCart(List<LineItem> lineItemsList) {
+		lineItemsList.sort((o1, o2)->o1.getName().compareTo(o2.getName()));
+	}
+
 	
 	private void updateCart(LineItem itemToUpdate) {
 		addItemToCart(increaseAmount(itemToUpdate));
