@@ -35,5 +35,8 @@
 			</tr>
 		</table>
 	</form:form>
+	  <c:if test="${not empty alreadyExist}">
+		 <td>${alreadyExist}</td>
+	</c:if>   
 </body>
 </html>

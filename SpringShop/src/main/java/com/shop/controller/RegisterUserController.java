@@ -26,12 +26,18 @@ public class RegisterUserController {
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String registerUser(@ModelAttribute("user")  @Valid User user, BindingResult errors)
+	public String registerUser(@ModelAttribute("user")  @Valid User user, BindingResult errors, Model model)
 	{	
 		if(errors.hasErrors())
 			return "registerForm";
 		
-		service.saveUser(user);
+		if(service.findIfExist(user)) {
+			model.addAttribute("alreadyExist", "User with chosen nickname already exist in database. Chose another.");
+			return "registerForm";
+		}
+			
+		else
+			service.saveUser(user);
 		
 		return "successRegistered";
 	}

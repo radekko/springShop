@@ -17,7 +17,6 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	public boolean findIfUserExist(User user) {
 		Criteria criteria = createEntityCriteria();
 		criteria.add(Restrictions.eq("username", user.getUsername()));
-		criteria.add(Restrictions.eq("password", user.getPassword()));
 		return (User) criteria.uniqueResult() == null ? false: true;
 	}
 	@Override
