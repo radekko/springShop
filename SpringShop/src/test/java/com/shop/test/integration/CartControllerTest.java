@@ -37,7 +37,7 @@ public class CartControllerTest {
 //	@Autowired MockHttpSession session;
 	
 	@Before
-	public void initializeLineItems() {
+	public void setUp() {
 		mockMvc = standaloneSetup(cartController).build();
 	}
 	

@@ -29,7 +29,7 @@ public class CartServiceTest {
 	private static final String APPLE_UNIQUE_CODE = "bb";
 	
 	@Before
-	public void initializeLineItems() {
+	public void setUp() {
 		 bookArray = new LineItem("book",BOOK_UNIQUE_CODE,5.0,2);
 		 appleArray = new LineItem("apple",APPLE_UNIQUE_CODE,25.0,3);
 	}

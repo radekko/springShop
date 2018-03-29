@@ -43,7 +43,7 @@ public class RegisterUserControllerTest {
 	private static final String VALID_EMAIL = "a@aa";
 	
 	@Before
-	public void initializeLineItems() {
+	public void setUp() {
 		mockMvc = standaloneSetup(registerController).build();
 	}
 	
