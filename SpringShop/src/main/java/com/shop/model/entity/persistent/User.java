@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -14,10 +15,8 @@ import javax.validation.constraints.Size;
 @Table(name="EMPLOYEE")
 public class User {
 
+	public User() {}
 	
-	public User() {
-		super();
-	}
 	public User(@NotNull @Size(min = 2, max = 20) String username, @NotNull @Size(min = 2, max = 20) String password,
 			@NotNull @Email String email) {
 		this.username = username;
@@ -33,7 +32,7 @@ public class User {
 	@NotNull
 	@Size(min = 2, max = 20)
 	private String password;
-	@NotNull
+	@NotEmpty
 	@Email
 	private String email;
 	
@@ -55,6 +54,5 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 	
 }
