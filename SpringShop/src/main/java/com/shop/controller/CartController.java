@@ -25,7 +25,6 @@ public class CartController {
 	
 	@RequestMapping(value="/displayCart",params = "order", method=RequestMethod.POST)
 	public String makeOrder(RedirectAttributes redirectAttributes,Model model){
-		model.addAttribute("orders", cartService.getCart());
 		cartService.makeOrder();
 		cartService.clearCart();
 		redirectAttributes.addFlashAttribute("success", "true");

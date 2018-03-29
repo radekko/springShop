@@ -27,7 +27,7 @@ public class PaginationResult<E> {
 		this.maxNavigationPage = paginationResult.maxNavigationPage;
 		this.navigationPages = paginationResult.navigationPages;
 	}
-
+	
 	public int getTotalRecords() {
 		return totalRecords;
 	}
