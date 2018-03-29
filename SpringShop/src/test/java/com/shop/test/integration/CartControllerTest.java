@@ -1,6 +1,7 @@
 package com.shop.test.integration;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -34,8 +35,6 @@ public class CartControllerTest {
 	@InjectMocks
 	CartController cartController;
 	
-//	@Autowired MockHttpSession session;
-	
 	@Before
 	public void setUp() {
 		mockMvc = standaloneSetup(cartController).build();
@@ -44,6 +43,22 @@ public class CartControllerTest {
 	@Test
 	public void testIfReturnProperlyView() throws Exception{
 		mockMvc.perform(get("/main/displayCart"))
+		.andDo(print())
+		.andExpect(status().isOk())
+		.andExpect(view().name("cartForm"));
+	}
+	
+	@Test
+	public void testIfProperlyReturnToOfferAfterPresButtonBack() throws Exception{
+		mockMvc.perform(post("/main/displayCart").param("back", "Back to offer"))
+		.andDo(print())
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/main"));
+	}
+	
+	@Test
+	public void testIfProperlyClearCart() throws Exception{
+		mockMvc.perform(post("/main/displayCart").param("clear", "Clear cart"))
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(view().name("cartForm"));
