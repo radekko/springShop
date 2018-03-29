@@ -1,4 +1,4 @@
-package com.shop.service;
+package com.shop.utils;
 
 import java.util.ArrayList;
 import java.util.List;

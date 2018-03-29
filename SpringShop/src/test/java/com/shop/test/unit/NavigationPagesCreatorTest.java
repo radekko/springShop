@@ -11,7 +11,7 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.shop.service.NavigationPagesCreator;
+import com.shop.utils.NavigationPagesCreator;
 
 public class NavigationPagesCreatorTest {
 

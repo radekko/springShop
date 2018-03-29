@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.shop.dao.AbstractDao;
 import com.shop.model.entity.domain.PaginationResult;
+import com.shop.utils.NavigationPagesCreator;
 
 @Service
 public class PaginationService<E> {
