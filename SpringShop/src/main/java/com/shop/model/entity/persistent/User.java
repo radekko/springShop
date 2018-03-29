@@ -27,13 +27,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 	@NotNull
-	@Size(min = 2, max = 20)
+	@Size(min = 2, max = 20,message = "Size must be beetwen 2 and 20 signs")
 	private String username;
-	@NotNull
-	@Size(min = 2, max = 20)
+	@NotNull(message = "Password must not be empty")
+	@Size(min = 2, max = 20,message = "Size must be beetwen 2 and 20 signs")
 	private String password;
-	@NotEmpty
-	@Email
+	@NotEmpty(message = "Email must not be empty")
+	@Email(message = "Incorrect email")
 	private String email;
 	
 	public String getUsername() {
