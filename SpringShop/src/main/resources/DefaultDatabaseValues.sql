@@ -1,3 +1,7 @@
+INSERT INTO employee(
+            id, email, password, username)
+    VALUES (1, asd@asd.pl, asd, asd);
+
 INSERT INTO product(
             productId, name, price, uniqueproductcode)
     VALUES (1, 'book', 2, 'code1');
@@ -26,7 +30,6 @@ INSERT INTO product(
 INSERT INTO product(
             productId, name, price, uniqueproductcode)
     VALUES (7, 'painting', 7, 'code7');
-
 
 INSERT INTO product(
             productId, name, price, uniqueproductcode)

@@ -1,0 +1,42 @@
+CREATE TABLE employee
+(
+  id serial NOT NULL,
+  email character varying(255),
+  password character varying(20) NOT NULL,
+  username character varying(20) NOT NULL,
+  CONSTRAINT employee_pkey PRIMARY KEY (id)
+)
+
+CREATE TABLE order_product
+(
+  orders_orderid integer NOT NULL,
+  products_productid integer NOT NULL,
+  CONSTRAINT fk_4896c64019a44a1f912ffe12f2f FOREIGN KEY (orders_orderid)
+      REFERENCES orders (orderid) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fk_4b38f454f8dd4ae5a73ae591684 FOREIGN KEY (products_productid)
+      REFERENCES product (productid) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+CREATE TABLE orders
+(
+  orderid serial NOT NULL,
+  orderidentifier integer NOT NULL,
+  productamount integer NOT NULL,
+  productprice double precision NOT NULL,
+  username integer,
+  CONSTRAINT orders_pkey PRIMARY KEY (orderid),
+  CONSTRAINT fk_bf81cb2bdf724d148de03ddaf17 FOREIGN KEY (username)
+      REFERENCES employee (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+CREATE TABLE product
+(
+  productid serial NOT NULL,
+  name character varying(255),
+  price double precision NOT NULL,
+  uniqueproductcode character varying(255),
+  CONSTRAINT product_pkey PRIMARY KEY (productid)
+)
