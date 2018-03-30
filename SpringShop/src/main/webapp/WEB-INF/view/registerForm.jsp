@@ -31,7 +31,8 @@
 				<td><form:errors path="email" cssClass="error"/><td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="Save Changes" /></td>
+				<td><input type="submit" name="save" value="Save Changes" /></td>
+				<td><input type="submit" name="back" value="Back to Login Page" /></td>
 			</tr>
 		</table>
 	</form:form>
