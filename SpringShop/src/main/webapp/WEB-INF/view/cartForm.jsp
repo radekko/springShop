@@ -32,7 +32,7 @@
 		</c:forEach>
 	</table>
  	<br/>
-    <c:if test="${not empty totalPrice}">
+    <c:if test="${totalPrice > 0}">
 		 <td>Total cost: ${totalPrice}</td>
 	</c:if>  
 	<form:form method="POST">

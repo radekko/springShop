@@ -14,12 +14,12 @@
 </style>
 <body>
 
-<h1>You logged</h1>
+<h1>You are logged</h1>
 
-<c:if test="${success eq true}">
-  Order successfull!
-</c:if>
-
+ <c:if test="${not empty message}">
+	${message ? "Order successfull!" : "Empty chart"}
+</c:if>  
+	
 <h2>List of Products</h2>  
 
     <table>
@@ -48,7 +48,7 @@
   <c:if test="${offer.totalPages > 1}">
     <c:forEach items="${offer.navigationPages}" var = "page">
        <c:if test="${page != -1 }">
-             <a href="${pageContext.request.contextPath}/${currentPath}/productList?page=${page}" class="nav-item">${page}</a>
+             <a href="${pageContext.request.contextPath}/${currentPath}/productList?page=${page}">${page}</a>
        </c:if>
        <c:if test="${page == -1 }">
              <span> ... </span>

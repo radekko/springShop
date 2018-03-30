@@ -26,10 +26,9 @@ public class CartController {
 	
 	@RequestMapping(value="/displayCart",params = "order", method=RequestMethod.POST)
 	public String makeOrder(RedirectAttributes redirectAttributes,Model model){
-		cartService.makeOrder();
-		cartService.clearCart();
-		redirectAttributes.addFlashAttribute("success", "true");
-		return "redirect:/main";
+		boolean message = cartService.makeOrder();
+		redirectAttributes.addFlashAttribute("message", message);
+		return "redirect:/main/productList?page=1";
 	}
 	
 	@RequestMapping(value="/displayCart",params = "clear", method = RequestMethod.POST)

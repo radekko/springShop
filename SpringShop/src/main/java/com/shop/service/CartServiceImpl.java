@@ -53,8 +53,13 @@ public class CartServiceImpl implements CartService, Serializable {
 	}
 
 	@Override
-	public void makeOrder() {
+	public Boolean makeOrder() {
+		if(getCart().isEmpty())
+			return false;
+		
 		orderDao.saveOrder(getCart(), username, 1);
+		clearCart();
+		return true;
 	}
 
 	@Override

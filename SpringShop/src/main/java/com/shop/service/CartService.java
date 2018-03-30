@@ -8,7 +8,7 @@ import com.shop.model.entity.domain.LineItem;
 public interface CartService extends Serializable{
 	List<LineItem> getCart();
 	void addItem(LineItem itemToAdd);
-	void makeOrder();
+	Boolean makeOrder();
 	void removeItem(String uniqueProductCode);
 	void clearCart();
 	double getTotalPriceOfCart();
