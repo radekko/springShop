@@ -49,7 +49,7 @@ public class RegisterUserControllerTest {
 	
 	@Test
 	public void testRegisterIsSuccess() throws Exception {
-		mockMvc.perform(post("/register")
+		mockMvc.perform(post("/register").param("save", "Save Changes")
                 .param("username", VALID_USER).param("password", VALID_PASSWORD).param("email", VALID_EMAIL))
 				.andDo(print())
                 .andExpect(status().isOk())
@@ -59,7 +59,7 @@ public class RegisterUserControllerTest {
 	
 	@Test
 	public void testRegisterIsFailed() throws Exception {
-		mockMvc.perform(post("/register")
+		mockMvc.perform(post("/register").param("save", "Save Changes")
                 .param("username", VALID_USER).param("password", VALID_PASSWORD).param("email", INVALID_EMAIL))
 				.andDo(print())
                 .andExpect(model().attributeHasFieldErrors("user", "email"))
