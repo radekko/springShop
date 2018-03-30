@@ -9,6 +9,7 @@
 <title>Your cart</title>
 </head>
 <body>
+	<c:if test="${totalPrice > 0}">
 	<table>
 		<tr>
 			<td>Code</td>
@@ -31,8 +32,7 @@
 			</tr>
 		</c:forEach>
 	</table>
- 	<br/>
-    <c:if test="${totalPrice > 0}">
+ 		<br/>
 		 <td>Total cost: ${totalPrice}</td>
 	</c:if>  
 	<form:form method="POST">
