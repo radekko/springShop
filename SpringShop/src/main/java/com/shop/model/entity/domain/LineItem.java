@@ -10,6 +10,7 @@ public class LineItem implements Serializable{
 	private String name;
 	private String uniqueProductCode;
 	private double currentPrice;
+	private double totalCost;
 	@Min(value = 1L)
 	private Integer amount;
 	
@@ -37,7 +38,7 @@ public class LineItem implements Serializable{
 		this.currentPrice = currentPrice;
 	}
 	
-	public Integer  getAmount() {
+	public Integer getAmount() {
 		return amount;
 	}
 	
@@ -51,6 +52,10 @@ public class LineItem implements Serializable{
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public double getTotalCost() {
+		return this.currentPrice * this.amount;
 	}
 	
 	@Override

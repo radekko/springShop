@@ -71,10 +71,15 @@ public class CartServiceImpl implements CartService, Serializable {
 		cartWithChosenProducts.clear();
 	}
 	
+	@Override
+	public double getTotalPriceOfCart() {
+		return cartWithChosenProducts.values().stream()
+				.map(LineItem::getTotalCost).mapToDouble(Double::doubleValue).sum();
+	}
+
 	private void sortItemsInCart(List<LineItem> lineItemsList) {
 		lineItemsList.sort((o1, o2)->o1.getName().compareTo(o2.getName()));
 	}
-
 	
 	private void updateCart(LineItem itemToUpdate) {
 		addItemToCart(increaseAmount(itemToUpdate));

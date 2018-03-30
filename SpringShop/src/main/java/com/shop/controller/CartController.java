@@ -20,6 +20,7 @@ public class CartController {
 	@RequestMapping(value="/displayCart", method=RequestMethod.GET)
 	public String displayCart(Model model) {
 		model.addAttribute("orders", cartService.getCart());
+		model.addAttribute("totalPrice",cartService.getTotalPriceOfCart());
 		return "cartForm";
 	}
 	

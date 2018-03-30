@@ -10,7 +10,9 @@ public interface CartService extends Serializable{
 	void addItem(LineItem itemToAdd);
 	void makeOrder();
 	void removeItem(String uniqueProductCode);
+	void clearCart();
+	double getTotalPriceOfCart();
 	String getUsername();
 	void setUsername(String username);
-	void clearCart();
+	
 }
