@@ -40,7 +40,7 @@ public class CartController {
 	
     @RequestMapping(value="/displayCart",params = "back", method = RequestMethod.POST)
     public String backToOffer() {
-        return "redirect:/main";
+        return "redirect:/main/productList?page=1";
     }
     
     @RequestMapping(value="/displayCart", method = RequestMethod.DELETE)

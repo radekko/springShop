@@ -26,28 +26,23 @@ public class MainPageController {
 	
 	@Autowired
 	CartService cartService;
-	
-	@RequestMapping(method = RequestMethod.GET)
-	public String homePageAfterLogin(@ModelAttribute("username") String username,Model model) {
+
+	@RequestMapping(method = RequestMethod.GET,value = "/productList")
+	public String homePageAfterSelectPage(@ModelAttribute("username") String username, 
+			Model model,@RequestParam("page") int page) {
 		if(!"".equals(username))
 			cartService.setUsername(username);
 		
-		prepareModel(model,1);
-		return "mainForm";
-	}
-
-	@RequestMapping(method = RequestMethod.GET,value = "/productList")
-	public String homePageAfterSelectPage(Model model,@RequestParam("page") int page) {
 		prepareModel(model,page);
 		return "mainForm";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value={"", "/productList"})
-	public String addProductToCart(@Valid LineItem lineItem,
+	public String addProductToCart(@Valid LineItem lineItem,BindingResult errors,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			BindingResult errors,Model model){	
-
-		if(errors.hasErrors()) 
+			Model model){	
+		
+		if(errors.hasErrors())
 			addErrorMessageToModel(model);
 		else {
 			cartService.addItem(lineItem);

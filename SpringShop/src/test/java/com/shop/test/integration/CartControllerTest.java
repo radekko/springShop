@@ -53,7 +53,7 @@ public class CartControllerTest {
 		mockMvc.perform(post("/main/displayCart").param("back", "Back to offer"))
 		.andDo(print())
 		.andExpect(status().is3xxRedirection())
-		.andExpect(view().name("redirect:/main"));
+		.andExpect(view().name("redirect:/main/productList?page=1"));
 	}
 	
 	@Test
