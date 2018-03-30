@@ -35,6 +35,10 @@
 			</tr>
 		  </table>
 	</form:form>
+	<c:if test="${not empty notExist}">
+		 <td>${notExist}</td>
+	</c:if>
+			<!-- 	Set default values -->
 	<script>
 		document.getElementById('username').value = 'asd';
 		document.getElementById('password').value = 'asd';

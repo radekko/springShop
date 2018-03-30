@@ -8,7 +8,8 @@ import com.shop.model.entity.persistent.User;
 
 @Repository
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
-
+	
+	@Override
 	public void addUser(User user) {
 		persist(user);
 	}
@@ -19,10 +20,22 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		criteria.add(Restrictions.eq("username", user.getUsername()));
 		return (User) criteria.uniqueResult() == null ? false: true;
 	}
+	
+	@Override
+	public boolean checkIfPasswordIsValidWithUser(User user) {
+		Criteria criteria = createEntityCriteria();
+		criteria.add(Restrictions.eq("username", user.getUsername()));
+		criteria.add(Restrictions.eq("password", user.getPassword()));
+		return (User) criteria.uniqueResult() == null ? false: true;
+	}
+	
+	
 	@Override
 	public User getByUsername(String username) {
 		Criteria criteria = createEntityCriteria();
 		criteria.add(Restrictions.eq("username", username));
 		return (User) criteria.uniqueResult();
 	}
+
+
 }

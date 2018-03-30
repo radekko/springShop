@@ -30,7 +30,7 @@ public class LoginController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String afterIntruduceLoginData(@ModelAttribute User user,
 			RedirectAttributes redirectAttributes, Model model) {
-		if (!service.findIfExist(user))
+		if (!service.checkIfPasswordIsValidWithUser(user))
 		{
 			model.addAttribute("notExist", "Invalid username or password");
 			return "loginForm";

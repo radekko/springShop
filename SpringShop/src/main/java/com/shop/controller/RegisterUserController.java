@@ -30,7 +30,7 @@ public class RegisterUserController {
 		if (errors.hasErrors())
 			return "registerForm";
 
-		if (service.findIfExist(user)) {
+		if (service.findIfUserExist(user)) {
 			model.addAttribute("alreadyExist", "User with chosen nickname already exist in database. Chose another.");
 			return "registerForm";
 		}

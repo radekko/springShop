@@ -24,8 +24,13 @@ public class UserServiceImpl implements UserService, Serializable {
 	}
 	
 	@Override
-	public boolean findIfExist(User login) {
+	public boolean findIfUserExist(User login) {
 		return dao.findIfUserExist(login);
+	}
+
+	@Override
+	public boolean checkIfPasswordIsValidWithUser(User user) {
+		return dao.checkIfPasswordIsValidWithUser(user);
 	}
 
 }
