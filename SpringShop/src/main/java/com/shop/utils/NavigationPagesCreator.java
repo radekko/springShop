@@ -53,9 +53,9 @@ public class NavigationPagesCreator {
 	private static void addCentralNavPages(List<Integer> navigationPages, int cur,
 			int maxNav, int total) {
 
-		if (cur <= 2) 
+		if (cur <= 3) 
 			p1234xN(navigationPages, maxNav);
-		else if (cur > 2 && cur < total - (maxNav - 2)) 
+		else if (cur > 3 && cur < total - (maxNav - 3)) 
 			p1x345xN(navigationPages, cur, maxNav);
 		else 
 			p1x789N(navigationPages, maxNav, total);
@@ -67,7 +67,7 @@ public class NavigationPagesCreator {
 	}
 
 	private static void p1x345xN(List<Integer> navigationPages, int cur, int maxNav) {
-		for (int i = cur; i < maxNav + (cur - 2); i++)
+		for (int i = cur - 1; i < maxNav + (cur - 3); i++)
 			navigationPages.add(i);
 	}
 

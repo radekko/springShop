@@ -34,8 +34,8 @@ public class NavigationPagesCreatorTest {
 	public void testCreateNavigationPages() throws Exception{
 		assertThat(getNP(1),getResult(list1));
 		assertThat(getNP(2),getResult(list1));
-		assertThat(getNP(3),getResult(list2));
-		assertThat(getNP(4),getResult(list3));
+		assertThat(getNP(3),getResult(list1));
+		assertThat(getNP(4),getResult(list2));
 		assertThat(getNP(5),getResult(list3));
 		assertThat(getNP(6),getResult(list3));
 		assertThat(getNP(7),getResult(list3));
