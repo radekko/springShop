@@ -2,9 +2,6 @@ package com.shop.model.entity.domain;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class PaginationResult<E> {
 
 	private int totalRecords;
@@ -15,9 +12,19 @@ public class PaginationResult<E> {
 	private int maxNavigationPage;
 	private List<Integer> navigationPages;
 
-	public PaginationResult() {
-	}
+	public PaginationResult() {}
 	
+	public PaginationResult(int totalRecords, int currentPage, List<E> entitiesOnChosenPage, int maxResult,
+			int totalPages, int maxNavigationPage, List<Integer> navigationPages) {
+		this.totalRecords = totalRecords;
+		this.currentPage = currentPage;
+		this.entitiesOnChosenPage = entitiesOnChosenPage;
+		this.maxResult = maxResult;
+		this.totalPages = totalPages;
+		this.maxNavigationPage = maxNavigationPage;
+		this.navigationPages = navigationPages;
+	}
+
 	public PaginationResult(PaginationResult<?> paginationResult, List<E> list) {
 		this.entitiesOnChosenPage = list;
 		this.totalRecords = paginationResult.totalRecords;
