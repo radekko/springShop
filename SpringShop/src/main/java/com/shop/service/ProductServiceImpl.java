@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService{
     private ProductDao dao;
 	
 	@Autowired
-	private PaginationService<Product> ps;
+	private PaginationServiceImpl<Product> ps;
 			
 	@Value("${com.shop.service.ProductService.maxProductOnSite}")
 	private Integer maxProductOnSite;
