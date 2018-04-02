@@ -10,7 +10,6 @@ public class LineItem implements Serializable{
 	private String name;
 	private String uniqueProductCode;
 	private double currentPrice;
-	private double totalCost;
 	@Min(value = 1L)
 	private Integer amount;
 	

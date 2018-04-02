@@ -20,28 +20,25 @@ public class OfferServiceImpl implements OfferService {
 
 	@Override
 	public List<LineItem> getOfferForClient() {
-		List<Product> productList = productService.findAllProduct();
-		List<LineItem> lineItemList = createLineItemList(productList);
-		return lineItemList;
+		return convertProductListToLineItemList(productService.findAllProduct());
 	}
 	
 	@Override
 	public PaginationResult<LineItem> getPaginationOfferForClient(int page) {
 		PaginationResult<Product> paginationProducts = productService.getPaginateProducts(page);
 		List<Product> productList = paginationProducts.getEntitiesOnChosenPage();
-		List<LineItem> lineItemList =createLineItemList(productList);
-		PaginationResult<LineItem> lineItemPaginationList = new PaginationResult<LineItem>(paginationProducts,lineItemList);
-		return lineItemPaginationList;
+		List<LineItem> lineItemList = convertProductListToLineItemList(productList);
+		return new PaginationResult<LineItem>(paginationProducts,lineItemList);
 	}
 
-	private List<LineItem> createLineItemList(List<Product> list) {
+	private List<LineItem> convertProductListToLineItemList(List<Product> list) {
 		List<LineItem> lineItemList = new ArrayList<LineItem>();
 		
-		for(Product p : list) {
-			LineItem temp = new LineItem(p.getName(),p.getUniqueProductCode(),
-					p.getPrice(),0);
-			lineItemList.add(temp);
-		}
+		for(Product p : list) 
+			lineItemList.add(
+					new LineItem(p.getName(),p.getUniqueProductCode(),p.getPrice(),0)
+					);
+
 		return lineItemList;
 	}
 
