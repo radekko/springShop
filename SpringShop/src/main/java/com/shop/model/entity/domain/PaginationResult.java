@@ -14,25 +14,19 @@ public class PaginationResult<E> {
 
 	public PaginationResult() {}
 	
-	public PaginationResult(int totalRecords, int currentPage, List<E> entitiesOnChosenPage, int maxResult,
-			int totalPages, int maxNavigationPage, List<Integer> navigationPages) {
-		this.totalRecords = totalRecords;
+	public PaginationResult(int currentPage,int totalPages, int totalRecords, int maxResult,
+			 int maxNavigationPage,List<E> entitiesOnChosenPage, List<Integer> navigationPages) {
 		this.currentPage = currentPage;
-		this.setEntitiesOnChosenPage(entitiesOnChosenPage);
-		this.maxResult = maxResult;
 		this.totalPages = totalPages;
+		this.totalRecords = totalRecords;
+		this.maxResult = maxResult;
 		this.maxNavigationPage = maxNavigationPage;
+		this.setEntitiesOnChosenPage(entitiesOnChosenPage);
 		this.navigationPages = navigationPages;
 	}
 
-	public PaginationResult(PaginationResult<?> paginationResult, List<E> list) {
-		this.setEntitiesOnChosenPage(list);
-		this.totalRecords = paginationResult.totalRecords;
-		this.currentPage = paginationResult.currentPage;
-		this.maxResult = paginationResult.maxResult;
-		this.totalPages = paginationResult.totalPages;
-		this.maxNavigationPage = paginationResult.maxNavigationPage;
-		this.navigationPages = paginationResult.navigationPages;
+	public PaginationResult(PaginationResult<?> p, List<E> list) {
+		this(p.currentPage,p.totalPages,p.totalRecords, p.maxResult,p.maxNavigationPage,list,p.navigationPages);
 	}
 
 	public List<E> getEntitiesOnChosenPage() {
@@ -41,5 +35,29 @@ public class PaginationResult<E> {
 
 	public void setEntitiesOnChosenPage(List<E> entitiesOnChosenPage) {
 		this.entitiesOnChosenPage = entitiesOnChosenPage;
+	}
+
+	public int getTotalRecords() {
+		return totalRecords;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public int getMaxResult() {
+		return maxResult;
+	}
+
+	public int getTotalPages() {
+		return totalPages;
+	}
+
+	public int getMaxNavigationPage() {
+		return maxNavigationPage;
+	}
+
+	public List<Integer> getNavigationPages() {
+		return navigationPages;
 	}
 }

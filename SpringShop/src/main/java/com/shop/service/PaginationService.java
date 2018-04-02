@@ -18,8 +18,8 @@ public class PaginationService<E> {
 		totalRecords = countTotalRecords(ab);
 		totalPages = calcTotalPages(maxResult);
 		
-		return new PaginationResult<E>(totalRecords,page,getEntityToCurPage(page, maxResult,ab),
-				maxResult,totalPages,maxNavigationPage,getNavPages(page, maxNavigationPage));
+		return new PaginationResult<E>(page,totalPages,totalRecords,maxResult,maxNavigationPage,
+				getEntityToCurPage(page, maxResult,ab),getNavPages(page, maxNavigationPage));
 	}
 
 	private List<Integer> getNavPages(int page, int maxNavigationPage) {
