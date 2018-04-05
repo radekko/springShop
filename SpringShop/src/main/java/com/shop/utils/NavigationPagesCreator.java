@@ -7,16 +7,13 @@ public class NavigationPagesCreator {
 
 	public static List<Integer> createNavigationPages(int numberOfChosenPage, int maxNavigationPages, int totalPages) {
 		List<Integer> navigationPages = new ArrayList<Integer>();
-		int cur = numberOfChosenPage;
-		int maxNav = maxNavigationPages;
-		int total = totalPages;
 
-		if(total <= maxNav) 
-			p1234N(navigationPages, total);
+		if(totalPages <= maxNavigationPages) 
+			p1234N(navigationPages, totalPages);
 		 else {
 			addFirstNavPage(navigationPages);
-			addCentralNavPages(navigationPages, cur, maxNav, total);
-			addLastNavPage(navigationPages, total);
+			addCentralNavPages(navigationPages, numberOfChosenPage, maxNavigationPages, totalPages);
+			addLastNavPage(navigationPages, totalPages);
 			addEmptySigns(navigationPages);
 		 }
 		return navigationPages;
