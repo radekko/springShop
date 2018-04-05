@@ -5,6 +5,8 @@ import java.util.List;
 
 public class NavigationPagesCreator {
 
+	private static final int VALUE_OF_EMPTY_FIELD = -1;
+	
 	public static List<Integer> createNavigationPages(int numberOfChosenPage, int maxNavigationPages, int totalPages) {
 		List<Integer> navigationPages = new ArrayList<Integer>();
 
@@ -31,12 +33,12 @@ public class NavigationPagesCreator {
 		int lastEl = navigationPages.get(lastIndex);
 		
 		if(lastEl != nextToLastEl + 1)
-			navigationPages.add(lastIndex,-1);
+			navigationPages.add(lastIndex,VALUE_OF_EMPTY_FIELD);
 	}
 	
 	private static void checkIfAddEmptySignOnTheBeginning(List<Integer> navigationPages) {
 		if(navigationPages.get(1) != 2)
-			navigationPages.add(1, -1);
+			navigationPages.add(1, VALUE_OF_EMPTY_FIELD);
 	}
 
 	private static void addLastNavPage(List<Integer> navigationPages, int total) {
