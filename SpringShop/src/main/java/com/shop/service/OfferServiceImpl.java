@@ -26,6 +26,12 @@ public class OfferServiceImpl implements OfferService {
 	@Override
 	public PaginationResult<LineItem> getPaginationOfferForClient(int page) {
 		PaginationResult<Product> paginationProducts = productService.getPaginateProducts(page);
+		return preparePaginationResultOfLineItems(paginationProducts); 
+	}
+
+	private PaginationResult<LineItem> preparePaginationResultOfLineItems(
+			PaginationResult<Product> paginationProducts) {
+
 		List<Product> productList = paginationProducts.getEntitiesOnChosenPage();
 		List<LineItem> lineItemList = convertProductListToLineItemList(productList);
 		return new PaginationResult<LineItem>(paginationProducts,lineItemList);
