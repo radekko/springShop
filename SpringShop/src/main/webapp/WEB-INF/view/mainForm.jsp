@@ -17,7 +17,7 @@
 <h1>You are logged</h1>
 
  <c:if test="${not empty message}">
-	${message ? "Order successfull!" : "Empty chart"}
+	${message ? "Order successfull!" : "Empty cart"}
 </c:if>  
 	
 <h2>List of Products</h2>  

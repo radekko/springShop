@@ -18,6 +18,9 @@ public class PaginationServiceImpl<E> implements PaginationService<E> {
 	public PaginationResult<E> getPaginationResult(int page, int maxResult,int maxNavigationPage, AbstractDao<?, E>  ab) {
 		totalRecords = countTotalRecords(ab);
 		totalPages = calcTotalPages(maxResult);
+
+		if(page > totalPages)
+			page = totalPages;
 		
 		return new PaginationResult<E>(page,totalPages,totalRecords,maxResult,maxNavigationPage,
 				getEntityToCurPage(page, maxResult,ab),getNavPages(page, maxNavigationPage));

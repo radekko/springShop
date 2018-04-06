@@ -1,6 +1,6 @@
 INSERT INTO employee(
             id, email, password, username)
-    VALUES (1, asd@asd.pl, asd, asd);
+    VALUES (1, 'asd@asd.pl', 'asd', 'asd');
 
 INSERT INTO product(
             productId, name, price, uniqueproductcode)
