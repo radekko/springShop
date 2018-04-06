@@ -35,7 +35,7 @@ public class Order {
 	private List<Product> products = new ArrayList<Product>();
 	private double productPrice;
 	private int productAmount;
-	private int orderIdentifier;
+	private String orderIdentifier;
 	public User getUserId() {
 		return userId;
 	}
@@ -63,10 +63,10 @@ public class Order {
 	public void addProduct(Product product) {
 		products.add(product);
 	}
-	public int getOrderIdentifier() {
+	public String getOrderIdentifier() {
 		return orderIdentifier;
 	}
-	public void setOrderIdentifier(int orderIdentifier) {
+	public void setOrderIdentifier(String orderIdentifier) {
 		this.orderIdentifier = orderIdentifier;
 	}
 	

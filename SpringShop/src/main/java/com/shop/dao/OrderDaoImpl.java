@@ -19,7 +19,7 @@ public class OrderDaoImpl extends AbstractDao<Integer, Order> implements OrderDa
 	private UserDao userDao;
 	
 	@Override
-	public void saveOrder(List<LineItem> orderList, String username, int generatedNumber) {
+	public void saveOrder(List<LineItem> orderList, String username, String generatedNumber) {
 		User supportedUser = userDao.getByUsername(username);
 		for(LineItem item: orderList) {
 			Order order = convertLineItemToOrder(generatedNumber, supportedUser, item);
@@ -27,7 +27,7 @@ public class OrderDaoImpl extends AbstractDao<Integer, Order> implements OrderDa
 		}
 	}
 
-	private Order convertLineItemToOrder(int generatedNumber, User supportedUser, LineItem item) {
+	private Order convertLineItemToOrder(String generatedNumber, User supportedUser, LineItem item) {
 		Order order = new Order();
 		order.setProductAmount(item.getAmount());
 		order.setProductPrice(item.getCurrentPrice());

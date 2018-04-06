@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -57,7 +58,7 @@ public class CartServiceImpl implements CartService, Serializable {
 		if(getCart().isEmpty())
 			return false;
 		
-		orderDao.saveOrder(getCart(), username, 1);
+		orderDao.saveOrder(getCart(), username, UUID.randomUUID().toString());
 		clearCart();
 		return true;
 	}
