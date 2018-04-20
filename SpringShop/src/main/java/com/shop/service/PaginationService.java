@@ -2,7 +2,14 @@ package com.shop.service;
 
 import com.shop.dao.AbstractDao;
 import com.shop.model.entity.domain.PaginationResult;
+import com.shop.model.entity.persistent.IEntity;
 
 public interface PaginationService<E> {
-	PaginationResult<E> getPaginationResult(int page, int maxResult, int maxNavigationPage, AbstractDao<?, E> ab);
+	PaginationResult<E> getPaginationResult(
+			int page, 
+			int maxResult, 
+			int maxNavigationPage,
+			AbstractDao<?, E> ab,
+			String groupColumnName, 
+			IEntity groupEntity);
 }

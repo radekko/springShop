@@ -1,3 +1,15 @@
+INSERT INTO category(
+            categoryid, categoryname)
+    VALUES (1, 'House');
+
+INSERT INTO category(
+            categoryid, categoryname)
+    VALUES (2, 'Cars');
+
+INSERT INTO category(
+            categoryid, categoryname)
+    VALUES (3, 'Furnitures');
+
 INSERT INTO employee(
             id, email, password, username)
     VALUES (1, 'asd@asd.pl', 'asd', 'asd');

@@ -19,8 +19,20 @@
  <c:if test="${not empty message}">
 	${message ? "Order successfull!" : "Empty cart"}
 </c:if>  
+
+
+Select category:
+
+<form:form modelAttribute="category" action="displayOffer" method="GET">
+  <form:select  path="categoryName">
+    <form:options items="${categoriesList}"></form:options>
+  </form:select>
+  <input type="submit" value="Get items" />
+</form:form>
+
+
 	
-<h2>List of Products</h2>  
+<h2>List of Products in ${categoryName}</h2>  
 
     <table>
         <tr>
@@ -48,7 +60,7 @@
   <c:if test="${offer.totalPages > 1}">
     <c:forEach items="${offer.navigationPages}" var = "page">
        <c:if test="${page != -1 }">
-             <a href="${pageContext.request.contextPath}/${currentPath}/productList?page=${page}">${page}</a>
+         <a href="${requestScope['javax.servlet.forward.request_uri']}?categoryName=${categoryName}&&page=${page}">${page}</a>
        </c:if>
        <c:if test="${page == -1 }">
              <span> ... </span>

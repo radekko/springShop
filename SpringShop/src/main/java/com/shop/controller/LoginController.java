@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.model.entity.persistent.User;
+import com.shop.service.CategoryService;
 import com.shop.service.UserService;
 
 @Controller
@@ -17,6 +18,9 @@ public class LoginController {
 
 	@Autowired
 	UserService service;
+	
+	@Autowired
+	CategoryService catService;
 
 	public LoginController() {
 	}
@@ -35,7 +39,8 @@ public class LoginController {
 			return "loginForm";
 		}
 		redirectAttributes.addFlashAttribute("username", user.getUsername());
-		return "redirect:/main/productList?page=1";
+		redirectAttributes.addAttribute("categoryName",  catService.getFirstCategory().getCategoryName());
+    	redirectAttributes.addAttribute("page", 1);
+		return "redirect:/main/displayOffer";
 	}
-
 }

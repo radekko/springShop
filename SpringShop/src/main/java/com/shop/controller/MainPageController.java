@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.model.entity.domain.LineItem;
+import com.shop.model.entity.persistent.Category;
 import com.shop.service.CartService;
+import com.shop.service.CategoryService;
 import com.shop.service.OfferService;
-import com.shop.utils.AnnotationExtractor;
-
 
 @Controller
 @RequestMapping(value = "/main")
@@ -26,47 +27,48 @@ public class MainPageController {
 	
 	@Autowired
 	CartService cartService;
-
-	@RequestMapping(method = RequestMethod.GET,value = "/productList")
-	public String homePageAfterSelectPage(@ModelAttribute("username") String username, 
-			Model model,@RequestParam("page") int page) {
+	
+	@Autowired
+	CategoryService categoryService;
+	
+	@RequestMapping(value = "/displayOffer", method = RequestMethod.GET)
+	public String afterSelectCategory(
+		@ModelAttribute("username") String username, 
+	    @ModelAttribute("category") Category category,
+	    @RequestParam(value = "categoryName")  String categoryName,
+	    @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+	    Model model){
 		if(!"".equals(username))
 			cartService.setUsername(username);
 		
-		prepareModel(model,page);
+		model.addAttribute("categoriesList", categoryService.getAllCategories());
+		model.addAttribute("offer", offerService.getPaginationOfferForClient(page,categoryName));
+		model.addAttribute("categoryName", categoryName);
+		model.addAttribute(new LineItem());
+		model.addAttribute(new Category());
 		return "mainForm";
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value={"", "/productList"})
+	@RequestMapping(method=RequestMethod.POST,value={"", "/displayOffer"})
 	public String addProductToCart(@Valid LineItem lineItem,BindingResult errors,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "categoryName") String categoryName,
+			RedirectAttributes redirectAttributes,
 			Model model){	
 		
 		if(errors.hasErrors())
 			addErrorMessageToModel(model);
 		else {
 			cartService.addItem(lineItem);
-			addInfoAboutCurrentChosenProductToModel(lineItem, model);
+			model.addAttribute("currentChosenName", lineItem.getName());
+			model.addAttribute("currentChosenAmount", lineItem.getAmount());
 		}
 		
-		prepareModel(model,page);
-		return "mainForm"; 
+		redirectAttributes.addAttribute("categoryName", categoryName);
+		redirectAttributes.addAttribute("page", page);
+		return "redirect:/main/displayOffer";
 	}
 	
-	private void prepareModel(Model model, int page) {
-		addOfferToModel(model,page);
-		model.addAttribute(new LineItem());
-	}
-
-	private void addInfoAboutCurrentChosenProductToModel(LineItem lineItem, Model model) {
-		model.addAttribute("currentChosenName", lineItem.getName());
-		model.addAttribute("currentChosenAmount", lineItem.getAmount());
-	}
-	
-	private void addOfferToModel(Model model, int page) {
-		model.addAttribute("offer", offerService.getPaginationOfferForClient(page));
-		model.addAttribute("currentPath", AnnotationExtractor.extractPathToController(getClass()));
-	}
 	private void addErrorMessageToModel(Model model) {
 		model.addAttribute("error", "Amount must be a natural number");
 	}

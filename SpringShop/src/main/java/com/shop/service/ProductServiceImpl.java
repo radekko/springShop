@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shop.dao.AbstractDao;
+import com.shop.dao.CategoryDao;
 import com.shop.dao.ProductDao;
 import com.shop.model.entity.domain.PaginationResult;
 import com.shop.model.entity.persistent.Product;
@@ -17,7 +18,10 @@ import com.shop.model.entity.persistent.Product;
 public class ProductServiceImpl implements ProductService{
 
 	@Autowired
-    private ProductDao dao;
+    private ProductDao proDao;
+	
+	@Autowired
+	private CategoryDao catDao;
 	
 	@Autowired
 	private PaginationServiceImpl<Product> ps;
@@ -27,21 +31,25 @@ public class ProductServiceImpl implements ProductService{
 	
 	@Value("${com.shop.service.ProductService.maxNavigationPage}")
 	private Integer maxNavigationPage;
-
+	
+	private String groupingColumnName="category";
+	
 	@Override
 	public void addProduct(Product product) {
-		dao.addProduct(product);
+		proDao.addProduct(product);
 	}
 
 	@Override
 	public List<Product> findAllProduct() {
-		return dao.findAllProduct();
+		return proDao.findAllProduct();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public PaginationResult<Product> getPaginateProducts(int page) {
-		return ps.getPaginationResult(page,maxProductOnSite,maxNavigationPage, (AbstractDao<?, Product>) dao);
+	public PaginationResult<Product> getPaginateProducts(int page,String categoryName) {
+		return ps.getPaginationResult(
+				page,maxProductOnSite,maxNavigationPage, 
+				(AbstractDao<?, Product>) proDao,groupingColumnName,catDao.getCategoryByName(categoryName));
 	}
 
 }

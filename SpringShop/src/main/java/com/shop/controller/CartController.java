@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.service.CartService;
+import com.shop.service.CategoryService;
 
 @Controller
 @RequestMapping(value = "/main")
@@ -16,6 +17,9 @@ public class CartController {
 
 	@Autowired
 	CartService cartService;
+	
+	@Autowired
+	CategoryService catService;
 	
 	@RequestMapping(value="/displayCart", method=RequestMethod.GET)
 	public String displayCart(Model model) {
@@ -27,8 +31,9 @@ public class CartController {
 	@RequestMapping(value="/displayCart",params = "order", method=RequestMethod.POST)
 	public String makeOrder(RedirectAttributes redirectAttributes,Model model){
 		boolean message = cartService.makeOrder();
-		redirectAttributes.addFlashAttribute("message", message);
-		return "redirect:/main/productList?page=1";
+		setReturnAttributes(redirectAttributes);
+    	redirectAttributes.addFlashAttribute("message", message);
+		return "redirect:/main/displayOffer";
 	}
 	
 	@RequestMapping(value="/displayCart",params = "clear", method = RequestMethod.POST)
@@ -38,13 +43,19 @@ public class CartController {
     }
 	
     @RequestMapping(value="/displayCart",params = "back", method = RequestMethod.POST)
-    public String backToOffer() {
-        return "redirect:/main/productList?page=1";
+    public String backToOffer(RedirectAttributes redirectAttributes) {
+    	setReturnAttributes(redirectAttributes);
+        return "redirect:/main/displayOffer";
     }
-    
+
     @RequestMapping(value="/displayCart", method = RequestMethod.DELETE)
     public String deleteLineItem(@RequestParam("uniqueProductCode") String uniqueProductCode) {
     	cartService.removeItem(uniqueProductCode);
         return "redirect:/main/displayCart";
     }
+    
+	private void setReturnAttributes(RedirectAttributes redirectAttributes) {
+    	redirectAttributes.addAttribute("categoryName", catService.getFirstCategory().getCategoryName());
+    	redirectAttributes.addAttribute("page", 1);
+	}
 }

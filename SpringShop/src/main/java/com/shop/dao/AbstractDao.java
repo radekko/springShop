@@ -10,7 +10,11 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.shop.model.entity.persistent.IEntity;
+
 import static java.lang.Math.toIntExact;
 
 public abstract class AbstractDao<PK extends Serializable, T>{
@@ -54,22 +58,30 @@ public abstract class AbstractDao<PK extends Serializable, T>{
 		getSession().merge(entity);
 	}
 	
-	public int countTotalRecords() {
+	public int countTotalRecords(String groupColumn,IEntity groupEntity) {
 		Criteria projectionCriteria = createEntityCriteria();
+		projectionCriteria.add(Restrictions.eq(groupColumn, groupEntity));
 		projectionCriteria.setProjection(Projections.rowCount());
 		Long l = (Long) projectionCriteria.uniqueResult();
 		return toIntExact(l);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <E> List<E> selectEntityToCurrentPage(int from, int to) {
+	public <E> List<E> selectEntityToCurrentPage(int from, int to,String groupColumn,IEntity groupEntity) {
 		Criteria selectCriteria = createEntityCriteria();
+		
+		if(groupColumn != null && groupEntity != null)
+			selectCriteria.add(Restrictions.eq(groupColumn, groupEntity));
+		
 		selectCriteria.setFirstResult(from);
 		selectCriteria.setMaxResults(to);
 		return selectCriteria.list();
 	}
 	
-
+	public <E> List<E> selectFirstResult() {
+		return selectEntityToCurrentPage(0,1,null,null);
+	}
+	
 	protected Criteria createEntityCriteria() {
 		return getSession().createCriteria(persistentClass);
 	}

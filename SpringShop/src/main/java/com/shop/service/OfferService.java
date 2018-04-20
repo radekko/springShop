@@ -7,5 +7,5 @@ import com.shop.model.entity.domain.PaginationResult;
 
 public interface OfferService {
 	List<LineItem> getOfferForClient();
-	PaginationResult<?> getPaginationOfferForClient(int page);
+	PaginationResult<?> getPaginationOfferForClient(int page,String categoryName);
 }

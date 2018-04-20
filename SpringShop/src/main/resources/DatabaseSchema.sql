@@ -40,3 +40,10 @@ CREATE TABLE product
   uniqueproductcode character varying(255),
   CONSTRAINT product_pkey PRIMARY KEY (productid)
 )
+
+CREATE TABLE category
+(
+  categoryid serial NOT NULL,
+  categoryname character varying(255),
+  CONSTRAINT category_pkey PRIMARY KEY (categoryid)
+)
