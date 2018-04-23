@@ -38,7 +38,11 @@ CREATE TABLE product
   name character varying(255),
   price double precision NOT NULL,
   uniqueproductcode character varying(255),
-  CONSTRAINT product_pkey PRIMARY KEY (productid)
+  categoryid integer,
+  CONSTRAINT product_pkey PRIMARY KEY (productid),
+  CONSTRAINT fk_d62d7293756f4187b8ee724774f FOREIGN KEY (categoryid)
+      REFERENCES category (categoryid) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 
 CREATE TABLE category
