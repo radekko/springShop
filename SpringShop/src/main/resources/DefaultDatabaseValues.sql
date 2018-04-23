@@ -1,87 +1,96 @@
-INSERT INTO category(
-            categoryid, categoryname)
-    VALUES (1, 'House');
+INSERT INTO category(categoryid, categoryname)VALUES (1, 'Houses');
+INSERT INTO category(categoryid, categoryname)VALUES (2, 'Cars');
+INSERT INTO category(categoryid, categoryname)VALUES (3, 'Furnitures');
 
-INSERT INTO category(
-            categoryid, categoryname)
-    VALUES (2, 'Cars');
-
-INSERT INTO category(
-            categoryid, categoryname)
-    VALUES (3, 'Furnitures');
-
-INSERT INTO employee(
-            id, email, password, username)
-    VALUES (1, 'asd@asd.pl', 'asd', 'asd');
-
-INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (1, 'book', 2, 'code1');
-
-INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (2, 'towel', 5, 'code2');
-
-
-INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (3, 'computer', 100, 'code3');
+INSERT INTO employee(id, email, password, username) VALUES (1, 'asd@asd.pl', 'asd', 'asd');
     
-INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (4, 'fridge', 2000, 'code4');
-    
-INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (5, 'apple', 3, 'code5');
-    
-INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (6, 'pen', 8, 'code6');
-
-INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (7, 'painting', 7, 'code7');
-
-INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (8, 'wordrobe', 150, 'code8');
-    
-INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (9, 'coat', 250, 'code9');
-    
-INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (10, 'shoes', 31, 'code10');
-  
- INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (11, 'bag', 2, 'code11');
- INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (12, 'ring', 33, 'code12');
-  INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (13, 'pear', 331, 'code13');
-  INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (14, 'pencil', 12, 'code14');
-  INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (15, 'cucumber', 7, 'code15');
-  INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (16, 'fish', 355, 'code16');
-  INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (17, 'flat', 46, 'code17');
-  INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (18, 'car', 6316, 'code18');
-  INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (19, 'pocket', 5, 'code19');
-  INSERT INTO product(
-            productId, name, price, uniqueproductcode)
-    VALUES (20, 'egg', 6, 'code20');
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (1, 'House1', '5', '0code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (2, 'House2', '10', '1code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (3, 'House3', '15', '4code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (4, 'House4', '20', '9code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (5, 'House5', '25', '16code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (6, 'House6', '30', '25code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (7, 'House7', '35', '36code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (8, 'House8', '40', '49code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (9, 'House9', '45', '64code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (10, 'House10', '50', '81code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (11, 'House11', '55', '100code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (12, 'House12', '60', '121code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (13, 'House13', '65', '144code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (14, 'House14', '70', '169code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (15, 'House15', '75', '196code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (16, 'House16', '80', '225code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (17, 'House17', '85', '256code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (18, 'House18', '90', '289code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (19, 'House19', '95', '324code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (20, 'House20', '100', '361code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (21, 'House21', '105', '400code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (22, 'House22', '110', '441code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (23, 'House23', '115', '484code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (24, 'House24', '120', '529code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (25, 'House25', '125', '576code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (26, 'House26', '130', '625code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (27, 'House27', '135', '676code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (28, 'House28', '140', '729code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (29, 'House29', '145', '784code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (30, 'House30', '150', '841code', 1);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (31, 'Car1', '155', '0code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (32, 'Car2', '160', '1code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (33, 'Car3', '165', '4code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (34, 'Car4', '170', '9code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (35, 'Car5', '175', '16code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (36, 'Car6', '180', '25code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (37, 'Car7', '185', '36code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (38, 'Car8', '190', '49code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (39, 'Car9', '195', '64code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (40, 'Car10', '200', '81code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (41, 'Car11', '205', '100code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (42, 'Car12', '210', '121code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (43, 'Car13', '215', '144code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (44, 'Car14', '220', '169code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (45, 'Car15', '225', '196code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (46, 'Car16', '230', '225code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (47, 'Car17', '235', '256code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (48, 'Car18', '240', '289code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (49, 'Car19', '245', '324code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (50, 'Car20', '250', '361code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (51, 'Car21', '255', '400code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (52, 'Car22', '260', '441code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (53, 'Car23', '265', '484code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (54, 'Car24', '270', '529code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (55, 'Car25', '275', '576code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (56, 'Car26', '280', '625code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (57, 'Car27', '285', '676code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (58, 'Car28', '290', '729code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (59, 'Car29', '295', '784code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (60, 'Car30', '300', '841code', 2);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (61, 'Furniture1', '305', '0code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (62, 'Furniture2', '310', '1code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (63, 'Furniture3', '315', '4code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (64, 'Furniture4', '320', '9code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (65, 'Furniture5', '325', '16code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (66, 'Furniture6', '330', '25code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (67, 'Furniture7', '335', '36code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (68, 'Furniture8', '340', '49code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (69, 'Furniture9', '345', '64code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (70, 'Furniture10', '350', '81code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (71, 'Furniture11', '355', '100code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (72, 'Furniture12', '360', '121code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (73, 'Furniture13', '365', '144code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (74, 'Furniture14', '370', '169code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (75, 'Furniture15', '375', '196code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (76, 'Furniture16', '380', '225code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (77, 'Furniture17', '385', '256code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (78, 'Furniture18', '390', '289code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (79, 'Furniture19', '395', '324code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (80, 'Furniture20', '400', '361code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (81, 'Furniture21', '405', '400code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (82, 'Furniture22', '410', '441code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (83, 'Furniture23', '415', '484code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (84, 'Furniture24', '420', '529code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (85, 'Furniture25', '425', '576code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (86, 'Furniture26', '430', '625code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (87, 'Furniture27', '435', '676code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (88, 'Furniture28', '440', '729code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (89, 'Furniture29', '445', '784code', 3);
+INSERT INTO product(productId, name, price, uniqueProductCode, categoryid) VALUES (90, 'Furniture30', '450', '841code', 3);
