@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -25,6 +26,7 @@ public class Product {
 	private List<Order> orders;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "categoryId")
 	private Category category;
 	
 	public String getName() {
