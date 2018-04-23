@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 
 
 @Entity
-@Table(name="EMPLOYEE")
+@Table(name="SHOPUSER")
 public class User {
 
 	public User() {}
@@ -25,7 +25,7 @@ public class User {
 	}
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int userId;
 	@NotNull
 	@Size(min = 2, max = 20,message = "Size must be beetwen 2 and 20 signs")
 	private String username;

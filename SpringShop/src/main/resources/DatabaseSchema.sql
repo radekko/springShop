@@ -1,10 +1,10 @@
-CREATE TABLE employee
+CREATE TABLE shopuser
 (
-  id serial NOT NULL,
+  userid serial NOT NULL,
   email character varying(255),
   password character varying(20) NOT NULL,
   username character varying(20) NOT NULL,
-  CONSTRAINT employee_pkey PRIMARY KEY (id)
+  CONSTRAINT shopuser_pkey PRIMARY KEY (userid)
 )
 
 CREATE TABLE order_product
