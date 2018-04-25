@@ -34,13 +34,12 @@ public class MainPageController {
 	@RequestMapping(value = "/displayOffer", method = RequestMethod.GET)
 	public String afterSelectCategory(
 		@ModelAttribute("username") String username, 
-	    @ModelAttribute("category") Category category,
 	    @RequestParam(value = "categoryName")  String categoryName,
 	    @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 	    Model model){
 		if(!"".equals(username))
 			cartService.setUsername(username);
-		
+
 		model.addAttribute("categoriesList", categoryService.getAllCategories());
 		model.addAttribute("offer", offerService.getPaginationOfferForClient(page,categoryName));
 		model.addAttribute("categoryName", categoryName);
