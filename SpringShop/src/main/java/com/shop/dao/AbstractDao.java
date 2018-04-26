@@ -60,7 +60,7 @@ public abstract class AbstractDao<PK extends Serializable, T>{
 	
 	public int countTotalRecords(IEntity groupEntity) {
 		Criteria projectionCriteria = createEntityCriteria();
-		projectionCriteria.add(Restrictions.eq(extractGroupingField(groupEntity), groupEntity));
+		projectionCriteria.add(Restrictions.eq(extractGroupingFieldName(groupEntity), groupEntity));
 		projectionCriteria.setProjection(Projections.rowCount());
 		Long l = (Long) projectionCriteria.uniqueResult();
 		return toIntExact(l);
@@ -71,7 +71,7 @@ public abstract class AbstractDao<PK extends Serializable, T>{
 		Criteria selectCriteria = createEntityCriteria();
 		
 		if(groupEntity != null)
-			selectCriteria.add(Restrictions.eq(extractGroupingField(groupEntity), groupEntity));
+			selectCriteria.add(Restrictions.eq(extractGroupingFieldName(groupEntity), groupEntity));
 		
 		selectCriteria.setFirstResult(from);
 		selectCriteria.setMaxResults(to);
@@ -86,7 +86,7 @@ public abstract class AbstractDao<PK extends Serializable, T>{
 		return getSession().createCriteria(persistentClass);
 	}
 
-	private String extractGroupingField(IEntity groupEntity) {
+	private String extractGroupingFieldName(IEntity groupEntity) {
 		String fieldName = groupEntity.getClass().getSimpleName();
 		return Character.toLowerCase(fieldName.charAt(0)) + fieldName.substring(1);
 	}
