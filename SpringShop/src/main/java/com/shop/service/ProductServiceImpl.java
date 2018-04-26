@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shop.dao.AbstractDao;
-import com.shop.dao.CategoryDao;
 import com.shop.dao.ProductDao;
 import com.shop.model.entity.domain.PaginationResult;
+import com.shop.model.entity.persistent.Category;
 import com.shop.model.entity.persistent.Product;
 
 @Service
@@ -19,9 +19,6 @@ public class ProductServiceImpl implements ProductService{
 
 	@Autowired
     private ProductDao proDao;
-	
-	@Autowired
-	private CategoryDao catDao;
 	
 	@Autowired
 	private PaginationServiceImpl<Product> ps;
@@ -44,10 +41,10 @@ public class ProductServiceImpl implements ProductService{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public PaginationResult<Product> getPaginateProducts(int page,String categoryName) {
+	public PaginationResult<Product> getPaginateProducts(int page,Category category) {
 		return ps.getPaginationResult(
 				page,maxProductOnSite,maxNavigationPage, 
-				(AbstractDao<?, Product>) proDao,catDao.getCategoryByName(categoryName));
+				(AbstractDao<?, Product>) proDao,category);
 	}
 
 }

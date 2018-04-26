@@ -25,4 +25,8 @@ public class CategoryServiceImpl implements CategoryService {
 	public Category getFirstCategory() {
 		return cad.getFirstCategory();
 	}
+	@Override
+	public Category getCategoryByName(String categoryName) {
+		return cad.getCategoryByName(categoryName);
+	}
 }

@@ -17,6 +17,8 @@ public class OfferServiceImpl implements OfferService {
 
 	@Autowired
     private ProductService productService;
+	
+	@Autowired CategoryService categoryService;
 
 	@Override
 	public List<LineItem> getOfferForClient() {
@@ -25,7 +27,7 @@ public class OfferServiceImpl implements OfferService {
 	
 	@Override
 	public PaginationResult<LineItem> getPaginationOfferForClient(int page,String categoryName) {
-		PaginationResult<Product> paginationProducts = productService.getPaginateProducts(page,categoryName);
+		PaginationResult<Product> paginationProducts = productService.getPaginateProducts(page,categoryService.getCategoryByName(categoryName));
 		return preparePaginationResultOfLineItems(paginationProducts); 
 	}
 
