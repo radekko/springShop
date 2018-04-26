@@ -58,20 +58,20 @@ public abstract class AbstractDao<PK extends Serializable, T>{
 		getSession().merge(entity);
 	}
 	
-	public int countTotalRecords(String groupColumn,IEntity groupEntity) {
+	public int countTotalRecords(IEntity groupEntity) {
 		Criteria projectionCriteria = createEntityCriteria();
-		projectionCriteria.add(Restrictions.eq(groupColumn, groupEntity));
+		projectionCriteria.add(Restrictions.eq(extractGroupingField(groupEntity), groupEntity));
 		projectionCriteria.setProjection(Projections.rowCount());
 		Long l = (Long) projectionCriteria.uniqueResult();
 		return toIntExact(l);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <E> List<E> selectEntityToCurrentPage(int from, int to,String groupColumn,IEntity groupEntity) {
+	public <E> List<E> selectEntityToCurrentPage(int from, int to,IEntity groupEntity) {
 		Criteria selectCriteria = createEntityCriteria();
 		
-		if(groupColumn != null && groupEntity != null)
-			selectCriteria.add(Restrictions.eq(groupColumn, groupEntity));
+		if(groupEntity != null)
+			selectCriteria.add(Restrictions.eq(extractGroupingField(groupEntity), groupEntity));
 		
 		selectCriteria.setFirstResult(from);
 		selectCriteria.setMaxResults(to);
@@ -79,13 +79,18 @@ public abstract class AbstractDao<PK extends Serializable, T>{
 	}
 	
 	public <E> List<E> selectFirstResult() {
-		return selectEntityToCurrentPage(0,1,null,null);
+		return selectEntityToCurrentPage(0,1,null);
 	}
 	
 	protected Criteria createEntityCriteria() {
 		return getSession().createCriteria(persistentClass);
 	}
 
+	private String extractGroupingField(IEntity groupEntity) {
+		String fieldName = groupEntity.getClass().getSimpleName();
+		return Character.toLowerCase(fieldName.charAt(0)) + fieldName.substring(1);
+	}
+	
 	private static <T> List<T> castList(Class<? extends T> clazz, Collection<?> c) {
 		List<T> r = new ArrayList<T>(c.size());
 		for (Object o : c)

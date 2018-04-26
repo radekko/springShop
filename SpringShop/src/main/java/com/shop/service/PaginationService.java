@@ -10,6 +10,5 @@ public interface PaginationService<E> {
 			int maxResult, 
 			int maxNavigationPage,
 			AbstractDao<?, E> ab,
-			String groupColumnName, 
 			IEntity groupEntity);
 }

@@ -11,7 +11,7 @@ import com.shop.model.entity.persistent.Category;
 
 @Service
 @Transactional
-public class CategoriesServiceImpl implements CategoryService {
+public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	CategoryDao cad;

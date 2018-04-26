@@ -16,16 +16,16 @@ public class PaginationServiceImpl<E> implements PaginationService<E> {
 	private int totalPages;
 	
 	@Override
-	public PaginationResult<E> getPaginationResult(int page, int maxResult,int maxNavigationPage, AbstractDao<?, E>  ab,
-			String groupColumnName, IEntity groupEntity) {
-		totalRecords = countTotalRecords(ab, groupColumnName,groupEntity);
+	public PaginationResult<E> getPaginationResult(int page, int maxResult,int maxNavigationPage, 
+			AbstractDao<?, E>  ab, IEntity groupEntity) {
+		totalRecords = countTotalRecords(ab, groupEntity);
 		totalPages = calcTotalPages(maxResult);
 
 		if(page > totalPages)
 			page = totalPages;
 		
 		return new PaginationResult<E>(page,totalPages,totalRecords,maxResult,maxNavigationPage,
-				getEntityToCurPage(page, maxResult,ab,groupColumnName,groupEntity),getNavPages(page, maxNavigationPage));
+				getEntityToCurPage(page, maxResult,ab,groupEntity),getNavPages(page, maxNavigationPage));
 	}
 
 	private List<Integer> getNavPages(int page, int maxNavigationPage) {
@@ -36,13 +36,13 @@ public class PaginationServiceImpl<E> implements PaginationService<E> {
 		return totalRecords % maxResult == 0 ? totalRecords/maxResult : (totalRecords/maxResult) + 1;
 	}
 
-	private int countTotalRecords(AbstractDao<?, ?> ab,String groupColumnName,IEntity groupEntity) {
-		return ab.countTotalRecords(groupColumnName,groupEntity);
+	private int countTotalRecords(AbstractDao<?, ?> ab,IEntity groupEntity) {
+		return ab.countTotalRecords(groupEntity);
 	}
 
-	private List<E> getEntityToCurPage(int page, int maxResult, AbstractDao<?, E> ab,String groupColumnName,IEntity groupEntity) {
+	private List<E> getEntityToCurPage(int page, int maxResult, AbstractDao<?, E> ab,IEntity groupEntity) {
 		int startIndex = (page - 1 ) * maxResult;
-		return ab.selectEntityToCurrentPage(startIndex, maxResult,groupColumnName,groupEntity);
+		return ab.selectEntityToCurrentPage(startIndex, maxResult,groupEntity);
 	}
 
 }

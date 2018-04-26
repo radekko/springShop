@@ -32,8 +32,6 @@ public class ProductServiceImpl implements ProductService{
 	@Value("${com.shop.service.ProductService.maxNavigationPage}")
 	private Integer maxNavigationPage;
 	
-	private String groupingColumnName="category";
-	
 	@Override
 	public void addProduct(Product product) {
 		proDao.addProduct(product);
@@ -49,7 +47,7 @@ public class ProductServiceImpl implements ProductService{
 	public PaginationResult<Product> getPaginateProducts(int page,String categoryName) {
 		return ps.getPaginationResult(
 				page,maxProductOnSite,maxNavigationPage, 
-				(AbstractDao<?, Product>) proDao,groupingColumnName,catDao.getCategoryByName(categoryName));
+				(AbstractDao<?, Product>) proDao,catDao.getCategoryByName(categoryName));
 	}
 
 }
