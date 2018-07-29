@@ -18,6 +18,7 @@
 
  <c:if test="${not empty message}">
 	${message ? "Order successfull!" : "Empty cart"}
+	<br/> <br/> 
 </c:if>  
 
 
@@ -55,7 +56,6 @@ Select category:
 			</tr>
         </c:forEach>
     </table>
-    
    
   <c:if test="${offer.totalPages > 1}">
     <c:forEach items="${offer.navigationPages}" var = "page">
@@ -65,7 +65,6 @@ Select category:
        <c:if test="${page == -1 }">
              <span> ... </span>
        </c:if>
-    
     </c:forEach>
   </c:if>
    

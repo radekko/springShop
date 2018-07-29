@@ -56,20 +56,16 @@ public class MainPageController {
 			Model model){	
 		
 		if(errors.hasErrors())
-			addErrorMessageToModel(model);
+			redirectAttributes.addFlashAttribute("error", "Amount must be a natural number");
 		else {
 			cartService.addItem(lineItem);
-			model.addAttribute("currentChosenName", lineItem.getName());
-			model.addAttribute("currentChosenAmount", lineItem.getAmount());
+			redirectAttributes.addFlashAttribute("currentChosenName", lineItem.getName());
+			redirectAttributes.addFlashAttribute("currentChosenAmount", lineItem.getAmount());
 		}
 		
 		redirectAttributes.addAttribute("categoryName", categoryName);
 		redirectAttributes.addAttribute("page", page);
 		return "redirect:/main/displayOffer";
-	}
-	
-	private void addErrorMessageToModel(Model model) {
-		model.addAttribute("error", "Amount must be a natural number");
 	}
 
 }
