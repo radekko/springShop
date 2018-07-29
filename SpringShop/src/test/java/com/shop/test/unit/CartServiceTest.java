@@ -14,12 +14,11 @@ import com.shop.config.RootConfig;
 import com.shop.model.entity.domain.LineItem;
 import com.shop.service.CartService;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=RootConfig.class)
 @WebAppConfiguration
 public class CartServiceTest {
-
+	
 	@Autowired
 	private CartService cartService;
 	

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.shop.dao.OrderDao;
 import com.shop.model.entity.domain.LineItem;
 
 @Service
@@ -23,13 +22,13 @@ import com.shop.model.entity.domain.LineItem;
 public class CartServiceImpl implements CartService, Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private OrderDao orderDao;
+	private OrderService orderService;
 	private Map<String, LineItem> cartWithChosenProducts = new TreeMap<String, LineItem>();
 	private String username;
 	
 	@Autowired
-	public CartServiceImpl(OrderDao orderDao) {
-		this.orderDao = orderDao;
+	public CartServiceImpl(OrderService orderService) {
+		this.orderService = orderService;
 	}
 
 	@Override
@@ -57,7 +56,7 @@ public class CartServiceImpl implements CartService, Serializable {
 		if(getCart().isEmpty())
 			return false;
 		
-		orderDao.saveOrder(getCart(), username, UUID.randomUUID().toString());
+		orderService.saveOrder(getCart(), username, UUID.randomUUID().toString());
 		clearCart();
 		return true;
 	}
