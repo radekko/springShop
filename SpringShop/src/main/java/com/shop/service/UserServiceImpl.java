@@ -14,9 +14,12 @@ import com.shop.model.entity.persistent.User;
 public class UserServiceImpl implements UserService, Serializable {
 
 	private static final long serialVersionUID = 1L;
+    private UserDao dao;
 	
 	@Autowired
-    private UserDao dao;
+	public UserServiceImpl(UserDao dao) {
+		this.dao = dao;
+	}
 
 	@Override
 	public void saveUser(User user) {

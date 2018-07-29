@@ -13,9 +13,13 @@ import com.shop.model.entity.persistent.Category;
 @Transactional
 public class CategoryServiceImpl implements CategoryService {
 
-	@Autowired
-	CategoryDao cad;
+	private CategoryDao cad;
 	
+	@Autowired
+	public CategoryServiceImpl(CategoryDao cad) {
+		this.cad = cad;
+	}
+
 	@Override
 	public List<Category> getAllCategories() {
 		return cad.findAllCategories();

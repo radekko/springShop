@@ -17,10 +17,7 @@ import com.shop.model.entity.persistent.Product;
 @Transactional
 public class ProductServiceImpl implements ProductService{
 
-	@Autowired
     private ProductDao proDao;
-	
-	@Autowired
 	private PaginationServiceImpl<Product> ps;
 			
 	@Value("${com.shop.service.ProductService.maxProductOnSite}")
@@ -29,6 +26,12 @@ public class ProductServiceImpl implements ProductService{
 	@Value("${com.shop.service.ProductService.maxNavigationPage}")
 	private Integer maxNavigationPage;
 	
+	@Autowired
+	public ProductServiceImpl(ProductDao proDao, PaginationServiceImpl<Product> ps) {
+		this.proDao = proDao;
+		this.ps = ps;
+	}
+
 	@Override
 	public void addProduct(Product product) {
 		proDao.addProduct(product);

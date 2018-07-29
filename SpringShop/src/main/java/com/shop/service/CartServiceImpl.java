@@ -23,15 +23,14 @@ import com.shop.model.entity.domain.LineItem;
 public class CartServiceImpl implements CartService, Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@Autowired
 	private OrderDao orderDao;
-
 	private Map<String, LineItem> cartWithChosenProducts = new TreeMap<String, LineItem>();
-
 	private String username;
-
-	public CartServiceImpl() {}
+	
+	@Autowired
+	public CartServiceImpl(OrderDao orderDao) {
+		this.orderDao = orderDao;
+	}
 
 	@Override
 	public List<LineItem> getCart() {

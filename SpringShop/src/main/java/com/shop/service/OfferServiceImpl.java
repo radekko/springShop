@@ -15,10 +15,14 @@ import com.shop.model.entity.persistent.Product;
 @Transactional
 public class OfferServiceImpl implements OfferService {
 
-	@Autowired
     private ProductService productService;
+	private CategoryService categoryService;
 	
-	@Autowired CategoryService categoryService;
+	@Autowired 
+	public OfferServiceImpl(ProductService productService, CategoryService categoryService) {
+		this.productService = productService;
+		this.categoryService = categoryService;
+	}
 
 	@Override
 	public List<LineItem> getOfferForClient() {
