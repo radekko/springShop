@@ -16,8 +16,12 @@ import com.shop.service.UserService;
 @Controller
 public class RegisterUserController {
 
+	private UserService userService;
+	
 	@Autowired
-	UserService service;
+	public RegisterUserController(UserService userService) {
+		this.userService = userService;
+	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegistrationForm(Model model) {
@@ -30,13 +34,12 @@ public class RegisterUserController {
 		if (errors.hasErrors())
 			return "registerForm";
 
-		if (service.findIfUserExist(user)) {
+		if (userService.findIfUserExist(user)) {
 			model.addAttribute("alreadyExist", "User with chosen nickname already exist in database. Chose another.");
 			return "registerForm";
 		}
-
 		else
-			service.saveUser(user);
+			userService.saveUser(user);
 
 		return "successRegistered";
 	}

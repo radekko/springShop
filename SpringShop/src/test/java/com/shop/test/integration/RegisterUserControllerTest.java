@@ -69,7 +69,7 @@ public class RegisterUserControllerTest {
 
 	@Test
 	public void testShowRegistrationForm() throws Exception {
-		RegisterUserController registerController = new RegisterUserController();
+//		RegisterUserController registerController = new RegisterUserController();
 		mockMvc = standaloneSetup(registerController).build();
 		mockMvc.perform(get("/register"))
 			.andExpect(view().name(REGISTER_FORM_NAME)).andExpect(model().attributeExists("user"));

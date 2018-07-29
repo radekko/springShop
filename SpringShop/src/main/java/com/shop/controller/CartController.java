@@ -15,12 +15,15 @@ import com.shop.service.CategoryService;
 @RequestMapping(value = "/main")
 public class CartController {
 
-	@Autowired
-	CartService cartService;
+	private CartService cartService;
+	private CategoryService categoryService;
 	
 	@Autowired
-	CategoryService catService;
-	
+	public CartController(CartService cartService, CategoryService catService) {
+		this.cartService = cartService;
+		this.categoryService = catService;
+	}
+
 	@RequestMapping(value="/displayCart", method=RequestMethod.GET)
 	public String displayCart(Model model) {
 		model.addAttribute("orders", cartService.getCart());
@@ -55,7 +58,7 @@ public class CartController {
     }
     
 	private void setReturnAttributes(RedirectAttributes redirectAttributes) {
-    	redirectAttributes.addAttribute("categoryName", catService.getFirstCategory().getCategoryName());
+    	redirectAttributes.addAttribute("categoryName", categoryService.getFirstCategory().getCategoryName());
     	redirectAttributes.addAttribute("page", 1);
 	}
 }

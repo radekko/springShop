@@ -17,7 +17,7 @@ import com.shop.model.entity.persistent.Product;
 @Transactional
 public class ProductServiceImpl implements ProductService{
 
-    private ProductDao proDao;
+    private ProductDao productDao;
 	private PaginationServiceImpl<Product> ps;
 			
 	@Value("${com.shop.service.ProductService.maxProductOnSite}")
@@ -28,18 +28,18 @@ public class ProductServiceImpl implements ProductService{
 	
 	@Autowired
 	public ProductServiceImpl(ProductDao proDao, PaginationServiceImpl<Product> ps) {
-		this.proDao = proDao;
+		this.productDao = proDao;
 		this.ps = ps;
 	}
 
 	@Override
 	public void addProduct(Product product) {
-		proDao.addProduct(product);
+		productDao.addProduct(product);
 	}
 
 	@Override
 	public List<Product> findAllProduct() {
-		return proDao.findAllProduct();
+		return productDao.findAllProduct();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService{
 	public PaginationResult<Product> getPaginateProducts(int page,Category category) {
 		return ps.getPaginationResult(
 				page,maxProductOnSite,maxNavigationPage, 
-				(AbstractDao<?, Product>) proDao,category);
+				(AbstractDao<?, Product>) productDao,category);
 	}
 
 }

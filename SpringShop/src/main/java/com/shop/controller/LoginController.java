@@ -16,13 +16,13 @@ import com.shop.service.UserService;
 @RequestMapping(value = "/login")
 public class LoginController {
 
-	@Autowired
-	UserService service;
+	private UserService userService;
+	private CategoryService categoryService;
 	
 	@Autowired
-	CategoryService catService;
-
-	public LoginController() {
+	public LoginController(UserService service, CategoryService catService) {
+		this.userService = service;
+		this.categoryService = catService;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -34,12 +34,12 @@ public class LoginController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String afterIntruduceLoginData(@ModelAttribute User user,
 			RedirectAttributes redirectAttributes, Model model) {
-		if (!service.checkIfPasswordIsValidWithUser(user)){
+		if (!userService.checkIfPasswordIsValidWithUser(user)){
 			model.addAttribute("notExist", "Invalid username or password");
 			return "loginForm";
 		}
 		redirectAttributes.addFlashAttribute("username", user.getUsername());
-		redirectAttributes.addAttribute("categoryName",  catService.getFirstCategory().getCategoryName());
+		redirectAttributes.addAttribute("categoryName",  categoryService.getFirstCategory().getCategoryName());
     	redirectAttributes.addAttribute("page", 1);
 		return "redirect:/main/displayOffer";
 	}

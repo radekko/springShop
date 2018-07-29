@@ -22,15 +22,17 @@ import com.shop.service.OfferService;
 @RequestMapping(value = "/main")
 public class MainPageController {
 	
-	@Autowired
-	OfferService offerService;
+	private OfferService offerService;
+	private CartService cartService;
+	private CategoryService categoryService;
 	
 	@Autowired
-	CartService cartService;
-	
-	@Autowired
-	CategoryService categoryService;
-	
+	public MainPageController(OfferService offerService, CartService cartService, CategoryService categoryService) {
+		this.offerService = offerService;
+		this.cartService = cartService;
+		this.categoryService = categoryService;
+	}
+
 	@RequestMapping(value = "/displayOffer", method = RequestMethod.GET)
 	public String afterSelectCategory(
 		@ModelAttribute("username") String username, 

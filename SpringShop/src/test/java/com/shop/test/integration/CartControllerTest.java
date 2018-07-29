@@ -30,10 +30,10 @@ public class CartControllerTest {
 	private MockMvc mockMvc;
 	
 	@Mock
-	CartService cartService;
+	private CartService cartService;
 	
 	@InjectMocks
-	CartController cartController;
+	private CartController cartController;
 	
 	@Before
 	public void setUp() {

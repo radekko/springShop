@@ -13,24 +13,24 @@ import com.shop.model.entity.persistent.Category;
 @Transactional
 public class CategoryServiceImpl implements CategoryService {
 
-	private CategoryDao cad;
+	private CategoryDao categoryDao;
 	
 	@Autowired
 	public CategoryServiceImpl(CategoryDao cad) {
-		this.cad = cad;
+		this.categoryDao = cad;
 	}
 
 	@Override
 	public List<Category> getAllCategories() {
-		return cad.findAllCategories();
+		return categoryDao.findAllCategories();
 	}
 	
 	@Override
 	public Category getFirstCategory() {
-		return cad.getFirstCategory();
+		return categoryDao.getFirstCategory();
 	}
 	@Override
 	public Category getCategoryByName(String categoryName) {
-		return cad.getCategoryByName(categoryName);
+		return categoryDao.getCategoryByName(categoryName);
 	}
 }
