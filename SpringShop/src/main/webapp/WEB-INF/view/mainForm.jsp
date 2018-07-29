@@ -60,7 +60,7 @@ Select category:
   <c:if test="${offer.totalPages > 1}">
     <c:forEach items="${offer.navigationPages}" var = "page">
        <c:if test="${page != -1 }">
-         <a href="${requestScope['javax.servlet.forward.request_uri']}?categoryName=${categoryName}&&page=${page}">${page}</a>
+         <a href="${requestScope['javax.servlet.forward.request_uri']}?categoryName=${categoryName}&page=${page}">${page}</a>
        </c:if>
        <c:if test="${page == -1 }">
              <span> ... </span>
