@@ -6,10 +6,11 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import com.shop.model.entity.persistent.Category;
 import com.shop.model.entity.persistent.Product;
 
 @Repository
-public class ProductDaoImpl extends AbstractDao<Integer, Product> implements ProductDao{
+public class ProductDaoImpl extends AbstractDaoWithPagination<Integer, Product> implements ProductDao{
 
 	@Override
 	public void addProduct(Product product) {
@@ -25,4 +26,11 @@ public class ProductDaoImpl extends AbstractDao<Integer, Product> implements Pro
 		criteria.add(Restrictions.eq("uniqueProductCode", uniquecode));
 		return (Product) criteria.uniqueResult();
 	}
+
+	@Override
+	public List<Product> getProductsOnPage(int page, int maxProductOnPage, Category category) {
+		int startIndex = (page - 1 ) * maxProductOnPage;
+		return getItemsOnPage(startIndex,maxProductOnPage,category);
+	}
+	
 }

@@ -21,6 +21,6 @@ public class CategoryDaoImpl extends AbstractDao<Integer, Category> implements C
 	}
 	@Override
 	public Category getFirstCategory() {
-		return (Category) selectFirstResult().get(0);
+		return getFirstResult();
 	}
 }

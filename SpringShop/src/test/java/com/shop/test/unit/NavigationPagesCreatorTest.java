@@ -1,6 +1,6 @@
 package com.shop.test.unit;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.shop.utils.NavigationPagesCreator;
+import com.shop.pagination.NavigationPagesInfoCreator;
 
 public class NavigationPagesCreatorTest {
 
@@ -19,7 +19,8 @@ public class NavigationPagesCreatorTest {
 	private List<Integer> list2;
 	private List<Integer> list3;
 	private int maxNavigationPages;
-	private int totalPages;
+	private int totalItems;
+	private int maxProductOnPage;
 	
     @Before
     public void setUp() {
@@ -27,7 +28,8 @@ public class NavigationPagesCreatorTest {
     	list2 = new ArrayList<Integer>(Arrays.asList(1,-1,3,4,5,-1,7));
     	list3 = new ArrayList<Integer>(Arrays.asList(1,-1,4,5,6,7));
     	maxNavigationPages = 5;
-    	totalPages = 7;
+    	totalItems=21;
+    	maxProductOnPage=3;
     }
 	
 	@Test
@@ -46,7 +48,7 @@ public class NavigationPagesCreatorTest {
 	}
 
 	private List<Integer> getNP(int currPage) {
-		return NavigationPagesCreator.createNavigationPages(currPage, maxNavigationPages, totalPages);
+		return NavigationPagesInfoCreator.createNavigationPages(currPage, maxNavigationPages, totalItems,maxProductOnPage);
 	}
 	
 }

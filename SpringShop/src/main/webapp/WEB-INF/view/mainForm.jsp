@@ -42,7 +42,7 @@ Select category:
             <td>Amount</td>
             <td>Add to cart</td>
         </tr>
-        <c:forEach items="${offer.entitiesOnChosenPage}" var="lineItem">
+        <c:forEach items="${offer.items}" var="lineItem">
             <tr>
 				<form:form method="POST" modelAttribute="lineItem">
             		<td><c:out value="${lineItem.name}"/></td>
@@ -56,8 +56,7 @@ Select category:
 			</tr>
         </c:forEach>
     </table>
-   
-  <c:if test="${offer.totalPages > 1}">
+
     <c:forEach items="${offer.navigationPages}" var = "page">
        <c:if test="${page != -1 }">
          <a href="${requestScope['javax.servlet.forward.request_uri']}?categoryName=${categoryName}&page=${page}">${page}</a>
@@ -66,7 +65,6 @@ Select category:
              <span> ... </span>
        </c:if>
     </c:forEach>
-  </c:if>
    
     <br/>
     <c:if test="${not empty error}">

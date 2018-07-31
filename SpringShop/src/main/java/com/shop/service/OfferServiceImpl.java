@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shop.model.entity.domain.LineItem;
-import com.shop.model.entity.domain.PaginationResult;
 import com.shop.model.entity.persistent.Product;
+import com.shop.pagination.Page;
 /* Service to convert products to line items and display as offer*/
 @Service
 @Transactional
@@ -28,19 +28,21 @@ public class OfferServiceImpl implements OfferService {
 	public List<LineItem> getOfferForClient() {
 		return convertProductListToLineItemList(productService.findAllProduct());
 	}
-	
+	//TODO: 1.do it with lambda, 2.add type to Page?
+	@SuppressWarnings("unchecked")
 	@Override
-	public PaginationResult<LineItem> getPaginationOfferForClient(int page,String categoryName) {
-		PaginationResult<Product> paginationProducts = productService.getPaginateProducts(page,categoryService.getCategoryByName(categoryName));
-		return preparePaginationResultOfLineItems(paginationProducts); 
+	public Page getPaginationOfferForClient(int page,String categoryName) {
+		Page paginationProducts = productService.getPaginateProducts(page,categoryService.getCategoryByName(categoryName));
+		List<LineItem> list = preparePaginationResultOfLineItems((List<Product>) paginationProducts.getItems());
+		paginationProducts.setItems(list);
+		return paginationProducts;
 	}
 
-	private PaginationResult<LineItem> preparePaginationResultOfLineItems(
-			PaginationResult<Product> paginationProducts) {
+	private List<LineItem> preparePaginationResultOfLineItems(
+			List<Product> paginationProducts) {
 
-		List<Product> productList = paginationProducts.getEntitiesOnChosenPage();
-		List<LineItem> lineItemList = convertProductListToLineItemList(productList);
-		return new PaginationResult<LineItem>(paginationProducts,lineItemList);
+		List<LineItem> lineItemList = convertProductListToLineItemList(paginationProducts);
+		return lineItemList;
 	}
 
 	private List<LineItem> convertProductListToLineItemList(List<Product> list) {
@@ -54,6 +56,10 @@ public class OfferServiceImpl implements OfferService {
 					);
 
 		return lineItemList;
+	}
+	private LineItem convertToLineItem(final Product p) {
+	    final LineItem lineItem = new LineItem(p.getName(),p.getUniqueProductCode(),p.getPrice(),0);
+	    return lineItem;
 	}
 
 }

@@ -9,13 +9,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.shop.model.entity.persistent.IEntity;
-
-import static java.lang.Math.toIntExact;
 
 public abstract class AbstractDao<PK extends Serializable, T>{
 	private final Class<T> persistentClass;
@@ -41,6 +35,14 @@ public abstract class AbstractDao<PK extends Serializable, T>{
 	public List<T> getAll() {
 		return castList(persistentClass, createEntityCriteria().list());
 	}
+	
+	@SuppressWarnings("unchecked")
+	public T getFirstResult() {
+		Criteria selectCriteria = createEntityCriteria();
+		selectCriteria.setFirstResult(0);
+		selectCriteria.setMaxResults(1);
+		return (T) selectCriteria.list().get(0);
+	}
 
 	public void persist(T entity) {
 		getSession().persist(entity);
@@ -58,39 +60,10 @@ public abstract class AbstractDao<PK extends Serializable, T>{
 		getSession().merge(entity);
 	}
 	
-	public int countTotalRecords(IEntity groupEntity) {
-		Criteria projectionCriteria = createEntityCriteria();
-		projectionCriteria.add(Restrictions.eq(extractGroupingFieldName(groupEntity), groupEntity));
-		projectionCriteria.setProjection(Projections.rowCount());
-		Long l = (Long) projectionCriteria.uniqueResult();
-		return toIntExact(l);
-	}
-
-	@SuppressWarnings("unchecked")
-	public <E> List<E> selectEntityToCurrentPage(int from, int to,IEntity groupEntity) {
-		Criteria selectCriteria = createEntityCriteria();
-		
-		if(groupEntity != null)
-			selectCriteria.add(Restrictions.eq(extractGroupingFieldName(groupEntity), groupEntity));
-		
-		selectCriteria.setFirstResult(from);
-		selectCriteria.setMaxResults(to);
-		return selectCriteria.list();
-	}
-	
-	public <E> List<E> selectFirstResult() {
-		return selectEntityToCurrentPage(0,1,null);
-	}
-	
 	protected Criteria createEntityCriteria() {
 		return getSession().createCriteria(persistentClass);
 	}
 
-	private String extractGroupingFieldName(IEntity groupEntity) {
-		String fieldName = groupEntity.getClass().getSimpleName();
-		return Character.toLowerCase(fieldName.charAt(0)) + fieldName.substring(1);
-	}
-	
 	private static <T> List<T> castList(Class<? extends T> clazz, Collection<?> c) {
 		List<T> r = new ArrayList<T>(c.size());
 		for (Object o : c)
