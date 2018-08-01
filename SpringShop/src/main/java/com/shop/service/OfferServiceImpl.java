@@ -33,7 +33,7 @@ public class OfferServiceImpl implements OfferService {
 	@Override
 	public Page<LineItem> getPaginationOfferForClient(int page,String categoryName) {
 		Page<Product> pageWithProducts = productService.getPaginateProducts(page,categoryService.getCategoryByName(categoryName));
-		Page<LineItem> pageWithLineItem = pageWithProducts.convertEntityPageToDTOPage(pageWithProducts, this::convertProductToLineItem);
+		Page<LineItem> pageWithLineItem = pageWithProducts.convertEntityToDTO(this::convertProductToLineItem);
 		return pageWithLineItem;
 	}
 

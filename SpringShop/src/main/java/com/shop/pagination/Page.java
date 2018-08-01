@@ -14,10 +14,8 @@ public class Page<T>
 		this.navigationPages = navigationPages;
 	}
 	
-	public <U> Page<U> convertEntityPageToDTOPage(Page<T> entityPage, Function<T,U> convertFunction){
-		List<T> entityItems = (List<T>) entityPage.getItems();
-		List<U> dtoItems = entityItems.stream().map(convertFunction::apply).collect(Collectors.toList());
-		
+	public <U> Page<U> convertEntityToDTO(Function<T,U> convertFunction){
+		List<U> dtoItems = items.stream().map(convertFunction::apply).collect(Collectors.toList());
 		return new Page<U>(dtoItems, navigationPages);
 	}
 	
