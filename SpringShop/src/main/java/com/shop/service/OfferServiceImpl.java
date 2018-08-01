@@ -27,18 +27,17 @@ public class OfferServiceImpl implements OfferService {
 
 	@Override
 	public List<LineItem> getOfferForClient() {
-		return productService.findAllProduct().stream().map(this::convertToLineItem).collect(Collectors.toList());
+		return productService.findAllProduct().stream().map(this::convertProductToLineItem).collect(Collectors.toList());
 	}
 	
 	@Override
 	public Page<LineItem> getPaginationOfferForClient(int page,String categoryName) {
 		Page<Product> pageWithProducts = productService.getPaginateProducts(page,categoryService.getCategoryByName(categoryName));
-		List<LineItem> lineItemsList = pageWithProducts.getItems().stream().map(p -> convertToLineItem((Product) p)).collect(Collectors.toList());
-		Page<LineItem> pageWithLineItems = new Page<LineItem>(lineItemsList,pageWithProducts.getNavigationPages());
-		return pageWithLineItems;
+		Page<LineItem> pageWithLineItem = pageWithProducts.convertEntityPageToDTOPage(pageWithProducts, this::convertProductToLineItem);
+		return pageWithLineItem;
 	}
 
-	private LineItem convertToLineItem(Product p) {
+	private LineItem convertProductToLineItem(Product p) {
 	    return new LineItem(p.getName(),p.getUniqueProductCode(),p.getPrice(),INITIAL_STOCK_AMOUNT);
 	}
 

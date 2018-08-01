@@ -1,6 +1,8 @@
 package com.shop.pagination;
 
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Page<T>
 {
@@ -11,15 +13,26 @@ public class Page<T>
 		this.items = items;
 		this.navigationPages = navigationPages;
 	}
+	
+	public <U> Page<U> convertEntityPageToDTOPage(Page<T> entityPage, Function<T,U> convertFunction){
+		List<T> entityItems = (List<T>) entityPage.getItems();
+		List<U> dtoItems = entityItems.stream().map(convertFunction::apply).collect(Collectors.toList());
+		
+		return new Page<U>(dtoItems, navigationPages);
+	}
+	
 	public List<Integer> getNavigationPages() {
 		return navigationPages;
 	}
+	
 	public void setNavigationPages(List<Integer> navigationPages) {
 		this.navigationPages = navigationPages;
 	}
-	public List<?> getItems() {
+	
+	public List<T> getItems() {
 		return items;
 	}
+	
 	public void setItems(List<T> items) {
 		this.items = items;
 	}
