@@ -41,12 +41,12 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Page getPaginateProducts(int page,Category category) {
+	public Page<Product> getPaginateProducts(int page,Category category) {
 		List<Product> itemsOnPage = productDao.getProductsOnPage(page,maxProductOnPage,category);
 		List<Integer> navigationPages = NavigationPagesInfoCreator
 				.createNavigationPages(page, maxNavigationPage, productDao.countTotalRecordsForGroup(category), maxProductOnPage);
 		
-		return new Page(itemsOnPage,navigationPages);
+		return new Page<Product>(itemsOnPage,navigationPages);
 	}
 
 }

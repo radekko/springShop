@@ -9,5 +9,5 @@ import com.shop.pagination.Page;
 public interface ProductService {
 	void addProduct(Product product);
 	List<Product> findAllProduct();
-	Page getPaginateProducts(int page,Category category);
+	Page<Product> getPaginateProducts(int page,Category category);
 }

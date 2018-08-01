@@ -1,7 +1,7 @@
 package com.shop.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,13 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shop.model.entity.domain.LineItem;
 import com.shop.model.entity.persistent.Product;
 import com.shop.pagination.Page;
-/* Service to convert products to line items and display as offer*/
+/* Service which convert products to line items and display as offer*/
 @Service
 @Transactional
 public class OfferServiceImpl implements OfferService {
 
     private ProductService productService;
 	private CategoryService categoryService;
+	private final static int INITIAL_STOCK_AMOUNT = 0;
 	
 	@Autowired 
 	public OfferServiceImpl(ProductService productService, CategoryService categoryService) {
@@ -26,40 +27,19 @@ public class OfferServiceImpl implements OfferService {
 
 	@Override
 	public List<LineItem> getOfferForClient() {
-		return convertProductListToLineItemList(productService.findAllProduct());
+		return productService.findAllProduct().stream().map(this::convertToLineItem).collect(Collectors.toList());
 	}
-	//TODO: 1.do it with lambda, 2.add type to Page?
-	@SuppressWarnings("unchecked")
+	
 	@Override
-	public Page getPaginationOfferForClient(int page,String categoryName) {
-		Page paginationProducts = productService.getPaginateProducts(page,categoryService.getCategoryByName(categoryName));
-		List<LineItem> list = preparePaginationResultOfLineItems((List<Product>) paginationProducts.getItems());
-		paginationProducts.setItems(list);
-		return paginationProducts;
+	public Page<LineItem> getPaginationOfferForClient(int page,String categoryName) {
+		Page<Product> pageWithProducts = productService.getPaginateProducts(page,categoryService.getCategoryByName(categoryName));
+		List<LineItem> lineItemsList = pageWithProducts.getItems().stream().map(p -> convertToLineItem((Product) p)).collect(Collectors.toList());
+		Page<LineItem> pageWithLineItems = new Page<LineItem>(lineItemsList,pageWithProducts.getNavigationPages());
+		return pageWithLineItems;
 	}
 
-	private List<LineItem> preparePaginationResultOfLineItems(
-			List<Product> paginationProducts) {
-
-		List<LineItem> lineItemList = convertProductListToLineItemList(paginationProducts);
-		return lineItemList;
-	}
-
-	private List<LineItem> convertProductListToLineItemList(List<Product> list) {
-		List<LineItem> lineItemList = new ArrayList<LineItem>();
-		if(list.isEmpty())
-			return lineItemList;
-		
-		for(Product p : list) 
-			lineItemList.add(
-					new LineItem(p.getName(),p.getUniqueProductCode(),p.getPrice(),0)
-					);
-
-		return lineItemList;
-	}
-	private LineItem convertToLineItem(final Product p) {
-	    final LineItem lineItem = new LineItem(p.getName(),p.getUniqueProductCode(),p.getPrice(),0);
-	    return lineItem;
+	private LineItem convertToLineItem(Product p) {
+	    return new LineItem(p.getName(),p.getUniqueProductCode(),p.getPrice(),INITIAL_STOCK_AMOUNT);
 	}
 
 }

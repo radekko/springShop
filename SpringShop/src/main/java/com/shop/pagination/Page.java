@@ -2,12 +2,12 @@ package com.shop.pagination;
 
 import java.util.List;
 
-public class Page
+public class Page<T>
 {
-	private List<?> items;
+	private List<T> items;
 	private List<Integer> navigationPages;
 
-	public Page(List<?> items,List<Integer> navigationPages) {
+	public Page(List<T> items,List<Integer> navigationPages) {
 		this.items = items;
 		this.navigationPages = navigationPages;
 	}
@@ -20,7 +20,7 @@ public class Page
 	public List<?> getItems() {
 		return items;
 	}
-	public void setItems(List<?> items) {
+	public void setItems(List<T> items) {
 		this.items = items;
 	}
 }
