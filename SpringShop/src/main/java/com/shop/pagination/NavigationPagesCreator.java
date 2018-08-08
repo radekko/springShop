@@ -3,7 +3,7 @@ package com.shop.pagination;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NavigationPagesInfoCreator {
+public class NavigationPagesCreator {
 
 	private static final int VALUE_OF_EMPTY_FIELD = -1;
 	

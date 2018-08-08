@@ -43,7 +43,7 @@ public class MainPageController {
 			cartService.setUsername(username);
 
 		model.addAttribute("categoriesList", categoryService.getAllCategories());
-		model.addAttribute("offer", offerService.getPaginationOfferForClient(page,categoryName));
+		model.addAttribute("offer", offerService.getPaginateOfferForClient(page,categoryName));
 		model.addAttribute("categoryName", categoryName);
 		model.addAttribute(new LineItem());
 		model.addAttribute(new Category());

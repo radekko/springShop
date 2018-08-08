@@ -7,5 +7,5 @@ import com.shop.pagination.Page;
 
 public interface OfferService {
 	List<LineItem> getOfferForClient();
-	Page<LineItem> getPaginationOfferForClient(int page,String categoryName);
+	Page<LineItem> getPaginateOfferForClient(int page,String categoryName);
 }

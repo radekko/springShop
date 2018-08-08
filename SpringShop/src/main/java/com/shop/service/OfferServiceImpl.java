@@ -12,7 +12,7 @@ import com.shop.model.entity.persistent.Product;
 import com.shop.pagination.Page;
 /* Service which convert products to line items and display as offer*/
 @Service
-@Transactional
+@Transactional(readOnly=true)
 public class OfferServiceImpl implements OfferService {
 
     private ProductService productService;
@@ -31,7 +31,7 @@ public class OfferServiceImpl implements OfferService {
 	}
 	
 	@Override
-	public Page<LineItem> getPaginationOfferForClient(int page,String categoryName) {
+	public Page<LineItem> getPaginateOfferForClient(int page,String categoryName) {
 		Page<Product> pageWithProducts = productService.getPaginateProducts(page,categoryService.getCategoryByName(categoryName));
 		Page<LineItem> pageWithLineItem = pageWithProducts.convertEntityToDTO(this::convertProductToLineItem);
 		return pageWithLineItem;

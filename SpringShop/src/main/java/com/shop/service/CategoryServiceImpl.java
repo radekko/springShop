@@ -10,7 +10,7 @@ import com.shop.dao.CategoryDao;
 import com.shop.model.entity.persistent.Category;
 
 @Service
-@Transactional
+@Transactional(readOnly=true)
 public class CategoryServiceImpl implements CategoryService {
 
 	private CategoryDao categoryDao;

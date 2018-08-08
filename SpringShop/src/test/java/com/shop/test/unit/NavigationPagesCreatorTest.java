@@ -11,7 +11,7 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.shop.pagination.NavigationPagesInfoCreator;
+import com.shop.pagination.NavigationPagesCreator;
 
 public class NavigationPagesCreatorTest {
 
@@ -48,7 +48,7 @@ public class NavigationPagesCreatorTest {
 	}
 
 	private List<Integer> getNP(int currPage) {
-		return NavigationPagesInfoCreator.createNavigationPages(currPage, maxNavigationPages, totalItems,maxProductOnPage);
+		return NavigationPagesCreator.createNavigationPages(currPage, maxNavigationPages, totalItems,maxProductOnPage);
 	}
 	
 }
