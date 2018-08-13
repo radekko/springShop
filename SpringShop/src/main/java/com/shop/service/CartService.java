@@ -6,7 +6,7 @@ import java.util.List;
 import com.shop.model.entity.domain.LineItem;
 
 public interface CartService extends Serializable{
-	List<LineItem> getCart();
+	List<LineItem> getSortedCart();
 	void addItem(LineItem itemToAdd);
 	Boolean makeOrder();
 	void removeItem(String uniqueProductCode);

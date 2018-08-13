@@ -21,6 +21,13 @@ public class LineItem implements Serializable{
 		this.amount = amount;
 	}
 	
+	public LineItem(LineItem li) {
+		this.name = li.name;
+		this.uniqueProductCode = li.uniqueProductCode;
+		this.currentPrice = li.currentPrice;
+		this.amount = li.amount;
+	}
+	
 	public String getUniqueProductCode() {
 		return uniqueProductCode;
 	}

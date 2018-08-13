@@ -32,7 +32,7 @@ public class CartServiceImpl implements CartService, Serializable {
 	}
 
 	@Override
-	public List<LineItem> getCart() {
+	public List<LineItem> getSortedCart() {
 		List<LineItem> lineItemsList = new ArrayList<LineItem>(cartWithChosenProducts.values());
 		sortItemsInCart(lineItemsList);
 		return lineItemsList;
@@ -53,10 +53,10 @@ public class CartServiceImpl implements CartService, Serializable {
 
 	@Override
 	public Boolean makeOrder() {
-		if(getCart().isEmpty())
+		if(getSortedCart().isEmpty())
 			return false;
 		
-		orderService.saveOrder(getCart(), username, UUID.randomUUID().toString());
+		orderService.saveOrder(getSortedCart(), username, UUID.randomUUID().toString());
 		clearCart();
 		return true;
 	}
@@ -90,7 +90,8 @@ public class CartServiceImpl implements CartService, Serializable {
 	}
 
 	private void addItemToCart(LineItem itemToAdd) {
-		cartWithChosenProducts.put(itemToAdd.getUniqueProductCode(), itemToAdd);
+		LineItem toAdd = new LineItem(itemToAdd);
+		cartWithChosenProducts.put(toAdd.getUniqueProductCode(), toAdd);
 	}
 
 	private LineItem increaseAmount(LineItem itemToUpdate) {

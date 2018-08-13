@@ -1,12 +1,11 @@
 package com.shop.test.unit;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.equalTo;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,18 +16,15 @@ public class NavigationPagesCreatorTest {
 	private List<Integer> npFirstCase;
 	private List<Integer> npSecondCase;
 	private List<Integer> npThirdCase;
-	private int maxNavigationPages;
-	private int totalItems;
-	private int maxProductOnPage;
+	private static final int maxNavigationPages =  5;
+	private static final int totalItems		    = 21;
+	private static final int maxProductOnPage   =  3;
 	
     @Before
     public void setUp() {
-    	npFirstCase = new ArrayList<Integer>(Arrays.asList(1,2,3,4,-1,7));
-    	npSecondCase = new ArrayList<Integer>(Arrays.asList(1,-1,3,4,5,-1,7));
-    	npThirdCase = new ArrayList<Integer>(Arrays.asList(1,-1,4,5,6,7));
-    	maxNavigationPages = 5;
-    	totalItems=21;
-    	maxProductOnPage=3;
+    	npFirstCase = Arrays.asList(1,2,3,4,-1,7);
+    	npSecondCase = Arrays.asList(1,-1,3,4,5,-1,7);
+    	npThirdCase = Arrays.asList(1,-1,4,5,6,7);
     }
 	
 	@Test
