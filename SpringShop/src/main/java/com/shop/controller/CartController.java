@@ -12,7 +12,7 @@ import com.shop.service.CartService;
 import com.shop.service.CategoryService;
 
 @Controller
-@RequestMapping(value = "/main")
+@RequestMapping(value = "/main/displayCart")
 public class CartController {
 
 	private CartService cartService;
@@ -24,14 +24,14 @@ public class CartController {
 		this.categoryService = catService;
 	}
 
-	@RequestMapping(value="/displayCart", method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public String displayCart(Model model) {
 		model.addAttribute("orders", cartService.getCart());
 		model.addAttribute("totalPrice",cartService.getTotalPriceOfCart());
 		return "cartForm";
 	}
 	
-	@RequestMapping(value="/displayCart",params = "order", method=RequestMethod.POST)
+	@RequestMapping(params = "order", method=RequestMethod.POST)
 	public String makeOrder(RedirectAttributes redirectAttributes,Model model){
 		boolean message = cartService.makeOrder();
 		setReturnAttributes(redirectAttributes);
@@ -39,19 +39,19 @@ public class CartController {
 		return "redirect:/main/displayOffer";
 	}
 	
-	@RequestMapping(value="/displayCart",params = "clear", method = RequestMethod.POST)
+	@RequestMapping(params = "clear", method = RequestMethod.POST)
     public String clearCart() {
 		cartService.clearCart();
         return "cartForm";
     }
 	
-    @RequestMapping(value="/displayCart",params = "back", method = RequestMethod.POST)
+    @RequestMapping(params = "back", method = RequestMethod.POST)
     public String backToOffer(RedirectAttributes redirectAttributes) {
     	setReturnAttributes(redirectAttributes);
         return "redirect:/main/displayOffer";
     }
 
-    @RequestMapping(value="/displayCart", method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE)
     public String deleteLineItem(@RequestParam("uniqueProductCode") String uniqueProductCode) {
     	cartService.removeItem(uniqueProductCode);
         return "redirect:/main/displayCart";
