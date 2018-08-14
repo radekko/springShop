@@ -76,7 +76,7 @@ public class CartServiceImpl implements CartService, Serializable {
 	}
 	
 	@Override
-	public double getTotalPriceOfCart() {
+	public double computeTotalPriceOfCart() {
 		return cartWithChosenProducts.values().stream()
 				.map(LineItem::getTotalCost).mapToDouble(Double::doubleValue).sum();
 	}

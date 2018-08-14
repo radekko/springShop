@@ -8,19 +8,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import com.shop.config.RootConfig;
 import com.shop.model.entity.domain.LineItem;
 import com.shop.service.CartService;
 import com.shop.service.CartServiceImpl;
 import com.shop.service.OrderService;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=RootConfig.class)
-@WebAppConfiguration
+@RunWith(MockitoJUnitRunner.class)
 public class CartServiceTest {
 	
 	@Mock
@@ -85,6 +80,13 @@ public class CartServiceTest {
 		addItemsToCart(firstItem,secondItem);
 		cartService.clearCart();
 		assertEquals(0, getCartSize());
+	}
+	
+	@Test
+	public void testComputeTotalPriceOfCart() throws Exception{
+		addItemsToCart(firstItem,secondItem);
+		assertEquals(FIRST_ITEM_PRICE * FIRST_ITEM_AMOUNT + SECOND_ITEM_PRICE * SECOND_ITEM_AMOUNT, 
+				cartService.computeTotalPriceOfCart(),0);
 	}
 	
 	private void addItemsToCart(LineItem ...items) {

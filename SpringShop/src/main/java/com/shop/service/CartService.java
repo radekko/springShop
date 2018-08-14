@@ -11,7 +11,7 @@ public interface CartService extends Serializable{
 	Boolean makeOrder();
 	void removeItem(String uniqueProductCode);
 	void clearCart();
-	double getTotalPriceOfCart();
+	double computeTotalPriceOfCart();
 	String getUsername();
 	void setUsername(String username);
 	

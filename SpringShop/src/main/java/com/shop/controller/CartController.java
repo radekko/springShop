@@ -27,7 +27,7 @@ public class CartController {
 	@RequestMapping(method=RequestMethod.GET)
 	public String displayCart(Model model) {
 		model.addAttribute("orders", cartService.getSortedCart());
-		model.addAttribute("totalPrice",cartService.getTotalPriceOfCart());
+		model.addAttribute("totalPrice",cartService.computeTotalPriceOfCart());
 		return "cartForm";
 	}
 	

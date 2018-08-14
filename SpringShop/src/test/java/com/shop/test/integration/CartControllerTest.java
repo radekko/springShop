@@ -10,33 +10,30 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.shop.config.RootConfig;
 import com.shop.controller.CartController;
 import com.shop.service.CartService;
+import com.shop.service.CategoryService;
 
 
 @RunWith(MockitoJUnitRunner.class)
-@ContextConfiguration(classes= {RootConfig.class})
-@WebAppConfiguration
 public class CartControllerTest {
-
-	private MockMvc mockMvc;
 	
 	@Mock
 	private CartService cartService;
 	
-	@InjectMocks
+	@Mock
+	private CategoryService categoryService;
+	
+	private MockMvc mockMvc;
 	private CartController cartController;
 	
 	@Before
 	public void setUp() {
+		cartController = new CartController(cartService,categoryService);
 		mockMvc = standaloneSetup(cartController).build();
 	}
 	
