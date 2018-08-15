@@ -35,5 +35,10 @@ public class UserServiceImpl implements UserService, Serializable {
 	public boolean checkIfPasswordIsValidWithUser(User user) {
 		return userDao.checkIfPasswordIsValidWithUser(user);
 	}
+	
+	@Override
+	public User getByUsername(String userName) {
+		return userDao.getByUsername(userName);
+	}
 
 }

@@ -19,7 +19,7 @@ import com.shop.service.CategoryService;
 import com.shop.service.OfferService;
 
 @Controller
-@RequestMapping(value = "/main")
+@RequestMapping(value = "/main/displayOffer")
 public class MainPageController {
 	
 	private OfferService offerService;
@@ -33,7 +33,7 @@ public class MainPageController {
 		this.categoryService = categoryService;
 	}
 
-	@RequestMapping(value = "/displayOffer", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public String afterSelectCategory(
 		@ModelAttribute("username") String username, 
 	    @RequestParam(value = "categoryName")  String categoryName,
@@ -50,7 +50,7 @@ public class MainPageController {
 		return "mainForm";
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value={"", "/displayOffer"})
+	@RequestMapping(method=RequestMethod.POST)
 	public String addProductToCart(@Valid LineItem lineItem,BindingResult errors,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "categoryName") String categoryName,

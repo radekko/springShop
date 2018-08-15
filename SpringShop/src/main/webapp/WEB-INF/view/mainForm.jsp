@@ -76,5 +76,6 @@ Select category:
 	</c:if>     
 	<br/> 
     <a href="<c:url value='/main/displayCart' />">Display cart</a>
+    <a href="<c:url value='/logout' />">Log out</a>
 </body>
 </html>

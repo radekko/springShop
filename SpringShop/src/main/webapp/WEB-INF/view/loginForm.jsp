@@ -17,7 +17,7 @@
 <body>
 
 	<h1>Login page</h1>
-	<form:form modelAttribute="user" method="POST">
+	<form:form modelAttribute="userDTO" method="POST">
 		<table>
 			<tr>
 				<td>Login:</td>
@@ -35,9 +35,12 @@
 			</tr>
 		  </table>
 	</form:form>
-	<c:if test="${not empty notExist}">
-		 <td>${notExist}</td>
-	</c:if>
+	 <c:if test="${param.error != null}">
+         <p>Invalid username or password.</p>
+     </c:if>
+      <c:if test="${param.logout != null}">
+         <p>You have been logged out successfully.</p>
+     </c:if>
 			<!-- 	Set default values -->
 	<script>
 		document.getElementById('username').value = 'asd';

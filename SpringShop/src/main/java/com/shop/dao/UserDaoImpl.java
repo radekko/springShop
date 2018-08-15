@@ -29,7 +29,6 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		return (User) criteria.uniqueResult() == null ? false: true;
 	}
 	
-	
 	@Override
 	public User getByUsername(String username) {
 		Criteria criteria = createEntityCriteria();

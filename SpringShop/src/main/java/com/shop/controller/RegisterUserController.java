@@ -17,6 +17,7 @@ import com.shop.service.UserService;
 public class RegisterUserController {
 
 	private UserService userService;
+	private final static String USER_ROLE = "USER";
 	
 	@Autowired
 	public RegisterUserController(UserService userService) {
@@ -38,8 +39,10 @@ public class RegisterUserController {
 			model.addAttribute("alreadyExist", "User with chosen nickname already exist in database. Chose another.");
 			return "registerForm";
 		}
-		else
+		else {
+			user.setRole(USER_ROLE);
 			userService.saveUser(user);
+		}
 
 		return "successRegistered";
 	}
