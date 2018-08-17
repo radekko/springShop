@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shop.dao.ProductDao;
 import com.shop.model.entity.persistent.Category;
 import com.shop.model.entity.persistent.Product;
-import com.shop.pagination.NavigationPagesCreator;
-import com.shop.pagination.Page;
+import com.shop.pagination.EntityPage;
 
 @Service
 @Transactional
@@ -21,9 +20,6 @@ public class ProductServiceImpl implements ProductService{
 			
 	@Value("${com.shop.service.ProductService.maxProductOnSite}")
 	private Integer maxProductOnPage;
-	
-	@Value("${com.shop.service.ProductService.maxNavigationPage}")
-	private Integer maxNavigationPage;
 	
 	@Autowired
 	public ProductServiceImpl(ProductDao proDao) {
@@ -41,12 +37,10 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Page<Product> getPaginateProducts(int page,Category category) {
-		List<Product> itemsOnPage = productDao.getProductsOnPage(page,maxProductOnPage,category);
-		List<Integer> navigationPages = NavigationPagesCreator
-				.createNavigationPages(page, maxNavigationPage, productDao.countTotalRecordsForGroup(category), maxProductOnPage);
-		
-		return new Page<Product>(itemsOnPage,navigationPages);
+	public EntityPage<Product> getPaginateProducts(int page,Category category) {
+		List<Product> productsOnPage = productDao.getProductsOnPage(page,maxProductOnPage,category);	
+		return new EntityPage<Product>(
+				productsOnPage,page,productDao.countTotalRecordsForGroup(category),maxProductOnPage);
 	}
 
 }
