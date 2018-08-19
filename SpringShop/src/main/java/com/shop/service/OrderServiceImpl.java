@@ -11,7 +11,9 @@ import com.shop.dao.ProductDao;
 import com.shop.dao.UserDao;
 import com.shop.model.entity.domain.LineItem;
 import com.shop.model.entity.persistent.Order;
+import com.shop.model.entity.persistent.OrderDetails;
 import com.shop.model.entity.persistent.User;
+import com.shop.pagination.DTOPageWithNavigation;
 
 @Service
 @Transactional
@@ -27,23 +29,35 @@ public class OrderServiceImpl implements OrderService{
 		this.userDao = userDao;
 		this.orderDao = orderDao;
 	}
-
+	//TODO: do it	
+	@Override
+	public DTOPageWithNavigation<LineItem> getPaginateOrders(int page) {
+//		EntityPage<Order> pageWithProducts = 
+//				productService.getPaginateProducts(page,categoryService.getCategoryByName(categoryName));
+//		
+//		DTOPageWithNavigation<LineItem> lineItemsPageWithNavigation =
+//				new DTOPageWithNavigation<LineItem>(pageWithProducts,maxNavigationPages, this::convertProductToLineItem);
+		return null;
+	}
+//TODO: repair getUser
 	@Override
 	public void saveOrder(List<LineItem> orderList, String username, String generatedNumber) {
 		User supportedUser = userDao.getByUsername(username);
-		for(LineItem item: orderList) {
-			Order order = convertLineItemToOrder(generatedNumber, supportedUser, item);
-			orderDao.save(order);
-		}
+		Order order =  new Order();
+		order.setUser(supportedUser);
+		order.setOrderIdentifier(generatedNumber);
+		
+		for(LineItem item: orderList)
+			order.addToSetOfDetails(convertLineItemToOrderDetails(item));
+		
+		orderDao.save(order);
 	}
 	
-	private Order convertLineItemToOrder(String generatedNumber, User supportedUser, LineItem item) {
-		Order order = new Order();
+	private OrderDetails convertLineItemToOrderDetails(LineItem item) {
+		OrderDetails order = new OrderDetails();
 		order.setProductAmount(item.getAmount());
 		order.setProductPrice(item.getCurrentPrice());
 		order.addProduct(productDao.getByUniqueCode(item.getUniqueProductCode()));
-		order.setUser(supportedUser);
-		order.setOrderIdentifier(generatedNumber);
 		return order;
 	}
 	

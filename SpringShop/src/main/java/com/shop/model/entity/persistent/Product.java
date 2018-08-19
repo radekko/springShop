@@ -24,7 +24,7 @@ public class Product {
 	private String name;
 	private double price;
 	@ManyToMany(mappedBy="products")
-	private List<Order> orders;
+	private List<OrderDetails> orders;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryId")
