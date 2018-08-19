@@ -39,8 +39,6 @@ public class MainPageController {
 	    @RequestParam(value = "categoryName")  String categoryName,
 	    @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 	    Model model){
-		if(!"".equals(username))
-			cartService.setUsername(username);
 
 		model.addAttribute("categoriesList", categoryService.getAllCategories());
 		model.addAttribute("offer", offerService.getPaginateOfferForClient(page,categoryName));

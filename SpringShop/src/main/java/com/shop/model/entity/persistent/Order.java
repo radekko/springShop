@@ -23,18 +23,18 @@ public class Order {
 	
 	@ManyToOne
     @JoinColumn(name = "username")
-	private User user;
+	private User userId;
 	
 	@OneToMany(mappedBy="order",cascade=CascadeType.ALL)
 	private Set<OrderDetails> setOfDetails = new HashSet<OrderDetails>();
 	
 	private String orderIdentifier;
 	
-	public User getUser() {
-		return user;
+	public User getUserId() {
+		return userId;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(User userId) {
+		this.userId = userId;
 	}
 	public String getOrderIdentifier() {
 		return orderIdentifier;

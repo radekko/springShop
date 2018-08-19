@@ -12,7 +12,4 @@ public interface CartService extends Serializable{
 	void removeItem(String uniqueProductCode);
 	void clearCart();
 	double computeTotalPriceOfCart();
-	String getUsername();
-	void setUsername(String username);
-	
 }

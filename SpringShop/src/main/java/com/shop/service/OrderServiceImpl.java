@@ -3,6 +3,8 @@ package com.shop.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,12 +41,12 @@ public class OrderServiceImpl implements OrderService{
 //				new DTOPageWithNavigation<LineItem>(pageWithProducts,maxNavigationPages, this::convertProductToLineItem);
 		return null;
 	}
-//TODO: repair getUser
+
 	@Override
-	public void saveOrder(List<LineItem> orderList, String username, String generatedNumber) {
-		User supportedUser = userDao.getByUsername(username);
+	public void saveOrder(List<LineItem> orderList, String generatedNumber) {
+		User supportedUser = userDao.getByUsername(getUsername());
 		Order order =  new Order();
-		order.setUser(supportedUser);
+		order.setUserId(supportedUser);
 		order.setOrderIdentifier(generatedNumber);
 		
 		for(LineItem item: orderList)
@@ -59,6 +61,11 @@ public class OrderServiceImpl implements OrderService{
 		order.setProductPrice(item.getCurrentPrice());
 		order.addProduct(productDao.getByUniqueCode(item.getUniqueProductCode()));
 		return order;
+	}
+	
+	private String getUsername() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return userDetails.getUsername();
 	}
 	
 }

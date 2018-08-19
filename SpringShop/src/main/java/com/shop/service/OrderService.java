@@ -6,6 +6,6 @@ import com.shop.model.entity.domain.LineItem;
 import com.shop.pagination.DTOPageWithNavigation;
 
 public interface OrderService {
-	void saveOrder(List<LineItem> orderList, String username, String generatedNumber);
+	void saveOrder(List<LineItem> orderList, String generatedNumber);
 	DTOPageWithNavigation<LineItem> getPaginateOrders(int page);
 }

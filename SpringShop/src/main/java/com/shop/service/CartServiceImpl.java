@@ -24,7 +24,6 @@ public class CartServiceImpl implements CartService, Serializable {
 	private static final long serialVersionUID = 1L;
 	private OrderService orderService;
 	private Map<String, LineItem> cartWithChosenProducts = new TreeMap<String, LineItem>();
-	private String username;
 	
 	@Autowired
 	public CartServiceImpl(OrderService orderService) {
@@ -56,20 +55,11 @@ public class CartServiceImpl implements CartService, Serializable {
 		if(getSortedCart().isEmpty())
 			return false;
 		
-		orderService.saveOrder(getSortedCart(), username, UUID.randomUUID().toString());
+		orderService.saveOrder(getSortedCart(), UUID.randomUUID().toString());
 		clearCart();
 		return true;
 	}
 
-	@Override
-	public String getUsername() {
-		return username;
-	}
-
-	@Override
-	public void setUsername(String username) {
-		this.username = username;
-	}
 	@Override
 	public void clearCart() {
 		cartWithChosenProducts.clear();
