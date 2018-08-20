@@ -35,6 +35,26 @@
 			</tr>
 		  </table>
 	</form:form>
+	
+	<form:form modelAttribute="userDTO" method="POST">
+		<table>
+			<tr>
+				<td>Login:</td>
+				<td><form:input path="username" id="username2"/></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><form:input path="password" id="password2"/></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="Login" /></td>
+			</tr>
+			<tr>
+				<td>${username}<td>
+			</tr>
+		  </table>
+	</form:form>
+	
 	 <c:if test="${param.error != null}">
          <p>Invalid username or password.</p>
      </c:if>
@@ -43,8 +63,10 @@
      </c:if>
 			<!-- 	Set default values -->
 	<script>
-		document.getElementById('username').value = 'asd';
-		document.getElementById('password').value = 'asd';
+		document.getElementById('username').value = 'admin';
+		document.getElementById('password').value = 'admin';
+		document.getElementById('username2').value = 'user';
+		document.getElementById('password2').value = 'user';
 	</script>
 </body>
 </html>
