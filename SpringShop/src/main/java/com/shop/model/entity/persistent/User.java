@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="SHOPUSER")
-public class User {
+public class User implements IEntity{
 
 	public User() {}
 

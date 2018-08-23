@@ -9,8 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,7 +23,8 @@ public class Product {
 	private String uniqueProductCode;
 	private String name;
 	private double price;
-	@ManyToMany(mappedBy="products")
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
 	private List<OrderDetails> orders;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

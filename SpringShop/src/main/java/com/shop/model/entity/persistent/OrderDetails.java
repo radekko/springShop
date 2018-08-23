@@ -1,16 +1,10 @@
 package com.shop.model.entity.persistent;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -24,21 +18,17 @@ public class OrderDetails {
     @JoinColumn(name="orderId", nullable=false)
 	private Order order;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(
-		      name="OrderDetais_Product",
-		      joinColumns=@JoinColumn(name="OrderDetails_ID", referencedColumnName="orderDetailsId"),
-		      inverseJoinColumns=@JoinColumn(name="Product_ID", referencedColumnName="productId"))
-	private List<Product> products = new ArrayList<Product>();
+//	@ManyToMany(cascade = CascadeType.ALL)
+//	@JoinTable(
+//		      name="OrderDetais_Product",
+//		      joinColumns=@JoinColumn(name="OrderDetails_ID", referencedColumnName="orderDetailsId"),
+//		      inverseJoinColumns=@JoinColumn(name="Product_ID", referencedColumnName="productId"))
+//	private List<Product> products = new ArrayList<Product>();
+	@ManyToOne
+	private Product product;
 	private double productPrice;
 	private int productAmount;
-	
-	public List<Product> getProducts() {
-		return products;
-	}
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
+
 	public double getProductPrice() {
 		return productPrice;
 	}
@@ -51,13 +41,16 @@ public class OrderDetails {
 	public void setProductAmount(int productAmount) {
 		this.productAmount = productAmount;
 	}
-	public void addProduct(Product product) {
-		products.add(product);
-	}
 	public Order getOrder() {
 		return order;
 	}
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 }

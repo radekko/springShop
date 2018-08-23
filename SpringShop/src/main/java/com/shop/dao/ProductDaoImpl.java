@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.shop.model.entity.persistent.Category;
 import com.shop.model.entity.persistent.Product;
+import com.shop.pagination.EntityPage;
 
 @Repository
 public class ProductDaoImpl extends AbstractDaoWithPagination<Integer, Product> implements ProductDao{
@@ -26,11 +27,13 @@ public class ProductDaoImpl extends AbstractDaoWithPagination<Integer, Product> 
 		criteria.add(Restrictions.eq("uniqueProductCode", uniquecode));
 		return (Product) criteria.uniqueResult();
 	}
-
+	
 	@Override
-	public List<Product> getProductsOnPage(int page, int maxProductOnPage, Category category) {
+	public EntityPage<Product> getProductsOnPage(int page, int maxProductOnPage, Category category) {
 		int startIndex = (page - 1 ) * maxProductOnPage;
-		return getItemsOnPage(startIndex,maxProductOnPage,category);
+		List<Product> productsOnPage = getItemsOnPage(startIndex,maxProductOnPage,category);
+		return new EntityPage<Product>(
+				productsOnPage,page,countTotalRecordsForGroup(category),maxProductOnPage);
 	}
 	
 }

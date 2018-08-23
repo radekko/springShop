@@ -34,6 +34,7 @@ public class LoginController {
 	public String loginPage(Model model, RedirectAttributes redirectAttributes) {
 		switch (getMainRole()) {
 		case ROLE_ADMIN:
+			redirectAttributes.addAttribute("page", 1);
 			return "redirect:" + AFTER_LOGIN_AS_ADMIN;
 		case ROLE_USER:
 			setRedirectAttributes(redirectAttributes);

@@ -38,9 +38,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public EntityPage<Product> getPaginateProducts(int page,Category category) {
-		List<Product> productsOnPage = productDao.getProductsOnPage(page,maxProductOnPage,category);	
-		return new EntityPage<Product>(
-				productsOnPage,page,productDao.countTotalRecordsForGroup(category),maxProductOnPage);
+		return productDao.getProductsOnPage(page,maxProductOnPage,category);
 	}
 
 }

@@ -1,12 +1,9 @@
 package com.shop.dao;
 
-import static java.lang.Math.toIntExact;
-
 import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.shop.model.entity.persistent.IEntity;
@@ -17,12 +14,8 @@ public abstract class AbstractDaoWithPagination<PK extends Serializable, T> exte
 		return selectEntityToCurrentPage(page,size,groupEntity);
 	}
 	
-	public int countTotalRecordsForGroup(IEntity groupEntity) {
-		Criteria projectionCriteria = createEntityCriteria();
-		projectionCriteria.add(Restrictions.eq(extractGroupingFieldName(groupEntity), groupEntity));
-		projectionCriteria.setProjection(Projections.rowCount());
-		Long l = (Long) projectionCriteria.uniqueResult();
-		return toIntExact(l);
+	public List<T> getItemsOnPage(int page, int size) {
+		return selectEntityToCurrentPage(page,size,null);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -35,14 +28,5 @@ public abstract class AbstractDaoWithPagination<PK extends Serializable, T> exte
 		selectCriteria.setFirstResult(from);
 		selectCriteria.setMaxResults(to);
 		return selectCriteria.list();
-	}
-	
-	public <E> List<E> selectFirstResult() {
-		return selectEntityToCurrentPage(0,1,null);
-	}
-	
-	private String extractGroupingFieldName(IEntity groupEntity) {
-		String fieldName = groupEntity.getClass().getSimpleName();
-		return Character.toLowerCase(fieldName.charAt(0)) + fieldName.substring(1);
 	}
 }
