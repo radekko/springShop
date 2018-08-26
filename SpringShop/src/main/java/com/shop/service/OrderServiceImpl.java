@@ -44,9 +44,7 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public DTOPageWithNavigation<OrderDTO> getPaginateOrders(int page) {
-		List<Order> productsOnPage = orderDao.getOrdersOnPage(page,maxOrdersOnPage);
-		EntityPage<Order> pageWithOrders = 
-				new EntityPage<Order>(productsOnPage,page,orderDao.countTotalRecords(),maxOrdersOnPage);
+		EntityPage<Order> pageWithOrders = orderDao.getOrdersOnPage(page,maxOrdersOnPage);
 		
 		DTOPageWithNavigation<OrderDTO> ordersPageWithNavigation =
 				new DTOPageWithNavigation<OrderDTO>(pageWithOrders,maxNavigationPages, this::convertOrderToOrderDTO);

@@ -30,10 +30,7 @@ public class ProductDaoImpl extends AbstractDaoWithPagination<Integer, Product> 
 	
 	@Override
 	public EntityPage<Product> getProductsOnPage(int page, int maxProductOnPage, Category category) {
-		int startIndex = (page - 1 ) * maxProductOnPage;
-		List<Product> productsOnPage = getItemsOnPage(startIndex,maxProductOnPage,category);
-		return new EntityPage<Product>(
-				productsOnPage,page,countTotalRecordsForGroup(category),maxProductOnPage);
+		return getItemsOnPage(page,maxProductOnPage,category);
 	}
 	
 }

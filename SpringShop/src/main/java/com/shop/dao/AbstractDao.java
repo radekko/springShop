@@ -50,16 +50,10 @@ public abstract class AbstractDao<PK extends Serializable, T>{
 		return (T) selectCriteria.list().get(0);
 	}
 	
-	public int countTotalRecords() {
+	public int countTotalRecords(IEntity groupEntity) {
 		Criteria projectionCriteria = createEntityCriteria();
-		projectionCriteria.setProjection(Projections.rowCount());
-		Long l = (Long) projectionCriteria.uniqueResult();
-		return toIntExact(l);
-	}
-	
-	public int countTotalRecordsForGroup(IEntity groupEntity) {
-		Criteria projectionCriteria = createEntityCriteria();
-		projectionCriteria.add(Restrictions.eq(extractGroupingFieldName(groupEntity), groupEntity));
+		if(groupEntity != null)
+			projectionCriteria.add(Restrictions.eq(extractGroupingFieldName(groupEntity), groupEntity));
 		projectionCriteria.setProjection(Projections.rowCount());
 		Long l = (Long) projectionCriteria.uniqueResult();
 		return toIntExact(l);

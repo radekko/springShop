@@ -12,5 +12,5 @@ public interface ProductDao {
 	List<Product> findAllProduct();
 	Product getByUniqueCode(String uniquecode);
 	EntityPage<Product> getProductsOnPage(int page, int maxProductOnSite, Category category);
-	int countTotalRecordsForGroup(IEntity groupEntity);
+	int countTotalRecords(IEntity groupEntity);
 }

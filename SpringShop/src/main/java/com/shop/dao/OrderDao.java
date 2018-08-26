@@ -1,11 +1,11 @@
 package com.shop.dao;
 
-import java.util.List;
-
+import com.shop.model.entity.persistent.IEntity;
 import com.shop.model.entity.persistent.Order;
+import com.shop.pagination.EntityPage;
 
 public interface OrderDao {
 	void save(Order order);
-	List<Order> getOrdersOnPage(int page, int maxProductOnPage);
-	int countTotalRecords();
+	EntityPage<Order> getOrdersOnPage(int page, int maxProductOnPage);
+	int countTotalRecords(IEntity groupEntity);
 }
