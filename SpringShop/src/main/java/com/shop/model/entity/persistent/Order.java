@@ -2,6 +2,7 @@ package com.shop.model.entity.persistent;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @Entity
@@ -26,7 +28,8 @@ public class Order {
 	private User userId;
 	
 	@OneToMany(mappedBy="order",cascade=CascadeType.ALL)
-	private Set<OrderDetails> setOfDetails = new HashSet<OrderDetails>();
+	@OrderBy("productPrice")
+	private Set<OrderDetails> setOfDetails = new TreeSet<OrderDetails>();
 	
 	private String orderIdentifier;
 	

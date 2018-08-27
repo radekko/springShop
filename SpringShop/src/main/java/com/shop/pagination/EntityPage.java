@@ -40,5 +40,4 @@ public class EntityPage<T>
 	public void setMaxProductOnPage(int maxProductOnPage) {
 		this.maxProductOnPage = maxProductOnPage;
 	}
-	
 }

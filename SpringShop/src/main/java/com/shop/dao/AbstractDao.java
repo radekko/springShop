@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.shop.model.entity.persistent.IEntity;
 
-public abstract class AbstractDao<PK extends Serializable, T>{
+public class AbstractDao<PK extends Serializable, T>{
 	private final Class<T> persistentClass;
 	
 	@Autowired
