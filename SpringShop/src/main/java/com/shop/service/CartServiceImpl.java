@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.shop.model.entity.domain.LineItem;
+import com.shop.model.entity.domain.LineItemDTO;
 
 @Service
 @Transactional
@@ -23,7 +23,7 @@ public class CartServiceImpl implements CartService, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private OrderService orderService;
-	private Map<String, LineItem> cartWithChosenProducts = new TreeMap<String, LineItem>();
+	private Map<String, LineItemDTO> cartWithChosenProducts = new TreeMap<String, LineItemDTO>();
 	
 	@Autowired
 	public CartServiceImpl(OrderService orderService) {
@@ -31,14 +31,14 @@ public class CartServiceImpl implements CartService, Serializable {
 	}
 
 	@Override
-	public List<LineItem> getSortedCart() {
-		List<LineItem> lineItemsList = new ArrayList<LineItem>(cartWithChosenProducts.values());
+	public List<LineItemDTO> getSortedCart() {
+		List<LineItemDTO> lineItemsList = new ArrayList<LineItemDTO>(cartWithChosenProducts.values());
 		sortItemsInCart(lineItemsList);
 		return lineItemsList;
 	}
 
 	@Override
-	public void addItem(LineItem itemToAdd) {
+	public void addItem(LineItemDTO itemToAdd) {
 		if (isInCart(itemToAdd.getUniqueProductCode()))
 			updateCart(itemToAdd);
 		else
@@ -68,24 +68,24 @@ public class CartServiceImpl implements CartService, Serializable {
 	@Override
 	public double computeTotalPriceOfCart() {
 		return cartWithChosenProducts.values().stream()
-				.map(LineItem::getTotalCost).mapToDouble(Double::doubleValue).sum();
+				.map(LineItemDTO::getTotalCost).mapToDouble(Double::doubleValue).sum();
 	}
 
-	private void sortItemsInCart(List<LineItem> lineItemsList) {
+	private void sortItemsInCart(List<LineItemDTO> lineItemsList) {
 		lineItemsList.sort((o1, o2)->o1.getName().compareTo(o2.getName()));
 	}
 	
-	private void updateCart(LineItem itemToUpdate) {
+	private void updateCart(LineItemDTO itemToUpdate) {
 		addItemToCart(increaseAmount(itemToUpdate));
 	}
 
-	private void addItemToCart(LineItem itemToAdd) {
-		LineItem toAdd = new LineItem(itemToAdd);
+	private void addItemToCart(LineItemDTO itemToAdd) {
+		LineItemDTO toAdd = new LineItemDTO(itemToAdd);
 		cartWithChosenProducts.put(toAdd.getUniqueProductCode(), toAdd);
 	}
 
-	private LineItem increaseAmount(LineItem itemToUpdate) {
-		LineItem editedItem = cartWithChosenProducts.get(itemToUpdate.getUniqueProductCode());
+	private LineItemDTO increaseAmount(LineItemDTO itemToUpdate) {
+		LineItemDTO editedItem = cartWithChosenProducts.get(itemToUpdate.getUniqueProductCode());
 		editedItem.setAmount(editedItem.getAmount() + itemToUpdate.getAmount());
 		return editedItem;
 	}

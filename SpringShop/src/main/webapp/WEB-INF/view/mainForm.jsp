@@ -42,7 +42,7 @@
         </tr>
         <c:forEach items="${offer.items}" var="lineItem">
             <tr bgcolor="#92f3ef">
-				<form:form method="POST" modelAttribute="lineItem">
+				<form:form method="POST" modelAttribute="lineItemDTO">
             		<td><c:out value="${lineItem.name}"/></td>
             		<td><c:out value="${lineItem.currentPrice}"/></td>
 					<td><form:input path="amount" value="3"/></td>

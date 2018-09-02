@@ -13,10 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shop.dao.OrderDao;
 import com.shop.dao.ProductDao;
 import com.shop.dao.UserDao;
-import com.shop.model.entity.domain.LineItem;
+import com.shop.model.entity.domain.LineItemDTO;
 import com.shop.model.entity.domain.OrderDTO;
 import com.shop.model.entity.persistent.Order;
-import com.shop.model.entity.persistent.OrderDetails;
+import com.shop.model.entity.persistent.LineItem;
 import com.shop.model.entity.persistent.User;
 import com.shop.pagination.DTOPageWithNavigation;
 import com.shop.pagination.EntityPage;
@@ -52,12 +52,12 @@ public class OrderServiceImpl implements OrderService{
 	}
 	
 	private OrderDTO convertOrderToOrderDTO(Order o) {
-		List<LineItem> items = o.getSetOfDetails().stream().map(this::convertOrderDetailsToLineItem).collect(Collectors.toList());
+		List<LineItemDTO> items = o.getSetOfDetails().stream().map(this::convertOrderDetailsToLineItem).collect(Collectors.toList());
 		return new OrderDTO(o.getUserId().getUsername(),o.getOrderIdentifier(),items);
 	}
 	
-	private LineItem convertOrderDetailsToLineItem(OrderDetails p) {
-	    return new LineItem(
+	private LineItemDTO convertOrderDetailsToLineItem(LineItem p) {
+	    return new LineItemDTO(
 	    		p.getProduct().getName(),
 	    		p.getProduct().getUniqueProductCode(),
 	    		p.getProductPrice(),
@@ -65,20 +65,20 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public void saveOrder(List<LineItem> orderList, String generatedNumber) {
+	public void saveOrder(List<LineItemDTO> orderList, String generatedNumber) {
 		User supportedUser = userDao.getByUsername(getUsername());
 		Order order =  new Order();
 		order.setUserId(supportedUser);
 		order.setOrderIdentifier(generatedNumber);
 		
-		for(LineItem item: orderList)
-			order.addToSetOfDetails(convertLineItemToOrderDetails(item));
+		for(LineItemDTO item: orderList)
+			order.addToSetOfDetails(convertLineItemDTOtoOrderDetails(item));
 		
 		orderDao.save(order);
 	}
 	
-	private OrderDetails convertLineItemToOrderDetails(LineItem item) {
-		OrderDetails order = new OrderDetails();
+	private LineItem convertLineItemDTOtoOrderDetails(LineItemDTO item) {
+		LineItem order = new LineItem();
 		order.setProductAmount(item.getAmount());
 		order.setProductPrice(item.getCurrentPrice());
 		order.setProduct(productDao.getByUniqueCode(item.getUniqueProductCode()));

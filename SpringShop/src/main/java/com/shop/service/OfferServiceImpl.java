@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.shop.model.entity.domain.LineItem;
+import com.shop.model.entity.domain.LineItemDTO;
 import com.shop.model.entity.persistent.Product;
 import com.shop.pagination.DTOPageWithNavigation;
 import com.shop.pagination.EntityPage;
@@ -31,21 +31,21 @@ public class OfferServiceImpl implements OfferService {
 	}
 
 	@Override
-	public List<LineItem> getOfferForClient() {
-		return productService.findAllProduct().stream().map(this::convertProductToLineItem).collect(Collectors.toList());
+	public List<LineItemDTO> getOfferForClient() {
+		return productService.findAllProduct().stream().map(this::convertProductToLineItemDTO).collect(Collectors.toList());
 	}
 
 	@Override
-	public DTOPageWithNavigation<LineItem> getPaginateOfferForClient(int page,String categoryName) {
+	public DTOPageWithNavigation<LineItemDTO> getPaginateOfferForClient(int page,String categoryName) {
 		EntityPage<Product> pageWithProducts = 
 				productService.getPaginateProducts(page,categoryService.getCategoryByName(categoryName));
 		
-		DTOPageWithNavigation<LineItem> lineItemsPageWithNavigation =
-				new DTOPageWithNavigation<LineItem>(pageWithProducts,maxNavigationPages, this::convertProductToLineItem);
+		DTOPageWithNavigation<LineItemDTO> lineItemsPageWithNavigation =
+				new DTOPageWithNavigation<LineItemDTO>(pageWithProducts,maxNavigationPages, this::convertProductToLineItemDTO);
 		return lineItemsPageWithNavigation;
 	}
 
-	private LineItem convertProductToLineItem(Product p) {
-	    return new LineItem(p.getName(),p.getUniqueProductCode(),p.getPrice(),INITIAL_STOCK_AMOUNT);
+	private LineItemDTO convertProductToLineItemDTO(Product p) {
+	    return new LineItemDTO(p.getName(),p.getUniqueProductCode(),p.getPrice(),INITIAL_STOCK_AMOUNT);
 	}
 }

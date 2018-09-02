@@ -2,10 +2,10 @@ package com.shop.service;
 
 import java.util.List;
 
-import com.shop.model.entity.domain.LineItem;
+import com.shop.model.entity.domain.LineItemDTO;
 import com.shop.pagination.DTOPageWithNavigation;
 
 public interface OfferService {
-	List<LineItem> getOfferForClient();
-	DTOPageWithNavigation<LineItem> getPaginateOfferForClient(int page,String categoryName);
+	List<LineItemDTO> getOfferForClient();
+	DTOPageWithNavigation<LineItemDTO> getPaginateOfferForClient(int page,String categoryName);
 }

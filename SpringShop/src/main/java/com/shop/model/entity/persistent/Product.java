@@ -25,7 +25,7 @@ public class Product implements Comparable<Product>{
 	private double price;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
-	private List<OrderDetails> orders;
+	private List<LineItem> orders;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryId")

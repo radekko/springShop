@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.shop.model.entity.domain.LineItem;
+import com.shop.model.entity.domain.LineItemDTO;
 import com.shop.model.entity.persistent.Category;
 import com.shop.service.CartService;
 import com.shop.service.CategoryService;
@@ -43,13 +43,13 @@ public class MainPageController {
 		model.addAttribute("categoriesList", categoryService.getAllCategories());
 		model.addAttribute("offer", offerService.getPaginateOfferForClient(page,categoryName));
 		model.addAttribute("categoryName", categoryName);
-		model.addAttribute(new LineItem());
+		model.addAttribute(new LineItemDTO());
 		model.addAttribute(new Category());
 		return "mainForm";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String addProductToCart(@Valid LineItem lineItem,BindingResult errors,
+	public String addProductToCart(@Valid LineItemDTO lineItem,BindingResult errors,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "categoryName") String categoryName,
 			RedirectAttributes redirectAttributes,

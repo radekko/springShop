@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Min;
 
-public class LineItem implements Serializable{
+public class LineItemDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private String name;
@@ -13,15 +13,15 @@ public class LineItem implements Serializable{
 	@Min(value = 1L)
 	private Integer amount;
 	
-	public LineItem() {}
-	public LineItem(String name, String uniqueProductCode, double currentPrice, int amount) {
+	public LineItemDTO() {}
+	public LineItemDTO(String name, String uniqueProductCode, double currentPrice, int amount) {
 		this.name = name;
 		this.uniqueProductCode = uniqueProductCode;
 		this.currentPrice = currentPrice;
 		this.amount = amount;
 	}
 	
-	public LineItem(LineItem li) {
+	public LineItemDTO(LineItemDTO li) {
 		this.name = li.name;
 		this.uniqueProductCode = li.uniqueProductCode;
 		this.currentPrice = li.currentPrice;
@@ -80,7 +80,7 @@ public class LineItem implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LineItem other = (LineItem) obj;
+		LineItemDTO other = (LineItemDTO) obj;
 		if (uniqueProductCode == null) {
 			if (other.uniqueProductCode != null)
 				return false;

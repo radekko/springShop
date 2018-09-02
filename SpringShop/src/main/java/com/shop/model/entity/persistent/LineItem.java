@@ -8,7 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class OrderDetails implements Comparable<OrderDetails> {
+public class LineItem implements Comparable<LineItem> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,7 +56,7 @@ public class OrderDetails implements Comparable<OrderDetails> {
 	}
 
 	@Override
-	public int compareTo(OrderDetails o) {
+	public int compareTo(LineItem o) {
 		final int BEFORE = -1;
 		final int EQUAL = 0;
 		final int AFTER = 1;

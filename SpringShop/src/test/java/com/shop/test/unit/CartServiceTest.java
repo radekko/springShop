@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.shop.model.entity.domain.LineItem;
+import com.shop.model.entity.domain.LineItemDTO;
 import com.shop.service.CartService;
 import com.shop.service.CartServiceImpl;
 import com.shop.service.OrderService;
@@ -23,13 +23,13 @@ public class CartServiceTest {
 	
 	private CartService cartService;
 	
-	private LineItem firstItem;
+	private LineItemDTO firstItem;
 	private static final String FIRST_ITEM_NAME        = "book";
 	private static final String FIRST_ITEM_UNIQUE_CODE =   "aa";
 	private static final double FIRST_ITEM_PRICE       =    5.0;
 	private static final int    FIRST_ITEM_AMOUNT      =      2;
 	
-	private LineItem secondItem;
+	private LineItemDTO secondItem;
 	private static final String SECOND_ITEM_NAME        = "apple";
 	private static final String SECOND_ITEM_UNIQUE_CODE =    "bb";
 	private static final double SECOND_ITEM_PRICE       =    25.0;
@@ -38,8 +38,8 @@ public class CartServiceTest {
 	@Before
 	public void setUp() {
 		cartService = new CartServiceImpl(orderService);
-		firstItem = new LineItem(FIRST_ITEM_NAME,FIRST_ITEM_UNIQUE_CODE,FIRST_ITEM_PRICE,FIRST_ITEM_AMOUNT);
-		secondItem = new LineItem(SECOND_ITEM_NAME,SECOND_ITEM_UNIQUE_CODE,SECOND_ITEM_PRICE,SECOND_ITEM_AMOUNT);
+		firstItem = new LineItemDTO(FIRST_ITEM_NAME,FIRST_ITEM_UNIQUE_CODE,FIRST_ITEM_PRICE,FIRST_ITEM_AMOUNT);
+		secondItem = new LineItemDTO(SECOND_ITEM_NAME,SECOND_ITEM_UNIQUE_CODE,SECOND_ITEM_PRICE,SECOND_ITEM_AMOUNT);
 	}
 
 	@Test
@@ -89,12 +89,12 @@ public class CartServiceTest {
 				cartService.computeTotalPriceOfCart(),0);
 	}
 	
-	private void addItemsToCart(LineItem ...items) {
-		for(LineItem item : items)
+	private void addItemsToCart(LineItemDTO ...items) {
+		for(LineItemDTO item : items)
 			cartService.addItem(item);
 	}
 	
-	private void addTheSameItemToCart(int nTimes,LineItem item) {
+	private void addTheSameItemToCart(int nTimes,LineItemDTO item) {
 		IntStream.range(0, nTimes).forEach(i -> cartService.addItem(item));
 	}
 	

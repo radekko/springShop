@@ -28,7 +28,7 @@ public class Order {
 	
 	@OneToMany(mappedBy="order",cascade=CascadeType.ALL)
 	@OrderBy("productPrice")
-	private Set<OrderDetails> setOfDetails = new TreeSet<OrderDetails>();
+	private Set<LineItem> setOfDetails = new TreeSet<LineItem>();
 	
 	private String orderIdentifier;
 	
@@ -44,13 +44,13 @@ public class Order {
 	public void setOrderIdentifier(String orderIdentifier) {
 		this.orderIdentifier = orderIdentifier;
 	}
-	public Set<OrderDetails> getSetOfDetails() {
+	public Set<LineItem> getSetOfDetails() {
 		return setOfDetails;
 	}
-	public void setSetOfDetails(Set<OrderDetails> setOfDetails) {
+	public void setSetOfDetails(Set<LineItem> setOfDetails) {
 		this.setOfDetails = setOfDetails;
 	}
-	public void addToSetOfDetails(OrderDetails orderDetails) {
+	public void addToSetOfDetails(LineItem orderDetails) {
 		this.setOfDetails.add(orderDetails);
 		orderDetails.setOrder(this);
 	}
