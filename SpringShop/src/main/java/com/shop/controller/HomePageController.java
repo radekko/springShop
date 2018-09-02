@@ -10,4 +10,10 @@ public class HomePageController {
 	public  String home(){		
 		return "home";
 	}
+	
+	@RequestMapping(value="/403", method=RequestMethod.GET)
+	public  String unauthorizedAccess(){		
+		return "403";
+	}
+	
 }

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Main page</title>
+<title>Orders</title>
 </head>
 
 <body>
@@ -34,7 +34,6 @@
 							<td><c:out value="${items.currentPrice}" /></td>
 							<td><c:out value="${items.amount}" /></td>
 						</tr>
-						<%-- 					<td><c:out value="${lineItem.items.amount}"/></td> --%>
 					</c:forEach>
 				</tr>
 				<tr>

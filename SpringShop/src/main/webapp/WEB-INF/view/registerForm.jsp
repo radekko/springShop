@@ -9,7 +9,7 @@
 }
 
 </style>
-<title>Insert title here</title>
+<title>Register</title>
 </head>
 <body>
 	<h1>Register page</h1>

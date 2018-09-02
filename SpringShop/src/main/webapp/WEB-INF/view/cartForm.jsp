@@ -9,9 +9,10 @@
 <title>Your cart</title>
 </head>
 <body>
+<h1>Your cart</h1>
 	<c:if test="${totalPrice > 0}">
 	<table>
-		<tr>
+		<tr bgcolor="#41bce6">
 			<td>Code</td>
 			<td>Name</td>
 			<td>Price</td>
@@ -19,15 +20,15 @@
 			<td>Remove from cart</td>
 		</tr>
 		<c:forEach items="${orders}" var="order">
-			<tr>
+			<tr bgcolor="#92f3ef">
 				<td><c:out value="${order.uniqueProductCode}" /></td>
 				<td><c:out value="${order.name}" /></td>
 				<td><c:out value="${order.currentPrice}" /></td>
 				<td><c:out value="${order.amount}"/></td>
 				<form:form method="POST">
 					<td><input type="submit" value="remove item" /></td> 
-					<td><input type="hidden" name="_method" value="delete"></td> 
-				 	<td><input type="hidden" name="uniqueProductCode" value="${order.uniqueProductCode}"></td> 
+					<td style="display:none"><input type="hidden" name="_method" value="delete"></td> 
+				 	<td style="display:none"><input type="hidden" name="uniqueProductCode" value="${order.uniqueProductCode}"></td> 
 				</form:form>
 			</tr>
 		</c:forEach>

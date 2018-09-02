@@ -14,15 +14,13 @@
 </style>
 <body>
 
-<h1>You are logged</h1>
-
  <c:if test="${not empty message}">
-	${message ? "Order successfull!" : "Empty cart"}
+	<h2>${message ? "Order successfull!" : "Empty cart"}</h2>
 	<br/> <br/> 
 </c:if>  
 
 
-Select category:
+<h3>Select category:</h3>
 
 <form:form modelAttribute="category" action="displayOffer" method="GET">
   <form:select  path="categoryName">
@@ -36,22 +34,22 @@ Select category:
 <h2>List of Products in ${categoryName}</h2>  
 
     <table>
-        <tr>
+        <tr bgcolor="#41bce6">
             <td>Name</td>
             <td>Price</td>
             <td>Amount</td>
             <td>Add to cart</td>
         </tr>
         <c:forEach items="${offer.items}" var="lineItem">
-            <tr>
+            <tr bgcolor="#92f3ef">
 				<form:form method="POST" modelAttribute="lineItem">
             		<td><c:out value="${lineItem.name}"/></td>
             		<td><c:out value="${lineItem.currentPrice}"/></td>
 					<td><form:input path="amount" value="3"/></td>
 					<td colspan="2"><input type="submit" value="Add to cart" /></td>
-					<td><form:input type="hidden" path="uniqueProductCode"  value="${lineItem.uniqueProductCode}"/></td>
-					<td><form:input type="hidden" path="currentPrice"  value="${lineItem.currentPrice}"/></td>
-					<td><form:input type="hidden" path="name"  value="${lineItem.name}"/></td>
+					<td style="display:none"><form:input type="hidden" path="uniqueProductCode"  value="${lineItem.uniqueProductCode}"/></td>
+					<td style="display:none"><form:input type="hidden" path="currentPrice"  value="${lineItem.currentPrice}"/></td>
+					<td style="display:none"><form:input type="hidden" path="name"  value="${lineItem.name}"/></td>
 				</form:form>
 			</tr>
         </c:forEach>

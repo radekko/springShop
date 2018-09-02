@@ -11,7 +11,7 @@
 }
 </style>
 
-<title>Insert title here</title>
+<title>Login</title>
 
 </head>
 <body>
