@@ -23,7 +23,7 @@ public class Order {
     private int orderId;
 	
 	@ManyToOne
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "userId")
 	private User userId;
 	
 	@OneToMany(mappedBy="order",cascade=CascadeType.ALL)
@@ -32,6 +32,11 @@ public class Order {
 	
 	private String orderIdentifier;
 	
+	public Order() {}
+	public Order(User user, String orderIdentifier) {
+		this.userId = user;
+		this.orderIdentifier = orderIdentifier;
+	}
 	public User getUserId() {
 		return userId;
 	}

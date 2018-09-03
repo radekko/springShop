@@ -10,7 +10,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -41,6 +44,31 @@ public class PersistenceConfig {
         dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
         return dataSource;
     }
+    
+	@Bean
+	public DataSourceInitializer dataSourceInitializer() {
+		DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
+		dataSourceInitializer.setDataSource(dataSource());
+		dataSourceInitializer.setDatabasePopulator(resourcePopulator());
+		boolean isEnabled = Boolean.valueOf(environment.getRequiredProperty("spring.database.initialize"));
+		dataSourceInitializer.setEnabled(isEnabled);
+		return dataSourceInitializer;
+	}
+
+	@Bean
+	@Autowired
+	public HibernateTransactionManager transactionManager(SessionFactory s) {
+		HibernateTransactionManager txManager = new HibernateTransactionManager();
+		txManager.setSessionFactory(s);
+		return txManager;
+	}
+
+	private ResourceDatabasePopulator resourcePopulator() {
+		ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
+		resourceDatabasePopulator.addScript(
+				new ClassPathResource(environment.getRequiredProperty("spring.database.initialize.script.name")));
+		return resourceDatabasePopulator;
+	}
      
     private Properties hibernateProperties() {
         Properties properties = new Properties();
@@ -51,11 +79,5 @@ public class PersistenceConfig {
         return properties;        
     }
      
-    @Bean
-    @Autowired
-    public HibernateTransactionManager transactionManager(SessionFactory s) {
-       HibernateTransactionManager txManager = new HibernateTransactionManager();
-       txManager.setSessionFactory(s);
-       return txManager;
-    }
+  
 }

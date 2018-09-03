@@ -61,6 +61,8 @@
       <c:if test="${param.logout != null}">
          <p>You have been logged out successfully.</p>
      </c:if>
+     
+     <a href="<c:url value='/' />">Back</a>
 			<!-- 	Set default values -->
 	<script>
 		document.getElementById('username').value = 'admin';

@@ -23,6 +23,13 @@ public class LineItem implements Comparable<LineItem> {
 	private double productPrice;
 	private int productAmount;
 
+	public LineItem() {}
+	public LineItem(int productAmount, double productPrice, Product product) {
+		this.productAmount = productAmount;
+		this.productPrice = productPrice;
+		this.product = product;
+	}
+
 	public double getProductPrice() {
 		return productPrice;
 	}

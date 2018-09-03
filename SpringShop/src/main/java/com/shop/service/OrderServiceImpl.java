@@ -51,8 +51,20 @@ public class OrderServiceImpl implements OrderService{
 		return ordersPageWithNavigation;
 	}
 	
+	@Override
+	public void saveOrder(List<LineItemDTO> orderList, String generatedNumber) {
+		User supportedUser = userDao.getByUsername(getUsername());
+		Order order =  new Order(supportedUser, generatedNumber);
+		
+		for(LineItemDTO item: orderList)
+			order.addToSetOfDetails(convertLineItemDTOtoLieItem(item));
+		
+		orderDao.save(order);
+	}
+	
 	private OrderDTO convertOrderToOrderDTO(Order o) {
-		List<LineItemDTO> items = o.getSetOfDetails().stream().map(this::convertOrderDetailsToLineItem).collect(Collectors.toList());
+		List<LineItemDTO> items = o.getSetOfDetails().stream()
+				.map(this::convertOrderDetailsToLineItem).collect(Collectors.toList());
 		return new OrderDTO(o.getUserId().getUsername(),o.getOrderIdentifier(),items);
 	}
 	
@@ -64,25 +76,8 @@ public class OrderServiceImpl implements OrderService{
 	    		p.getProductAmount());
 	}
 
-	@Override
-	public void saveOrder(List<LineItemDTO> orderList, String generatedNumber) {
-		User supportedUser = userDao.getByUsername(getUsername());
-		Order order =  new Order();
-		order.setUserId(supportedUser);
-		order.setOrderIdentifier(generatedNumber);
-		
-		for(LineItemDTO item: orderList)
-			order.addToSetOfDetails(convertLineItemDTOtoOrderDetails(item));
-		
-		orderDao.save(order);
-	}
-	
-	private LineItem convertLineItemDTOtoOrderDetails(LineItemDTO item) {
-		LineItem order = new LineItem();
-		order.setProductAmount(item.getAmount());
-		order.setProductPrice(item.getCurrentPrice());
-		order.setProduct(productDao.getByUniqueCode(item.getUniqueProductCode()));
-		return order;
+	private LineItem convertLineItemDTOtoLieItem(LineItemDTO i) {
+		return new LineItem(i.getAmount(), i.getCurrentPrice(),productDao.getByUniqueCode(i.getUniqueProductCode()));
 	}
 	
 	private String getUsername() {
