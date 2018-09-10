@@ -32,16 +32,11 @@ public class Order {
 	
 	private String orderIdentifier;
 	
-	public Order() {}
-	public Order(User user, String orderIdentifier) {
-		this.userId = user;
-		this.orderIdentifier = orderIdentifier;
-	}
 	public User getUserId() {
 		return userId;
 	}
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.userId = user;
 	}
 	public String getOrderIdentifier() {
 		return orderIdentifier;
