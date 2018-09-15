@@ -10,7 +10,7 @@ import com.shop.model.entity.persistent.User;
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	
 	@Override
-	public void addUser(User user) {
+	public void saveUser(User user) {
 		persist(user);
 	}
 

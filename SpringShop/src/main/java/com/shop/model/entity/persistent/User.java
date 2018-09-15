@@ -5,32 +5,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 
 @Entity
 @Table(name="SHOPUSER")
 public class User implements IEntity{
 
-	public User() {}
-
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
-	@NotNull
-	@Size(min = 2, max = 20,message = "Size must be beetwen 2 and 20 signs")
 	private String username;
-	@NotNull(message = "Password must not be empty")
-	@Size(min = 2, max = 20,message = "Size must be beetwen 2 and 20 signs")
 	private String password;
-	@NotEmpty(message = "Email must not be empty")
-	@Email(message = "Incorrect email")
 	private String email;
 	private String role;
 	
+	public User() {}
 	public String getUsername() {
 		return username;
 	}

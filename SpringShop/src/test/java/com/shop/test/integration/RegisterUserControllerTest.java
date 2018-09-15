@@ -1,5 +1,7 @@
 package com.shop.test.integration;
 
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -16,6 +18,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.shop.controller.RegisterUserController;
+import com.shop.model.entity.persistent.User;
 import com.shop.service.UserService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -42,14 +45,17 @@ public class RegisterUserControllerTest {
 	
 	@Test
 	public void testRegisterIsSuccess() throws Exception {
+		given(userService.storeUserIfNotExist(any(User.class))).willReturn(true);
+		
 		mockMvc.perform(post("/register")
 				.param("save", "Save Changes")
                 .param("username", VALID_USER)
-                .param("password", VALID_PASSWORD).param("email", VALID_EMAIL))
+                .param("password", VALID_PASSWORD)
+                .param("email", VALID_EMAIL))
 				.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name(SUCCESSED_REGISTER_FORM_NAME))
-                .andExpect(model().attributeHasNoErrors("user"));
+                .andExpect(model().attributeHasNoErrors("userDTO"));
 	}
 	
 	@Test
@@ -60,17 +66,16 @@ public class RegisterUserControllerTest {
                 .param("password", VALID_PASSWORD)
                 .param("email", INVALID_EMAIL))
 				.andDo(print())
-                .andExpect(model().attributeHasFieldErrors("user", "email"))
+                .andExpect(model().attributeHasFieldErrors("userDTO", "email"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(REGISTER_FORM_NAME));
 	}
 
 	@Test
 	public void testShowRegistrationForm() throws Exception {
-		mockMvc = standaloneSetup(registerController).build();
 		mockMvc.perform(get("/register"))
 			.andExpect(view().name(REGISTER_FORM_NAME))
-			.andExpect(model().attributeExists("user"));
+			.andExpect(model().attributeExists("userDTO"));
 	}
 	
 }

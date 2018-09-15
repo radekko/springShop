@@ -1,8 +1,18 @@
 package com.shop.model.entity.domain;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class UserDTO {
+	@NotBlank
+	@Size(min = 2, max = 20,message = "Size must be beetwen 2 and 20 signs")
 	private String username;
+	@NotBlank
+	@Size(min = 2, max = 20,message = "Size must be beetwen 2 and 20 signs")
 	private String password;
+	@NotBlank(message = "Email must not be empty")
+	@Email(message = "Incorrect email")
 	private String email;
 	public String getUsername() {
 		return username;

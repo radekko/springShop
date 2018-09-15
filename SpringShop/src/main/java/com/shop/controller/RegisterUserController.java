@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.shop.model.entity.domain.UserDTO;
 import com.shop.model.entity.persistent.User;
 import com.shop.service.UserService;
 
@@ -17,7 +18,6 @@ import com.shop.service.UserService;
 public class RegisterUserController {
 
 	private UserService userService;
-	private final static String USER_ROLE = "USER";
 	
 	@Autowired
 	public RegisterUserController(UserService userService) {
@@ -26,30 +26,36 @@ public class RegisterUserController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegistrationForm(Model model) {
-		model.addAttribute(new User());
+		model.addAttribute(new UserDTO());
 		return "registerForm";
 	}
 
 	@RequestMapping(value = "/register", params = "save", method = RequestMethod.POST)
-	public String registerUser(@ModelAttribute("user") @Valid User user, BindingResult errors, Model model) {
+	public String registerUser(@ModelAttribute("userDTO") @Valid UserDTO userDTO, BindingResult errors, Model model) {
 		if (errors.hasErrors())
 			return "registerForm";
 
-		if (userService.findIfUserExist(user)) {
-			model.addAttribute("alreadyExist", "User with chosen nickname already exist in database. Chose another.");
+		User user = convertUserDTOtoUser(userDTO);
+		
+		if(userService.storeUserIfNotExist(user))
+			return "successRegistered";
+		else {
+			model.addAttribute("alreadyExist", true);
 			return "registerForm";
 		}
-		else {
-			user.setRole(USER_ROLE);
-			userService.saveUser(user);
-		}
-
-		return "successRegistered";
 	}
 
 	@RequestMapping(value = "/register", params = "back", method = RequestMethod.POST)
 	public String backToLoginPage() {
 		return "redirect:/";
+	}
+	
+	private User convertUserDTOtoUser(UserDTO userDTO) {
+		User user = new User();
+		user.setUsername(userDTO.getUsername());
+		user.setPassword(userDTO.getPassword());
+		user.setEmail(userDTO.getEmail());
+		return user;
 	}
 
 }

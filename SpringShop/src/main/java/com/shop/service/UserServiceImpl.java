@@ -14,26 +14,22 @@ import com.shop.model.entity.persistent.User;
 public class UserServiceImpl implements UserService, Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private final static String USER_ROLE = "USER";
     private UserDao userDao;
 	
 	@Autowired
 	public UserServiceImpl(UserDao dao) {
 		this.userDao = dao;
 	}
-
-	@Override
-	public void saveUser(User user) {
-		userDao.addUser(user);
-	}
 	
 	@Override
-	public boolean findIfUserExist(User login) {
-		return userDao.findIfUserExist(login);
-	}
+	public boolean storeUserIfNotExist(User user) {
+		if (userDao.findIfUserExist(user))
+			return false;
 
-	@Override
-	public boolean checkIfPasswordIsValidWithUser(User user) {
-		return userDao.checkIfPasswordIsValidWithUser(user);
+		user.setRole(USER_ROLE);
+		userDao.saveUser(user);
+		return true;
 	}
 	
 	@Override

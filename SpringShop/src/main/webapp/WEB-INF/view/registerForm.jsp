@@ -13,7 +13,7 @@
 </head>
 <body>
 	<h1>Register page</h1>
-	<form:form modelAttribute="user" method="POST">
+	<form:form modelAttribute="userDTO" method="POST">
 		<table>
 			<tr>
 				<td>Login:</td>
@@ -37,7 +37,7 @@
 		</table>
 	</form:form>
 	  <c:if test="${not empty alreadyExist}">
-		 <td>${alreadyExist}</td>
+		 <td>User with chosen nickname already exist in database. Chose another.</td>
 	</c:if>   
 </body>
 </html>
