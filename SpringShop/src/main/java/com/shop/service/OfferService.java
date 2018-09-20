@@ -1,11 +1,9 @@
 package com.shop.service;
 
-import java.util.List;
-
-import com.shop.model.entity.domain.LineItemDTO;
-import com.shop.pagination.DTOPageWithNavigation;
+import com.shop.model.entity.persistent.Product;
+import com.shop.pagination.EntityPage;
 
 public interface OfferService {
-	List<LineItemDTO> getOfferForClient();
-	DTOPageWithNavigation<LineItemDTO> getPaginateOfferForClient(int page,String categoryName);
+//	List<LineItemDTO> getOfferForClient();
+	EntityPage<Product> getPaginateOfferForClient(int page,String categoryName, int maxProductOnPage);
 }

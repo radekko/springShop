@@ -3,7 +3,6 @@ package com.shop.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +16,6 @@ import com.shop.pagination.EntityPage;
 public class ProductServiceImpl implements ProductService{
 
     private ProductDao productDao;
-			
-	@Value("${com.shop.service.ProductService.maxProductOnSite}")
-	private Integer maxProductOnPage;
 	
 	@Autowired
 	public ProductServiceImpl(ProductDao proDao) {
@@ -37,8 +33,8 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public EntityPage<Product> getPaginateProducts(int page,Category category) {
-		return productDao.getProductsOnPage(page,maxProductOnPage,category);
+	public EntityPage<Product> getPaginateProducts(int page,Category category,int maxProductOnPage) {
+		return productDao.getPageInCategory(page,maxProductOnPage,category);
 	}
 
 }

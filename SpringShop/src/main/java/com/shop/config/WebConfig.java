@@ -10,7 +10,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.shop.controller")
+@ComponentScan("com.shop")
 public class WebConfig extends WebMvcConfigurerAdapter{
 	
 	@Bean

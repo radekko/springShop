@@ -8,19 +8,17 @@
 </head>
 
 <body>
-
 	<h1>Orders</h1>
 	<table>
-
 		<tr>
-			<c:forEach items="${order.items}" var="lineItem">
+			<c:forEach items="${orderDTO.items}" var="order">
 				<tr bgcolor="#41bce6">
 					<td>Username</td>
 					<td>OrderIdentifier</td>
 				</tr>
 				<tr bgcolor="#92f3ef">
-					<td><c:out value="${lineItem.username}" /></td>
-					<td><c:out value="${lineItem.orderIdentifier}" /></td>
+					<td><c:out value="${order.username}" /></td>
+					<td><c:out value="${order.orderIdentifier}" /></td>
 				</tr>
 				<tr bgcolor="#69b418">
 					<td>Name</td>
@@ -28,7 +26,7 @@
 					<td>Amount</td>
 				</tr>
 				<tr bgcolor="green">
-					<c:forEach items="${lineItem.items}" var="items">
+					<c:forEach items="${order.lineItemDTO}" var="items">
 						<tr bgcolor="#a2e5a6">
 							<td><c:out value="${items.name}" /></td>
 							<td><c:out value="${items.currentPrice}" /></td>
@@ -43,7 +41,7 @@
 		</tr>
 	</table>
 
-	<c:forEach items="${order.navigationPages}" var="page">
+	<c:forEach items="${navigationPages}" var="page">
 		<c:if test="${page != -1 }">
 			<a
 				href="${requestScope['javax.servlet.forward.request_uri']}?page=${page}">${page}</a>

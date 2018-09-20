@@ -6,13 +6,12 @@ public class OrderDTO {
 
 	private String username;
 	private String orderIdentifier;
-	private List<LineItemDTO> items;
+	private List<LineItemDTO> lineItemDTO;
 	
-	
-	public OrderDTO(String username, String orderIdentifier, List<LineItemDTO> items) {
+	public OrderDTO(String username, String orderIdentifier, List<LineItemDTO> lineItemDTO) {
 		this.username = username;
 		this.orderIdentifier = orderIdentifier;
-		this.items = items;
+		this.lineItemDTO = lineItemDTO;
 	}
 	
 	public String getUsername() {
@@ -27,11 +26,10 @@ public class OrderDTO {
 	public void setOrderIdentifier(String orderIdentifier) {
 		this.orderIdentifier = orderIdentifier;
 	}
-	public List<LineItemDTO> getItems() {
-		return items;
+	public List<LineItemDTO> getLineItemDTO() {
+		return lineItemDTO;
 	}
-	public void setItems(List<LineItemDTO> items) {
-		this.items = items;
+	public void setLineItemDTO(List<LineItemDTO> lineItemDTO) {
+		this.lineItemDTO = lineItemDTO;
 	}
-	
 }

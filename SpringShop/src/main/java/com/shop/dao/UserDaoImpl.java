@@ -1,7 +1,9 @@
 package com.shop.dao;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 import com.shop.model.entity.persistent.User;
@@ -16,24 +18,23 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 	@Override
 	public boolean findIfUserExist(User user) {
-		Criteria criteria = createEntityCriteria();
-		criteria.add(Restrictions.eq("username", user.getUsername()));
-		return (User) criteria.uniqueResult() == null ? false: true;
+		List<User> resultList = selectListOfEntityWithWhere("username",user.getUsername());
+		return resultList.isEmpty() ? false: true;
 	}
 	
 	@Override
-	public boolean checkIfPasswordIsValidWithUser(User user) {
-		Criteria criteria = createEntityCriteria();
-		criteria.add(Restrictions.eq("username", user.getUsername()));
-		criteria.add(Restrictions.eq("password", user.getPassword()));
-		return (User) criteria.uniqueResult() == null ? false: true;
+	public boolean checkIfPasswordIsValidWithUser(User user) {	
+		Map<String,String> params = new HashMap<String,String>();
+		params.put("username", user.getUsername());
+		params.put("password", user.getPassword());
+		
+		List<?> resultList = selectListOfEntityWithMultiWhere(params);
+		return resultList.isEmpty() ? false: true;
 	}
 	
 	@Override
 	public User getByUsername(String username) {
-		Criteria criteria = createEntityCriteria();
-		criteria.add(Restrictions.eq("username", username));
-		return (User) criteria.uniqueResult();
+		return selectUniqueEntityWithWhere("username",username);
 	}
 
 }

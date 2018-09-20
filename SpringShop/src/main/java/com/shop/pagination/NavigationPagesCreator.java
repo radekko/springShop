@@ -7,7 +7,7 @@ public class NavigationPagesCreator {
 
 	private static final int VALUE_OF_EMPTY_FIELD = -1;
 	
-	public static List<Integer> createNavigationPages(int numberOfChosenPage, int maxNavigationPages, int totalRecrods,int maxProductOnPage) {
+	public static List<Integer> create(int numberOfChosenPage, int maxNavigationPages, int totalRecrods,int maxProductOnPage) {
 		
 		List<Integer> navigationPages = new ArrayList<Integer>();
 		int totalNavPagesToDisplay = calcTotalNavPagesToDisplay(maxProductOnPage,totalRecrods);

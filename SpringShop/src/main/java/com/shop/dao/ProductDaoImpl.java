@@ -2,8 +2,6 @@ package com.shop.dao;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.shop.model.entity.persistent.Category;
@@ -22,15 +20,13 @@ public class ProductDaoImpl extends AbstractDaoWithPagination<Integer, Product> 
 		return getAll();
 	}
 	@Override
-	public Product getByUniqueCode(String uniquecode) {
-		Criteria criteria = createEntityCriteria();
-		criteria.add(Restrictions.eq("uniqueProductCode", uniquecode));
-		return (Product) criteria.uniqueResult();
+	public Product getByUniqueCode(String uniqueProductcode) {
+		return selectUniqueEntityWithWhere("uniqueProductCode",uniqueProductcode);
 	}
 	
 	@Override
-	public EntityPage<Product> getProductsOnPage(int page, int maxProductOnPage, Category category) {
-		return getItemsOnPage(page,maxProductOnPage,category);
+	public EntityPage<Product> getPageInCategory(int page, int maxProductOnPage, Category category) {
+		return createEntityPageIncludingGroup(page,maxProductOnPage,category);
 	}
 	
 }

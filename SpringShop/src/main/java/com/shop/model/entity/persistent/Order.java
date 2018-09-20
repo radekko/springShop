@@ -25,10 +25,9 @@ public class Order {
 	@ManyToOne
     @JoinColumn(name = "userId")
 	private User userId;
-	
 	@OneToMany(mappedBy="order",cascade=CascadeType.ALL)
 	@OrderBy("productPrice")
-	private Set<LineItem> setOfDetails = new TreeSet<LineItem>();
+	private Set<LineItem> setOfLineItems = new TreeSet<LineItem>();
 	
 	private String orderIdentifier;
 	
@@ -44,14 +43,19 @@ public class Order {
 	public void setOrderIdentifier(String orderIdentifier) {
 		this.orderIdentifier = orderIdentifier;
 	}
-	public Set<LineItem> getSetOfDetails() {
-		return setOfDetails;
+	public Set<LineItem> getSetOfLineItems() {
+		return setOfLineItems;
 	}
-	public void setSetOfDetails(Set<LineItem> setOfDetails) {
-		this.setOfDetails = setOfDetails;
+	public void setSetOfLineItems(Set<LineItem> setOfLineItems) {
+		this.setOfLineItems = setOfLineItems;
 	}
-	public void addToSetOfDetails(LineItem orderDetails) {
-		this.setOfDetails.add(orderDetails);
+	public void addToSetOfLineItems(LineItem orderDetails) {
+		this.setOfLineItems.add(orderDetails);
 		orderDetails.setOrder(this);
+	}
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", userId=" + userId + ", setOfDetails=" + setOfLineItems
+				+ ", orderIdentifier=" + orderIdentifier + "]";
 	}
 }

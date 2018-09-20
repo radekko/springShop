@@ -43,7 +43,7 @@ public class NavigationPagesCreatorTest {
 	}
 
 	private List<Integer> getNPForChosenPage(int currPage) {
-		return NavigationPagesCreator.createNavigationPages(currPage, maxNavigationPages, totalItems,maxProductOnPage);
+		return NavigationPagesCreator.create(currPage, maxNavigationPages, totalItems,maxProductOnPage);
 	}
 	
 }

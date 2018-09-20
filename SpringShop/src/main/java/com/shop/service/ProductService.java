@@ -9,5 +9,5 @@ import com.shop.pagination.EntityPage;
 public interface ProductService {
 	void addProduct(Product product);
 	List<Product> findAllProduct();
-	EntityPage<Product> getPaginateProducts(int page,Category category);
+	EntityPage<Product> getPaginateProducts(int page, Category category, int maxProductOnPage);
 }

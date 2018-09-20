@@ -55,7 +55,7 @@
         </c:forEach>
     </table>
 
-    <c:forEach items="${offer.navigationPages}" var = "page">
+    <c:forEach items="${navigationPages}" var = "page">
        <c:if test="${page != -1 }">
          <a href="${requestScope['javax.servlet.forward.request_uri']}?categoryName=${categoryName}&page=${page}">${page}</a>
        </c:if>

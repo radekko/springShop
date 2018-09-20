@@ -3,6 +3,7 @@ package com.shop.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.model.entity.domain.LineItemDTO;
 import com.shop.model.entity.persistent.Category;
+import com.shop.model.entity.persistent.Product;
+import com.shop.pagination.EntityPage;
+import com.shop.pagination.NavigationPagesCreator;
 import com.shop.service.CartService;
 import com.shop.service.CategoryService;
 import com.shop.service.OfferService;
@@ -26,6 +30,13 @@ public class MainPageController {
 	private CartService cartService;
 	private CategoryService categoryService;
 	
+	private final static int INITIAL_STOCK_AMOUNT = 0;
+
+	@Value("${com.shop.controller.MainPageController.maxNavigationPage}")
+	private int maxNavigationPages;
+	@Value("${com.shop.controller.MainPageController.maxProductOnPage}")
+	private int maxProductOnPage;
+	
 	@Autowired
 	public MainPageController(OfferService offerService, CartService cartService, CategoryService categoryService) {
 		this.offerService = offerService;
@@ -35,13 +46,17 @@ public class MainPageController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String afterSelectCategory(
-		@ModelAttribute("username") String username, 
 	    @RequestParam(value = "categoryName")  String categoryName,
 	    @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 	    Model model){
 
+		EntityPage<LineItemDTO> pageToDisplay = new EntityPage<LineItemDTO>(
+				offerService.getPaginateOfferForClient(page,categoryName,maxProductOnPage),this::convertProductToLineItemDTO);
+		
+		model.addAttribute("offer", pageToDisplay);
+		model.addAttribute("navigationPages",
+				NavigationPagesCreator.create(page, maxNavigationPages, pageToDisplay.getTotalRecords(), maxProductOnPage));
 		model.addAttribute("categoriesList", categoryService.getAllCategories());
-		model.addAttribute("offer", offerService.getPaginateOfferForClient(page,categoryName));
 		model.addAttribute("categoryName", categoryName);
 		model.addAttribute(new LineItemDTO());
 		model.addAttribute(new Category());
@@ -67,5 +82,8 @@ public class MainPageController {
 		redirectAttributes.addAttribute("page", page);
 		return "redirect:/main/displayOffer";
 	}
-
+	
+	private LineItemDTO convertProductToLineItemDTO(Product p) {
+	    return new LineItemDTO(p.getName(),p.getUniqueProductCode(),p.getPrice(),INITIAL_STOCK_AMOUNT);
+	}
 }

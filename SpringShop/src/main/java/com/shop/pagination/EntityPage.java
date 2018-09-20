@@ -1,6 +1,8 @@
 package com.shop.pagination;
 
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class EntityPage<T>
 {
@@ -14,6 +16,13 @@ public class EntityPage<T>
 		this.page = page;
 		this.totalRecords = totalRecords;
 		this.maxProductOnPage = maxProductOnPage;
+	}
+	
+	public <T2> EntityPage(EntityPage<T2> entityPage,Function<T2,T> convertToDTOFunction) {
+		this.items = convertEntityToDTO(entityPage,convertToDTOFunction);
+		this.page = entityPage.page;
+		this.totalRecords = entityPage.totalRecords;
+		this.maxProductOnPage = entityPage.maxProductOnPage;
 	}
 	
 	public List<T> getItems() {
@@ -40,4 +49,11 @@ public class EntityPage<T>
 	public void setMaxProductOnPage(int maxProductOnPage) {
 		this.maxProductOnPage = maxProductOnPage;
 	}
+	public <T2> List<T2> mapToDTO(Function<T,T2> convertFunction) {
+		return items.stream().map(convertFunction::apply).collect(Collectors.toList());
+	}
+	private <T2> List<T> convertEntityToDTO(EntityPage<T2> entityPage,Function<T2,T> convertFunction) {
+		return entityPage.getItems().stream().map(convertFunction::apply).collect(Collectors.toList());
+	}
+
 }
