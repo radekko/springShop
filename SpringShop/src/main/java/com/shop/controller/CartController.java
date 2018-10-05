@@ -9,19 +9,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.service.CartService;
-import com.shop.service.CategoryService;
 
 @Controller
 @RequestMapping(value = "/main/displayCart")
 public class CartController {
 
 	private CartService cartService;
-	private CategoryService categoryService;
 	
 	@Autowired
-	public CartController(CartService cartService, CategoryService catService) {
+	public CartController(CartService cartService) {
 		this.cartService = cartService;
-		this.categoryService = catService;
 	}
 
 	@RequestMapping(method=RequestMethod.GET)
@@ -34,7 +31,6 @@ public class CartController {
 	@RequestMapping(params = "order", method=RequestMethod.POST)
 	public String makeOrder(RedirectAttributes redirectAttributes,Model model){
 		boolean message = cartService.makeOrder();
-		setReturnAttributes(redirectAttributes);
     	redirectAttributes.addFlashAttribute("message", message);
 		return "redirect:/main/displayOffer";
 	}
@@ -47,7 +43,6 @@ public class CartController {
 	
     @RequestMapping(params = "back", method = RequestMethod.POST)
     public String backToOffer(RedirectAttributes redirectAttributes) {
-    	setReturnAttributes(redirectAttributes);
         return "redirect:/main/displayOffer";
     }
 
@@ -56,9 +51,4 @@ public class CartController {
     	cartService.removeItem(uniqueProductCode);
         return "redirect:/main/displayCart";
     }
-    
-	private void setReturnAttributes(RedirectAttributes redirectAttributes) {
-    	redirectAttributes.addAttribute("categoryName", categoryService.getFirstCategory().getCategoryName());
-    	redirectAttributes.addAttribute("page", 1);
-	}
 }

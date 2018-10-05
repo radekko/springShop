@@ -23,7 +23,8 @@
 <h3>Select category:</h3>
 
 <form:form modelAttribute="category" action="displayOffer" method="GET">
-  <form:select  path="categoryName">
+  <form:select path="categoryName">
+  	<form:option value="" label="--Select category--"/>
     <form:options items="${categoriesList}"></form:options>
   </form:select>
   <input type="submit" value="Get items" />

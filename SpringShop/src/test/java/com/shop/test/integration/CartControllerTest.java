@@ -16,8 +16,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.shop.controller.CartController;
 import com.shop.service.CartService;
-import com.shop.service.CategoryService;
-
 
 @RunWith(MockitoJUnitRunner.class)
 public class CartControllerTest {
@@ -25,15 +23,12 @@ public class CartControllerTest {
 	@Mock
 	private CartService cartService;
 	
-	@Mock
-	private CategoryService categoryService;
-	
 	private MockMvc mockMvc;
 	private CartController cartController;
 	
 	@Before
 	public void setUp() {
-		cartController = new CartController(cartService,categoryService);
+		cartController = new CartController(cartService);
 		mockMvc = standaloneSetup(cartController).build();
 	}
 	

@@ -50,9 +50,10 @@ public class MainPageController {
 	    @RequestParam(value = "categoryName")  Optional<String> categoryNameParam,
 	    @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 	    Model model){
-		
-		String categoryName = 
-				(categoryNameParam.isPresent() ? categoryNameParam.get() : categoryService.getFirstCategory().getCategoryName());
+
+		String categoryName = (categoryNameParam.filter(s -> !s.isEmpty()).isPresent()) ?
+						categoryNameParam.get() : categoryService.getFirstCategory().getCategoryName();
+				
 		EntityPage<LineItemDTO> pageToDisplay = new EntityPage<LineItemDTO>(
 				offerService.getPaginateOfferForClient(page,categoryName,maxProductOnPage),this::convertProductToLineItemDTO);
 		
@@ -69,7 +70,7 @@ public class MainPageController {
 	@RequestMapping(method=RequestMethod.POST)
 	public String addProductToCart(@Valid LineItemDTO lineItem,BindingResult errors,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "categoryName") String categoryName,
+			@RequestParam(value = "categoryName") Optional<String> categoryName,
 			RedirectAttributes redirectAttributes,
 			Model model){	
 		
@@ -80,8 +81,9 @@ public class MainPageController {
 			redirectAttributes.addFlashAttribute("currentChosenName", lineItem.getName());
 			redirectAttributes.addFlashAttribute("currentChosenAmount", lineItem.getAmount());
 		}
+		if(categoryName.isPresent())
+			redirectAttributes.addAttribute("categoryName", categoryName.get());
 		
-		redirectAttributes.addAttribute("categoryName", categoryName);
 		redirectAttributes.addAttribute("page", page);
 		return "redirect:/main/displayOffer";
 	}
