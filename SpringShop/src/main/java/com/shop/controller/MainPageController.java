@@ -1,5 +1,7 @@
 package com.shop.controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,10 +47,12 @@ public class MainPageController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String afterSelectCategory(
-	    @RequestParam(value = "categoryName")  String categoryName,
+	    @RequestParam(value = "categoryName")  Optional<String> categoryNameParam,
 	    @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 	    Model model){
-
+		
+		String categoryName = 
+				(categoryNameParam.isPresent() ? categoryNameParam.get() : categoryService.getFirstCategory().getCategoryName());
 		EntityPage<LineItemDTO> pageToDisplay = new EntityPage<LineItemDTO>(
 				offerService.getPaginateOfferForClient(page,categoryName,maxProductOnPage),this::convertProductToLineItemDTO);
 		
