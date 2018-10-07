@@ -36,7 +36,7 @@
  		<br/>
 		 <td>Total cost: ${totalPrice}</td>
 	</c:if>  
-	<form:form method="POST">
+	<form:form method="GET">
  	<table>
  		<tr>
 			<td><input type="submit" name="order" value="Make order" /></td>

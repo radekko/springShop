@@ -10,7 +10,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.security.core.Authentication;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,12 +30,14 @@ public class LoginControllerTest{
 	@Mock
 	private AuthenticationService authenticationService;
 	
-	private MockMvc mockMvc;
+	@InjectMocks
 	private LoginController loginController;
+
+	private MockMvc mockMvc;
 	
 	@Before
 	public void setUp() throws Exception {
-		loginController = new LoginController(authenticationService);
+		MockitoAnnotations.initMocks(this);
 		mockMvc = standaloneSetup(loginController).build();
 	}
 

@@ -28,20 +28,20 @@ public class CartController {
 		return "cartForm";
 	}
 	
-	@RequestMapping(params = "order", method=RequestMethod.POST)
+	@RequestMapping(params = "order", method=RequestMethod.GET)
 	public String makeOrder(RedirectAttributes redirectAttributes,Model model){
 		boolean message = cartService.makeOrder();
     	redirectAttributes.addFlashAttribute("message", message);
 		return "redirect:/main/displayOffer";
 	}
 	
-	@RequestMapping(params = "clear", method = RequestMethod.POST)
+	@RequestMapping(params = "clear", method = RequestMethod.GET)
     public String clearCart() {
 		cartService.clearCart();
         return "cartForm";
     }
 	
-    @RequestMapping(params = "back", method = RequestMethod.POST)
+    @RequestMapping(params = "back", method = RequestMethod.GET)
     public String backToOffer(RedirectAttributes redirectAttributes) {
         return "redirect:/main/displayOffer";
     }

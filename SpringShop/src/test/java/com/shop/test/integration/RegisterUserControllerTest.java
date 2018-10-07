@@ -13,7 +13,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -27,8 +29,10 @@ public class RegisterUserControllerTest {
 	@Mock
 	private UserService userService;
 	
-	private MockMvc mockMvc;
+	@InjectMocks
 	private RegisterUserController registerController;
+	
+	private MockMvc mockMvc;
 	
 	private static final String REGISTER_FORM_NAME            =      "registerForm";
 	private static final String SUCCESSED_REGISTER_FORM_NAME  = "successRegistered";
@@ -39,7 +43,7 @@ public class RegisterUserControllerTest {
 	
 	@Before
 	public void setUp() {
-		registerController = new RegisterUserController(userService);
+		MockitoAnnotations.initMocks(this);
 		mockMvc = standaloneSetup(registerController).build();
 	}
 	
