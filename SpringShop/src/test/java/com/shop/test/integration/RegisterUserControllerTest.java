@@ -63,7 +63,7 @@ public class RegisterUserControllerTest {
 	}
 	
 	@Test
-	public void testRegisterIsFailed() throws Exception {
+	public void testRegisterIsFailedBecauseOfValidation() throws Exception {
 		mockMvc.perform(post("/register")
 				.param("save", "Save Changes")
                 .param("username", VALID_USER)
@@ -74,12 +74,26 @@ public class RegisterUserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(REGISTER_FORM_NAME));
 	}
-
+	
+	@Test
+	public void testRegisterIsFailedBecauseOfDuplication() throws Exception {
+		given(userService.storeUserIfNotExist(any(User.class))).willReturn(false);
+		
+		mockMvc.perform(post("/register")
+				.param("save", "Save Changes")
+                .param("username", VALID_USER)
+                .param("password", VALID_PASSWORD)
+                .param("email", VALID_EMAIL))
+				.andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name(REGISTER_FORM_NAME))
+                .andExpect(model().attributeExists("alreadyExist"));
+	}
+	
 	@Test
 	public void testShowRegistrationForm() throws Exception {
 		mockMvc.perform(get("/register"))
 			.andExpect(view().name(REGISTER_FORM_NAME))
 			.andExpect(model().attributeExists("userDTO"));
 	}
-	
 }

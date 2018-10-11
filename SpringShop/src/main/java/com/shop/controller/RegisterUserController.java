@@ -44,11 +44,6 @@ public class RegisterUserController {
 			return "registerForm";
 		}
 	}
-
-	@RequestMapping(value = "/register", params = "back", method = RequestMethod.POST)
-	public String backToLoginPage() {
-		return "redirect:/";
-	}
 	
 	private User convertUserDTOtoUser(UserDTO userDTO) {
 		User user = new User();

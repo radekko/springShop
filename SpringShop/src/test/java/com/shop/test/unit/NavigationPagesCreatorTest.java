@@ -6,7 +6,6 @@ import static org.junit.Assert.assertThat;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.shop.pagination.NavigationPagesCreator;
@@ -16,34 +15,47 @@ public class NavigationPagesCreatorTest {
 	private List<Integer> npFirstCase;
 	private List<Integer> npSecondCase;
 	private List<Integer> npThirdCase;
-	private static final int maxNavigationPages =  5;
-	private static final int totalItems		    = 21;
-	private static final int maxProductOnPage   =  3;
-	
-    @Before
-    public void setUp() {
-    	npFirstCase = Arrays.asList(1,2,3,4,-1,7);
-    	npSecondCase = Arrays.asList(1,-1,3,4,5,-1,7);
-    	npThirdCase = Arrays.asList(1,-1,4,5,6,7);
-    }
-	
+	private int maxNavigationPages;
+	private int totalItems;
+	private int maxItemsOnPage;
+
 	@Test
 	public void testCreateNavigationPages() throws Exception{
-		testIfCreatorReturnCorrectCaseForChosenPage(1,npFirstCase);
-		testIfCreatorReturnCorrectCaseForChosenPage(2,npFirstCase);
-		testIfCreatorReturnCorrectCaseForChosenPage(3,npFirstCase);
-		testIfCreatorReturnCorrectCaseForChosenPage(4,npSecondCase);
-		testIfCreatorReturnCorrectCaseForChosenPage(5,npThirdCase);
-		testIfCreatorReturnCorrectCaseForChosenPage(6,npThirdCase);
-		testIfCreatorReturnCorrectCaseForChosenPage(7,npThirdCase);
+		maxNavigationPages =  5;
+		totalItems		    = 21;
+		maxItemsOnPage   =  3;
+		npFirstCase = Arrays.asList(1,2,3,4,-1,7);
+    	npSecondCase = Arrays.asList(1,-1,3,4,5,-1,7);
+    	npThirdCase = Arrays.asList(1,-1,4,5,6,7);
+    	List<Integer> currCase;
+    	
+    	for(int i = 1; i <= 7; i++) {
+    		if(i <= 3)
+    			currCase = npFirstCase;
+    		else if(i == 4)
+    			currCase = npSecondCase;
+    		else
+    			currCase = npThirdCase;
+    		
+    		testIfCreatorReturnCorrectCaseForChosenPage(i,maxNavigationPages,totalItems,maxItemsOnPage,currCase);
+    	}
 	}
 	
-	private void testIfCreatorReturnCorrectCaseForChosenPage(int page, List<Integer> expectNpCase) {
-		assertThat(getNPForChosenPage(page),equalTo(expectNpCase));
+	@Test
+	public void testCreateNavigationPagesWithoutEmptyNP() throws Exception{
+		maxNavigationPages =  7;
+		totalItems		    = 20;
+		maxItemsOnPage   =  3;
+		npFirstCase = Arrays.asList(1,2,3,4,5,6,7);
+    	
+    	for(int i = 1; i <= 7; i++)
+    		testIfCreatorReturnCorrectCaseForChosenPage(i,maxNavigationPages,totalItems,maxItemsOnPage,npFirstCase);
 	}
-
-	private List<Integer> getNPForChosenPage(int currPage) {
-		return NavigationPagesCreator.create(currPage, maxNavigationPages, totalItems,maxProductOnPage);
+	
+	private void testIfCreatorReturnCorrectCaseForChosenPage(int page, int maxNavigationPages,int totalItems,int maxItemsOnPage,List<Integer> expectNpCase) {
+		assertThat(
+				NavigationPagesCreator.create(page, maxNavigationPages, totalItems,maxItemsOnPage),
+				equalTo(expectNpCase));
 	}
 	
 }

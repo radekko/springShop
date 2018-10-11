@@ -32,12 +32,12 @@
 			</tr>
 			<tr>
 				<td><input type="submit" name="save" value="Save Changes" /></td>
-				<td><input type="submit" name="back" value="Back to Login Page" /></td>
 			</tr>
 		</table>
 	</form:form>
-	  <c:if test="${not empty alreadyExist}">
-		 <td>User with chosen nickname already exist in database. Chose another.</td>
-	</c:if>   
+	<c:if test="${not empty alreadyExist}">
+		<td>User with chosen nickname already exist in database. Chose another.</td>
+	</c:if>  
+	<a href="<c:url value="/" />">Back to login page</a><br/> 
 </body>
 </html>

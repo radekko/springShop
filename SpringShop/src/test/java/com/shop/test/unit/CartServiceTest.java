@@ -1,12 +1,15 @@
 package com.shop.test.unit;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Matchers.any;
 
 import java.util.stream.IntStream;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -87,6 +90,18 @@ public class CartServiceTest {
 		addItemsToCart(firstItem,secondItem);
 		assertEquals(FIRST_ITEM_PRICE * FIRST_ITEM_AMOUNT + SECOND_ITEM_PRICE * SECOND_ITEM_AMOUNT, 
 				cartService.computeTotalPriceOfCart(),0);
+	}
+	
+	@Test
+	public void testMakeOrderIfCartHasItems() throws Exception{
+		willDoNothing().given(orderService).saveOrder(Matchers.anyListOf(LineItemDTO.class), any(String.class));
+		addItemsToCart(firstItem,secondItem);
+		assertEquals(true, cartService.makeOrder());
+	}
+	
+	@Test
+	public void testMakeOrderIfCartIsEmpty() throws Exception{
+		assertEquals(false, cartService.makeOrder());
 	}
 	
 	private void addItemsToCart(LineItemDTO ...items) {
