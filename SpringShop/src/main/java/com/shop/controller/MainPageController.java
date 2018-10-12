@@ -1,25 +1,23 @@
 package com.shop.controller;
 
+import java.util.List;
 import java.util.Optional;
-
-import javax.validation.Valid;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.shop.mappers.IMapper;
 import com.shop.model.entity.domain.LineItemDTO;
 import com.shop.model.entity.persistent.Category;
 import com.shop.model.entity.persistent.Product;
 import com.shop.pagination.EntityPage;
 import com.shop.pagination.NavigationPagesCreator;
-import com.shop.service.CartService;
 import com.shop.service.CategoryService;
 import com.shop.service.OfferService;
 
@@ -28,21 +26,22 @@ import com.shop.service.OfferService;
 public class MainPageController {
 	
 	private OfferService offerService;
-	private CartService cartService;
 	private CategoryService categoryService;
+	private NavigationPagesCreator navPagesCreator;
+	private IMapper<Product, LineItemDTO> mapper;
 	
-	private final static int INITIAL_STOCK_AMOUNT = 0;
-
 	@Value("${com.shop.controller.MainPageController.maxNavigationPage}")
 	private int maxNavigationPages;
 	@Value("${com.shop.controller.MainPageController.maxProductOnPage}")
 	private int maxProductOnPage;
 	
 	@Autowired
-	public MainPageController(OfferService offerService, CartService cartService, CategoryService categoryService) {
+	public MainPageController(OfferService offerService, CategoryService categoryService,
+			NavigationPagesCreator navPagesCreator, IMapper<Product, LineItemDTO> mapper) {
 		this.offerService = offerService;
-		this.cartService = cartService;
 		this.categoryService = categoryService;
+		this.navPagesCreator = navPagesCreator;
+		this.mapper = mapper;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -54,41 +53,18 @@ public class MainPageController {
 		String categoryName = (categoryNameParam.filter(s -> !s.isEmpty()).isPresent()) ?
 						categoryNameParam.get() : categoryService.getFirstCategory().getCategoryName();
 				
-		EntityPage<LineItemDTO> pageToDisplay = new EntityPage<LineItemDTO>(
-				offerService.getPaginateOfferForClient(page,categoryName,maxProductOnPage),this::convertProductToLineItemDTO);
+		EntityPage<Product> paginateOffer = offerService.getPaginateOfferForClient(page,categoryName,maxProductOnPage);
 		
-		model.addAttribute("offer", pageToDisplay);
-		model.addAttribute("navigationPages",
-				NavigationPagesCreator.create(page, maxNavigationPages, pageToDisplay.getTotalRecords(), maxProductOnPage));
+		List<Integer> navPages = navPagesCreator.create(paginateOffer,maxNavigationPages);
+		List<LineItemDTO> orderDTOlist = paginateOffer.getItems().stream()
+				.map(e -> mapper.convertEntityToDTO(e)).collect(Collectors.toList());
+		
+		model.addAttribute("offer", orderDTOlist);
+		model.addAttribute("navigationPages",navPages);
 		model.addAttribute("categoriesList", categoryService.getAllCategories());
 		model.addAttribute("categoryName", categoryName);
 		model.addAttribute(new LineItemDTO());
 		model.addAttribute(new Category());
 		return "mainForm";
-	}
-	
-	@RequestMapping(method=RequestMethod.POST)
-	public String addProductToCart(@Valid LineItemDTO lineItem,BindingResult errors,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "categoryName") Optional<String> categoryName,
-			RedirectAttributes redirectAttributes,
-			Model model){	
-		
-		if(errors.hasErrors())
-			redirectAttributes.addFlashAttribute("error", "Amount must be a natural number");
-		else {
-			cartService.addItem(lineItem);
-			redirectAttributes.addFlashAttribute("currentChosenName", lineItem.getName());
-			redirectAttributes.addFlashAttribute("currentChosenAmount", lineItem.getAmount());
-		}
-		if(categoryName.isPresent())
-			redirectAttributes.addAttribute("categoryName", categoryName.get());
-		
-		redirectAttributes.addAttribute("page", page);
-		return "redirect:/main/displayOffer";
-	}
-	
-	private LineItemDTO convertProductToLineItemDTO(Product p) {
-	    return new LineItemDTO(p.getName(),p.getUniqueProductCode(),p.getPrice(),INITIAL_STOCK_AMOUNT);
 	}
 }

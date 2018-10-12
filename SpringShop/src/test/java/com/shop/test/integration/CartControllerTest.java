@@ -1,8 +1,11 @@
 package com.shop.test.integration;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Matchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -20,6 +23,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.shop.controller.CartController;
+import com.shop.model.entity.domain.LineItemDTO;
 import com.shop.service.CartService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -46,6 +50,17 @@ public class CartControllerTest {
 		.andExpect(status().isOk())
 		.andExpect(model().attributeExists("orders", "totalPrice"))
 		.andExpect(view().name("cartForm"));
+	}
+	
+	@Test
+	public void addToCart() throws Exception{
+		willDoNothing().given(cartService).addItem(any(LineItemDTO.class));
+		
+		mockMvc.perform(post("/main/displayOffer")
+		.param("categoryName", "categoryName"))
+		.andDo(print())
+		.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/main/displayOffer"));
 	}
 	
 	@Test

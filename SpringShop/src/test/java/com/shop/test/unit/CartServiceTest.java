@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Matchers;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.shop.model.entity.domain.LineItemDTO;
@@ -23,7 +24,6 @@ public class CartServiceTest {
 	
 	@Mock
 	private OrderService orderService;
-	
 	private CartService cartService;
 	
 	private LineItemDTO firstItem;
@@ -40,6 +40,7 @@ public class CartServiceTest {
 	
 	@Before
 	public void setUp() {
+		MockitoAnnotations.initMocks(this);
 		cartService = new CartServiceImpl(orderService);
 		firstItem = new LineItemDTO(FIRST_ITEM_NAME,FIRST_ITEM_UNIQUE_CODE,FIRST_ITEM_PRICE,FIRST_ITEM_AMOUNT);
 		secondItem = new LineItemDTO(SECOND_ITEM_NAME,SECOND_ITEM_UNIQUE_CODE,SECOND_ITEM_PRICE,SECOND_ITEM_AMOUNT);

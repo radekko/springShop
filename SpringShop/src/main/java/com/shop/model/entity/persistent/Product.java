@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="PRODUCT")
-public class Product implements Comparable<Product>{
+public class Product implements IEntity, Comparable<Product>{
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

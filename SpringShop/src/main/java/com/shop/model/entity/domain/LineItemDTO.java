@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Min;
 
-public class LineItemDTO implements Serializable{
+public class LineItemDTO implements IDTO, Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private String name;

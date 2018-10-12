@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="ORDERS")
-public class Order {
+public class Order implements IEntity{
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

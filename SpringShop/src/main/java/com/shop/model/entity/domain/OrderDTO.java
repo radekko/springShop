@@ -2,7 +2,7 @@ package com.shop.model.entity.domain;
 
 import java.util.List;
 
-public class OrderDTO {
+public class OrderDTO implements IDTO{
 
 	private String username;
 	private String orderIdentifier;

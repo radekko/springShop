@@ -6,12 +6,14 @@ import static org.junit.Assert.assertThat;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.shop.pagination.NavigationPagesCreator;
 
 public class NavigationPagesCreatorTest {
 
+	private NavigationPagesCreator navigationPagesCreator;
 	private List<Integer> npFirstCase;
 	private List<Integer> npSecondCase;
 	private List<Integer> npThirdCase;
@@ -19,6 +21,11 @@ public class NavigationPagesCreatorTest {
 	private int totalItems;
 	private int maxItemsOnPage;
 
+	@Before
+	public void setUp() {
+		navigationPagesCreator = new NavigationPagesCreator();
+	}
+	
 	@Test
 	public void testCreateNavigationPages() throws Exception{
 		maxNavigationPages =  5;
@@ -54,7 +61,7 @@ public class NavigationPagesCreatorTest {
 	
 	private void testIfCreatorReturnCorrectCaseForChosenPage(int page, int maxNavigationPages,int totalItems,int maxItemsOnPage,List<Integer> expectNpCase) {
 		assertThat(
-				NavigationPagesCreator.create(page, maxNavigationPages, totalItems,maxItemsOnPage),
+				navigationPagesCreator.create(page, maxNavigationPages, totalItems,maxItemsOnPage),
 				equalTo(expectNpCase));
 	}
 	

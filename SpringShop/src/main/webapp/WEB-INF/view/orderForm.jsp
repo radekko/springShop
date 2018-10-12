@@ -11,7 +11,7 @@
 	<h1>Orders</h1>
 	<table>
 		<tr>
-			<c:forEach items="${orderDTO.items}" var="order">
+			<c:forEach items="${orderDTO}" var="order">
 				<tr bgcolor="#41bce6">
 					<td>Username</td>
 					<td>OrderIdentifier</td>
