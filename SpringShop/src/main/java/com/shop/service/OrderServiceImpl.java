@@ -3,8 +3,6 @@ package com.shop.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,12 +22,14 @@ public class OrderServiceImpl implements OrderService{
 	private ProductDao productDao;
 	private UserDao userDao;
 	private OrderDao orderDao;
+	private AuthenticationService authenticationService;
 	
 	@Autowired
-	public OrderServiceImpl(ProductDao productDao, UserDao userDao, OrderDao orderDao) {
+	public OrderServiceImpl(ProductDao productDao, UserDao userDao, OrderDao orderDao, AuthenticationService authenticationService) {
 		this.productDao = productDao;
 		this.userDao = userDao;
 		this.orderDao = orderDao;
+		this.authenticationService = authenticationService;
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Override
 	public void saveOrder(List<LineItemDTO> orderList, String generatedNumber) {
-		User supportedUser = userDao.getByUsername(getUsername());
+		User supportedUser = userDao.getByUsername(authenticationService.getCurrentLoggedUsername());
 		Order order =  new Order();
 		order.setUser(supportedUser);
 		order.setOrderIdentifier(generatedNumber);
@@ -56,11 +56,6 @@ public class OrderServiceImpl implements OrderService{
 		item.setProductPrice(itemDTO.getCurrentPrice());
 		item.setProduct(productDao.getByUniqueCode(itemDTO.getUniqueProductCode()));
 		return item;
-	}
-	
-	private String getUsername() {
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return userDetails.getUsername();
 	}
 	
 }

@@ -1,7 +1,6 @@
 package com.shop.test.integration;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -14,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.security.core.Authentication;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.shop.controller.LoginController;
@@ -43,14 +41,14 @@ public class LoginControllerTest{
 
 	@Test
 	public void testShowRegistrationFormIfNotAuthenticated() throws Exception {
-		given(authenticationService.getMainRole(any(Authentication.class))).willReturn(Role.NONE);
+		given(authenticationService.getMainRole()).willReturn(Role.NONE);
 		mockMvc.perform(get("/login"))
 			.andExpect(view().name("loginForm"));
 	}
 	
 	@Test
 	public void testShowValidFormIfRoleIsAdmin() throws Exception {
-		given(authenticationService.getMainRole(any(Authentication.class))).willReturn(Role.ROLE_ADMIN);
+		given(authenticationService.getMainRole()).willReturn(Role.ROLE_ADMIN);
 		mockMvc.perform(get("/login"))
 		.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:"+AFTER_LOGIN_AS_ADMIN));
@@ -58,7 +56,7 @@ public class LoginControllerTest{
 	
 	@Test
 	public void testShowValidFormIfRoleIsUser() throws Exception {
-		given(authenticationService.getMainRole(any(Authentication.class))).willReturn(Role.ROLE_USER);
+		given(authenticationService.getMainRole()).willReturn(Role.ROLE_USER);
 		mockMvc.perform(get("/login"))
 		.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:"+AFTER_LOGIN_AS_USER));
