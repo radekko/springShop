@@ -41,9 +41,8 @@ public class CartController {
 			redirectAttributes.addFlashAttribute("currentChosenName", lineItem.getName());
 			redirectAttributes.addFlashAttribute("currentChosenAmount", lineItem.getAmount());
 		}
-		if(categoryName.isPresent())
-			redirectAttributes.addAttribute("categoryName", categoryName.get());
 		
+		redirectAttributes.addAttribute("categoryName", categoryName.map(x -> x).orElse(""));
 		redirectAttributes.addAttribute("page", page);
 		return "redirect:/main/displayOffer";
 	}

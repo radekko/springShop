@@ -1,4 +1,4 @@
-package com.shop.test.integration;
+package com.shop.test.unit;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

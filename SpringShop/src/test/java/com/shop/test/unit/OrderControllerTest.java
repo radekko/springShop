@@ -1,8 +1,7 @@
-package com.shop.test.integration;
+package com.shop.test.unit;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -18,31 +17,21 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.shop.controller.MainPageController;
+import com.shop.controller.OrderController;
 import com.shop.mappers.IMapper;
 import com.shop.model.entity.domain.OrderDTO;
 import com.shop.model.entity.persistent.Order;
-import com.shop.model.entity.persistent.Product;
 import com.shop.pagination.EntityPage;
 import com.shop.pagination.NavigationPagesCreator;
-import com.shop.service.CartService;
-import com.shop.service.CategoryService;
-import com.shop.service.OfferService;
+import com.shop.service.OrderService;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MainPageControllerTest {
-
-	@Mock
-	private OfferService offerService;
+public class OrderControllerTest {
 	
 	@Mock
-	private CartService cartService;
-	
-	@Mock
-	private CategoryService categoryService;
+	private OrderService orderService;
 	
 	@Mock
 	private NavigationPagesCreator navPagesCreator;
@@ -51,35 +40,32 @@ public class MainPageControllerTest {
 	private IMapper<Order, OrderDTO> mapper;
 	
 	@InjectMocks
-	private MainPageController mainPageController;
+	private OrderController orderController;
 
 	private MockMvc mockMvc;
-	
-	@Value("${com.shop.controller.MainPageController.maxNavigationPage}")
-	private int maxNavigationPages;
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		mockMvc = standaloneSetup(mainPageController).build();
+		mockMvc = standaloneSetup(orderController).build();
 	}
 	
 	@Test
-	public void testShowMainPageForm() throws Exception {
-		given(offerService.getPaginateOfferForClient(anyInt(),anyString(),anyInt())).willReturn(preparePaginateOrders());
+	public void testShowOrderForm() throws Exception {
+		given(orderService.getPaginateOrders(anyInt(),anyInt()))
+		.willReturn(preparePaginateOrders());
 		
-		mockMvc.perform(get("/main/displayOffer")
-			.param("categoryName", "categoryName"))
-			.andExpect(view().name("mainForm"))
-			.andExpect(model().attributeExists("offer"))
+		mockMvc.perform(get("/order"))
+			.andExpect(view().name("orderForm"))
+			.andExpect(model().attributeExists("orderDTO"))
 			.andExpect(model().attributeExists("navigationPages"));
 	}
 	
-	private EntityPage<Product> preparePaginateOrders(){
-		List<Product> list = new ArrayList<>();
-		list.add(new Product());
+	private EntityPage<Order> preparePaginateOrders(){
+		List<Order> list = new ArrayList<>();
+		list.add(new Order());
 		
-		EntityPage<Product> idList = new EntityPage<Product>();
+		EntityPage<Order> idList = new EntityPage<Order>();
 		idList.setItems(list);
 		return idList;
 	}
