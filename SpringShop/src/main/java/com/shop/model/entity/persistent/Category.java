@@ -18,6 +18,11 @@ public class Category implements IEntity{
     private int categoryId;
 	private String categoryName;
 
+	public Category() {}
+	public Category(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	
 	@OneToMany(mappedBy = "category")
 	private List<Product> products;
 

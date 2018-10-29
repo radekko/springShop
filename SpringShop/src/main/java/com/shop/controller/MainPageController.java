@@ -1,7 +1,6 @@
 package com.shop.controller;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,25 +45,37 @@ public class MainPageController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String afterSelectCategory(
-	    @RequestParam(value = "categoryName")  Optional<String> categoryNameParam,
+	    @RequestParam(value = "categoryName", required = false) String categoryName,
 	    @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 	    Model model){
-
-		String categoryName = (categoryNameParam.filter(s -> !s.isEmpty()).isPresent()) ?
-						categoryNameParam.get() : categoryService.getFirstCategory().getCategoryName();
-				
-		EntityPage<Product> paginateOffer = offerService.getPaginateOfferForClient(page,categoryName,maxProductOnPage);
 		
-		List<Integer> navPages = navPagesCreator.create(paginateOffer,maxNavigationPages);
-		List<LineItemDTO> orderDTOlist = paginateOffer.getItems().stream()
-				.map(e -> mapper.convertEntityToDTO(e)).collect(Collectors.toList());
+		if(isCategorySelected(categoryName)) {
+			model.addAttribute(new Category(categoryName));
+			
+			EntityPage<Product> paginateOffer = offerService.getPaginateOfferForClient(page,categoryName,maxProductOnPage);
+			
+			model.addAttribute("offer", createOfferToDisplay(paginateOffer));
+			model.addAttribute("navigationPages",createNavPages(paginateOffer));
+			model.addAttribute("categoryName", categoryName);
+			model.addAttribute(new LineItemDTO());
+		}
+		else
+			model.addAttribute(new Category());
 		
-		model.addAttribute("offer", orderDTOlist);
-		model.addAttribute("navigationPages",navPages);
 		model.addAttribute("categoriesList", categoryService.getAllCategories());
-		model.addAttribute("categoryName", categoryName);
-		model.addAttribute(new LineItemDTO());
-		model.addAttribute(new Category());
 		return "mainForm";
 	}
+
+	private boolean isCategorySelected(String cName) {
+		return cName != null && !cName.isEmpty();
+	}
+
+	private List<Integer> createNavPages(EntityPage<Product> paginateOffer) {
+		return navPagesCreator.create(paginateOffer,maxNavigationPages);
+	}
+
+	private List<LineItemDTO> createOfferToDisplay(EntityPage<Product> paginateOffer) {
+		return paginateOffer.getItems().stream().map(e -> mapper.convertEntityToDTO(e)).collect(Collectors.toList());
+	}
+	
 }

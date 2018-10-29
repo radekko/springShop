@@ -30,9 +30,8 @@
   <input type="submit" value="Get items" />
 </form:form>
 
-
-	
-<h2>List of Products in ${categoryName}</h2>  
+<c:if test="${not empty categoryName}">	
+	<h2>List of Products in ${categoryName}</h2>  
 
     <table>
         <tr bgcolor="#41bce6">
@@ -50,12 +49,12 @@
 					<td colspan="2"><input type="submit" value="Add to cart" /></td>
 					<td style="display:none"><form:input type="hidden" path="uniqueProductCode"  value="${lineItem.uniqueProductCode}"/></td>
 					<td style="display:none"><form:input type="hidden" path="currentPrice"  value="${lineItem.currentPrice}"/></td>
-					<td style="display:none"><form:input type="hidden" path="name"  value="${lineItem.name}"/></td>
+					<td style="display:none"><form:input type="hidden" path="name" value="${lineItem.name}"/></td>
 				</form:form>
 			</tr>
         </c:forEach>
     </table>
-
+</c:if>
     <c:forEach items="${navigationPages}" var = "page">
        <c:if test="${page != -1 }">
          <a href="${requestScope['javax.servlet.forward.request_uri']}?categoryName=${categoryName}&page=${page}">${page}</a>
