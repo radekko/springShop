@@ -22,6 +22,14 @@ public class AbstractDaoWithPagination<PK extends Serializable, T> extends Abstr
 		return new EntityPage<T>(entities,page,countTotalRecordsForGroup(null),itemsOnPage);
 	}
 	
+	public EntityPage<T> createEntityPageIncludingFetchAndWhere(
+			int page, int itemsOnPage, String fetchColumnName,String columnName, IEntity columnValue) {
+		int from = fromIndex(page,itemsOnPage);
+		List<T> entities = em.createQuery(selectWithWhereAndFetch(fetchColumnName, columnName, columnValue))
+				.setFirstResult(from).setMaxResults(itemsOnPage).getResultList();
+		return new EntityPage<T>(entities,page,countTotalRecordsForGroup(columnValue),itemsOnPage);
+	}
+	
 	private int fromIndex(int page, int itemsOnPage) {
 		return (page - 1 ) * itemsOnPage;
 	}

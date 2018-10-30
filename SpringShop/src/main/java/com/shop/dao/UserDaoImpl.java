@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.TypedQuery;
+
 import org.springframework.stereotype.Repository;
 
 import com.shop.model.entity.persistent.User;
@@ -35,6 +37,13 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	@Override
 	public User getByUsername(String username) {
 		return selectUniqueEntityWithWhere("username",username);
+	}
+	
+	@Override
+	public List<User> getUsersWhichMakeOrder() {
+		String queryString = "from User where userId IN(SELECT DISTINCT user FROM Order)";
+		TypedQuery<User> query = em.createQuery(queryString, User.class);
+		return query.getResultList();
 	}
 
 }

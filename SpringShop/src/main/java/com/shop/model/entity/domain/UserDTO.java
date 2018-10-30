@@ -14,6 +14,13 @@ public class UserDTO implements IDTO{
 	@NotBlank(message = "Email must not be empty")
 	@Email(message = "Incorrect email")
 	private String email;
+	
+	public UserDTO() {}
+	public UserDTO(String username, String email) {
+		this.username = username;
+		this.email = email;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -31,5 +38,9 @@ public class UserDTO implements IDTO{
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	@Override
+	public String toString() {
+		return username;
 	}
 }

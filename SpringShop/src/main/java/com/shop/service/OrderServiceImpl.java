@@ -38,6 +38,11 @@ public class OrderServiceImpl implements OrderService{
 	}
 	
 	@Override
+	public EntityPage<Order> getPaginateOrdersForUser(int page, int maxOrdersOnPage,String username) {
+		return orderDao.getOrdersOnPageForUser(page,maxOrdersOnPage,userDao.getByUsername(username));
+	}
+	
+	@Override
 	public void saveOrder(List<LineItemDTO> orderList, String generatedNumber) {
 		User supportedUser = userDao.getByUsername(authenticationService.getCurrentLoggedUsername());
 		Order order =  new Order();
@@ -48,6 +53,11 @@ public class OrderServiceImpl implements OrderService{
 			order.addToSetOfLineItems(convertLineItemDTOtoLineItem(item));
 		
 		orderDao.save(order);
+	}
+
+	@Override
+	public List<User> getUsersWhichMakeOrder() {
+		return userDao.getUsersWhichMakeOrder();
 	}
 	
 	private LineItem convertLineItemDTOtoLineItem(LineItemDTO itemDTO) {

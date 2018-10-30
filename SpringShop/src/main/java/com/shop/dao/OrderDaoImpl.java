@@ -2,6 +2,7 @@ package com.shop.dao;
 
 import org.springframework.stereotype.Repository;
 
+import com.shop.model.entity.persistent.IEntity;
 import com.shop.model.entity.persistent.Order;
 import com.shop.pagination.EntityPage;
 
@@ -11,6 +12,11 @@ public class OrderDaoImpl extends AbstractDaoWithPagination<Integer, Order> impl
 	@Override
 	public EntityPage<Order> getOrdersOnPage(int page, int maxProductOnPage) {
 		return createEntityPageIncludingFetch(page,maxProductOnPage,"setOfLineItems");
+	}
+	
+	@Override
+	public EntityPage<Order> getOrdersOnPageForUser(int page, int maxProductOnPage, IEntity columnValue) {
+		return createEntityPageIncludingFetchAndWhere(page,maxProductOnPage,"setOfLineItems","user",columnValue);
 	}
 //	using jpql
 //	@SuppressWarnings("unchecked")

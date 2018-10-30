@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.shop.mappers.IMapper;
+import com.shop.mappers.Mapper;
 import com.shop.model.entity.domain.LineItemDTO;
 import com.shop.model.entity.persistent.Category;
 import com.shop.model.entity.persistent.Product;
@@ -27,7 +27,7 @@ public class MainPageController {
 	private OfferService offerService;
 	private CategoryService categoryService;
 	private NavigationPagesCreator navPagesCreator;
-	private IMapper<Product, LineItemDTO> mapper;
+	private Mapper<Product, LineItemDTO> mapper;
 	
 	@Value("${com.shop.controller.MainPageController.maxNavigationPage}")
 	private int maxNavigationPages;
@@ -36,7 +36,7 @@ public class MainPageController {
 	
 	@Autowired
 	public MainPageController(OfferService offerService, CategoryService categoryService,
-			NavigationPagesCreator navPagesCreator, IMapper<Product, LineItemDTO> mapper) {
+			NavigationPagesCreator navPagesCreator, Mapper<Product, LineItemDTO> mapper) {
 		this.offerService = offerService;
 		this.categoryService = categoryService;
 		this.navPagesCreator = navPagesCreator;

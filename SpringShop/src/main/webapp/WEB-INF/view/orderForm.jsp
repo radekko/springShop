@@ -7,8 +7,21 @@
 <title>Orders</title>
 </head>
 
+<h3>Select user:</h3>
+
+<form:form modelAttribute="userDTO" action="order" method="GET">
+  <form:select path="username">
+  	<form:option value="" label="--All--"/>
+    <form:options items="${usersList}"></form:options>
+  </form:select>
+  <input type="submit" value="Get orders" />
+</form:form>
+
 <body>
 	<h1>Orders</h1>
+	<c:if test="${not empty username}">
+		 <h3>made by: ${username}</h3>
+	</c:if> 
 	<table>
 		<tr>
 			<c:forEach items="${orderDTO}" var="order">
@@ -44,7 +57,7 @@
 	<c:forEach items="${navigationPages}" var="page">
 		<c:if test="${page != -1 }">
 			<a
-				href="${requestScope['javax.servlet.forward.request_uri']}?page=${page}">${page}</a>
+				href="${requestScope['javax.servlet.forward.request_uri']}?username=${username}&&page=${page}">${page}</a>
 		</c:if>
 		<c:if test="${page == -1 }">
 			<span> ... </span>

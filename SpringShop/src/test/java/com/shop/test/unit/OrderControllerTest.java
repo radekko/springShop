@@ -20,7 +20,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.shop.controller.OrderController;
-import com.shop.mappers.IMapper;
+import com.shop.mappers.Mapper;
 import com.shop.model.entity.domain.OrderDTO;
 import com.shop.model.entity.persistent.Order;
 import com.shop.pagination.EntityPage;
@@ -37,7 +37,7 @@ public class OrderControllerTest {
 	private NavigationPagesCreator navPagesCreator;
 	
 	@Mock
-	private IMapper<Order, OrderDTO> mapper;
+	private Mapper<Order, OrderDTO> mapper;
 	
 	@InjectMocks
 	private OrderController orderController;

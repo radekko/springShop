@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.shop.controller.MainPageController;
-import com.shop.mappers.IMapper;
+import com.shop.mappers.Mapper;
 import com.shop.model.entity.domain.OrderDTO;
 import com.shop.model.entity.persistent.Order;
 import com.shop.model.entity.persistent.Product;
@@ -48,7 +48,7 @@ public class MainPageControllerTest {
 	private NavigationPagesCreator navPagesCreator;
 	
 	@Mock
-	private IMapper<Order, OrderDTO> mapper;
+	private Mapper<Order, OrderDTO> mapper;
 	
 	@InjectMocks
 	private MainPageController mainPageController;

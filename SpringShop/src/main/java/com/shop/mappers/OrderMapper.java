@@ -11,18 +11,13 @@ import com.shop.model.entity.persistent.LineItem;
 import com.shop.model.entity.persistent.Order;
 
 @Component
-public class OrderMapper implements IMapper<Order, OrderDTO> {
+public class OrderMapper implements Mapper<Order, OrderDTO> {
 
 	@Override
 	public OrderDTO convertEntityToDTO(Order o) {
 		List<LineItemDTO> items = o.getSetOfLineItems().stream()
 				.map(this::convertLineItemToDTO).collect(Collectors.toList());
-		return new OrderDTO(o.getUserId().getUsername(),o.getOrderIdentifier(),items);
-	}
-
-	@Override
-	public Order convertDTOToEntity(OrderDTO d) {
-		return new Order();
+		return new OrderDTO(o.getUser().getUsername(),o.getOrderIdentifier(),items);
 	}
 
 	private LineItemDTO convertLineItemToDTO(LineItem p) {

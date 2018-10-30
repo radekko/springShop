@@ -24,18 +24,18 @@ public class Order implements IEntity{
 	
 	@ManyToOne
     @JoinColumn(name = "userId")
-	private User userId;
+	private User user;
 	@OneToMany(mappedBy="order",cascade=CascadeType.ALL)
 	@OrderBy("productPrice")
 	private Set<LineItem> setOfLineItems = new TreeSet<LineItem>();
 	
 	private String orderIdentifier;
 	
-	public User getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 	public void setUser(User user) {
-		this.userId = user;
+		this.user = user;
 	}
 	public String getOrderIdentifier() {
 		return orderIdentifier;
@@ -52,10 +52,5 @@ public class Order implements IEntity{
 	public void addToSetOfLineItems(LineItem orderDetails) {
 		this.setOfLineItems.add(orderDetails);
 		orderDetails.setOrder(this);
-	}
-	@Override
-	public String toString() {
-		return "Order [orderId=" + orderId + ", userId=" + userId + ", setOfDetails=" + setOfLineItems
-				+ ", orderIdentifier=" + orderIdentifier + "]";
 	}
 }
