@@ -22,6 +22,7 @@
 	<c:if test="${not empty username}">
 		 <h3>made by: ${username}</h3>
 	</c:if> 
+	<h3>Total: ${totalOrders}</h3>
 	<table>
 		<tr>
 			<c:forEach items="${orderDTO}" var="order">

@@ -60,6 +60,7 @@ public class OrderController {
 		else
 			paginateOrders = orderService.getPaginateOrders(page, maxOrdersOnPage);
 			
+		model.addAttribute("totalOrders",paginateOrders.getTotalRecords());
 		model.addAttribute("orderDTO", mapEntityPageToDTO(paginateOrders));
 		model.addAttribute("navigationPages", createNavPages(paginateOrders));
 		model.addAttribute("usersList",getUsersWhichMakeAnyOrder());
