@@ -1,6 +1,6 @@
 package com.shop.service;
 
-import com.shop.model.entity.domain.Role;
+import com.shop.config.Role;
 
 public interface AuthenticationService {
 	Role getMainRole();

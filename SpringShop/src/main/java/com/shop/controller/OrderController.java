@@ -55,10 +55,10 @@ public class OrderController {
 		
 		if(isUserSelected(username)) {
 			chosenUser.setUsername(username);
-			paginateOrders = orderService.getPaginateOrdersForUser(page, maxOrdersOnPage,username);
+			paginateOrders = orderService.getPaginateOrdersForUser(page, maxOrdersOnPage,username,false);
 		}
 		else
-			paginateOrders = orderService.getPaginateOrders(page, maxOrdersOnPage);
+			paginateOrders = orderService.getPaginateOrders(page, maxOrdersOnPage,false);
 			
 		model.addAttribute("totalOrders",paginateOrders.getTotalRecords());
 		model.addAttribute("orderDTO", mapEntityPageToDTO(paginateOrders));

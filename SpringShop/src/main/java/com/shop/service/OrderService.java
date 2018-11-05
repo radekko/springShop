@@ -9,7 +9,7 @@ import com.shop.pagination.EntityPage;
 
 public interface OrderService {
 	void saveOrder(List<LineItemDTO> orderList, String generatedNumber);
-	EntityPage<Order> getPaginateOrders(int page, int maxOrdersOnPage);
-	EntityPage<Order> getPaginateOrdersForUser(int page, int maxOrdersOnPage, String username);
 	List<User> getUsersWhichMakeOrder();
+	EntityPage<Order> getPaginateOrders(int page, int maxOrdersOnPage, boolean isRealized);
+	EntityPage<Order> getPaginateOrdersForUser(int page, int maxOrdersOnPage, String username, boolean isRealized);
 }

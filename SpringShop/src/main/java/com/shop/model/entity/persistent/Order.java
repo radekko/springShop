@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,6 +32,9 @@ public class Order implements IEntity{
 	
 	private String orderIdentifier;
 	
+	@Column(nullable=false, columnDefinition="boolean default false")
+	private boolean isRealized;
+	
 	public User getUser() {
 		return user;
 	}
@@ -42,6 +46,12 @@ public class Order implements IEntity{
 	}
 	public void setOrderIdentifier(String orderIdentifier) {
 		this.orderIdentifier = orderIdentifier;
+	}
+	public boolean isRealized() {
+		return isRealized;
+	}
+	public void setRealized(boolean isRealized) {
+		this.isRealized = isRealized;
 	}
 	public Set<LineItem> getSetOfLineItems() {
 		return setOfLineItems;

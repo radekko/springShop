@@ -33,13 +33,13 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public EntityPage<Order> getPaginateOrders(int page, int maxOrdersOnPage) {
-		return orderDao.getOrdersOnPage(page,maxOrdersOnPage);
+	public EntityPage<Order> getPaginateOrders(int page, int maxOrdersOnPage, boolean isRealized) {
+		return orderDao.getOrdersOnPage(page,maxOrdersOnPage,isRealized);
 	}
-	
+
 	@Override
-	public EntityPage<Order> getPaginateOrdersForUser(int page, int maxOrdersOnPage,String username) {
-		return orderDao.getOrdersOnPageForUser(page,maxOrdersOnPage,userDao.getByUsername(username));
+	public EntityPage<Order> getPaginateOrdersForUser(int page, int maxOrdersOnPage, String username, boolean isRealized) {
+		return orderDao.getOrdersOnPageForUser(page,maxOrdersOnPage,userDao.getByUsername(username),isRealized);
 	}
 	
 	@Override

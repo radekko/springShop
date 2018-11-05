@@ -26,10 +26,6 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 	
 	@Override
-	public Category getFirstCategory() {
-		return categoryDao.getFirstCategory();
-	}
-	@Override
 	public Category getCategoryByName(String categoryName) {
 		return categoryDao.getCategoryByName(categoryName);
 	}

@@ -2,6 +2,7 @@ package com.shop.test.unit;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyBoolean;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -52,7 +53,7 @@ public class OrderControllerTest {
 	
 	@Test
 	public void testShowOrderForm() throws Exception {
-		given(orderService.getPaginateOrders(anyInt(),anyInt()))
+		given(orderService.getPaginateOrders(anyInt(),anyInt(),anyBoolean()))
 		.willReturn(preparePaginateOrders());
 		
 		mockMvc.perform(get("/order"))

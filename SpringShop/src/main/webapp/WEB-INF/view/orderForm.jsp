@@ -48,6 +48,10 @@
 						</tr>
 					</c:forEach>
 				</tr>
+				<form:form method="POST">
+					<td><input type="submit" value="Accomplished" /></td> 
+				 	<td style="display:none"><input type="hidden" name="orderIdentifier" value="${order.orderIdentifier}"></td> 
+				</form:form>
 				<tr>
 					<td>&nbsp;</td>
 				</tr>

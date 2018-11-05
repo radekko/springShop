@@ -7,5 +7,4 @@ import com.shop.model.entity.persistent.Category;
 public interface CategoryService {
 	List<Category> getAllCategories();
 	Category getCategoryByName(String categoryName);
-	Category getFirstCategory();
 }

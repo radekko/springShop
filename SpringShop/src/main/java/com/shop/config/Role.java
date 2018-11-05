@@ -1,4 +1,4 @@
-package com.shop.model.entity.domain;
+package com.shop.config;
 
 public enum Role {
 	NONE, ROLE_ADMIN, ROLE_USER;

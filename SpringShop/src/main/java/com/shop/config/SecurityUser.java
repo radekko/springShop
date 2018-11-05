@@ -1,4 +1,4 @@
-package com.shop.model.entity.domain;
+package com.shop.config;
 
 import java.util.ArrayList;
 import java.util.Collection;

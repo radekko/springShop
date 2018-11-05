@@ -16,10 +16,6 @@ public class AbstractDao<PK extends Serializable, T> extends AbstractQuery<T>{
 		return em.createQuery(select()).getResultList();
 	}
 	
-	public T getFirstResult() {
-		return em.createQuery(select()).setFirstResult(0).setMaxResults(1).getSingleResult();
-	}
-	
 	public T selectUniqueEntityWithWhere(String columnName, String searchValue) {
 		return em.createQuery(selectWhere(columnName,searchValue)).getSingleResult();
 	}
@@ -29,11 +25,15 @@ public class AbstractDao<PK extends Serializable, T> extends AbstractQuery<T>{
 	}
 	
 	public List<T> selectListOfEntityWithMultiWhere(Map<String,String> values){
-		return em.createQuery(selectWhereMapParam(values)).getResultList();
+		return em.createQuery(selectWithWhereManyParam(values)).getResultList();
 	}
 	
-	public int countTotalRecordsForGroup(IEntity groupEntity) {
-		return toIntExact(em.createQuery(countForGroupQuery(groupEntity)).getSingleResult());
+	public int countTotalRecords() {
+		return countTotalRecordsInGroup(null);
+	}
+	
+	public int countTotalRecordsInGroup(IEntity groupEntity) {
+		return toIntExact(em.createQuery(countInGroup(groupEntity)).getSingleResult());
 	}
 	
 	public void persist(T entity) {

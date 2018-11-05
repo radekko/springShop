@@ -17,8 +17,4 @@ public class CategoryDaoImpl extends AbstractDao<Integer, Category> implements C
 	public Category getCategoryByName(String categoryName) {
 		return selectUniqueEntityWithWhere("categoryName",categoryName);
 	}
-	@Override
-	public Category getFirstCategory() {
-		return getFirstResult();
-	}
 }
