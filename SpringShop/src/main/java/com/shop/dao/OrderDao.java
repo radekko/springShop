@@ -8,5 +8,5 @@ public interface OrderDao {
 	void save(Order order);
 	EntityPage<Order> getOrdersOnPage(int page, int maxProductOnPage, boolean isRealized);
 	EntityPage<Order> getOrdersOnPageForUser(int page, int maxProductOnPage, IEntity groupEntity, boolean isRealized);
-	int countTotalRecordsInGroup(IEntity groupEntity);
+	void changeRealizedFlag(String orderIdentifier, boolean isRealized);
 }

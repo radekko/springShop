@@ -10,6 +10,5 @@ public interface ProductDao {
 	void addProduct(Product product);
 	List<Product> findAllProduct();
 	Product getByUniqueCode(String uniquecode);
-	int countTotalRecordsInGroup(IEntity groupEntity);
 	EntityPage<Product> getPageInCategory(int page, int maxItemsOnPage, IEntity category);
 }

@@ -60,6 +60,11 @@ public class OrderServiceImpl implements OrderService{
 		return userDao.getUsersWhichMakeOrder();
 	}
 	
+	@Override
+	public void acomplish(String orderIdentifier) {
+		orderDao.changeRealizedFlag(orderIdentifier,true);
+	}
+	
 	private LineItem convertLineItemDTOtoLineItem(LineItemDTO itemDTO) {
 		LineItem item = new LineItem();
 		item.setProductAmount(itemDTO.getAmount());
@@ -67,5 +72,6 @@ public class OrderServiceImpl implements OrderService{
 		item.setProduct(productDao.getByUniqueCode(itemDTO.getUniqueProductCode()));
 		return item;
 	}
+
 	
 }

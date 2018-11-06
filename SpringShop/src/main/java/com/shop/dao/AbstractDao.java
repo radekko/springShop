@@ -1,12 +1,10 @@
 package com.shop.dao;
 
-import static java.lang.Math.toIntExact;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import com.shop.model.entity.persistent.IEntity;
+import javax.persistence.criteria.CriteriaQuery;
 
 public class AbstractDao<PK extends Serializable, T> extends AbstractQuery<T>{
 
@@ -19,21 +17,13 @@ public class AbstractDao<PK extends Serializable, T> extends AbstractQuery<T>{
 	public T selectUniqueEntityWithWhere(String columnName, String searchValue) {
 		return em.createQuery(selectWhere(columnName,searchValue)).getSingleResult();
 	}
-	
+
 	public List<T> selectListOfEntityWithWhere(String columnName, String searchValue){
 		return em.createQuery(selectWhere(columnName,searchValue)).getResultList();
 	}
 	
 	public List<T> selectListOfEntityWithMultiWhere(Map<String,String> values){
 		return em.createQuery(selectWithWhereManyParam(values)).getResultList();
-	}
-	
-	public int countTotalRecords() {
-		return countTotalRecordsInGroup(null);
-	}
-	
-	public int countTotalRecordsInGroup(IEntity groupEntity) {
-		return toIntExact(em.createQuery(countInGroup(groupEntity)).getSingleResult());
 	}
 	
 	public void persist(T entity) {
@@ -46,5 +36,14 @@ public class AbstractDao<PK extends Serializable, T> extends AbstractQuery<T>{
 
 	public void delete(T entity) {
 		em.remove(entity);
+	}
+	
+	public List<T> selectPage(CriteriaQuery<T> query,int page, int itemsOnPage){
+		int from = fromIndex(page,itemsOnPage);
+		return em.createQuery(query).setFirstResult(from).setMaxResults(itemsOnPage).getResultList();
+	}
+	
+	private int fromIndex(int page, int itemsOnPage) {
+		return (page - 1 ) * itemsOnPage;
 	}
 }

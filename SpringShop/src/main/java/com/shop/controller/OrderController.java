@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.mappers.Mapper;
 import com.shop.model.entity.domain.OrderDTO;
@@ -53,7 +54,7 @@ public class OrderController {
 		EntityPage<Order> paginateOrders;
 		UserDTO chosenUser = new UserDTO();
 		
-		if(isUserSelected(username)) {
+		if(isContainValue(username)) {
 			chosenUser.setUsername(username);
 			paginateOrders = orderService.getPaginateOrdersForUser(page, maxOrdersOnPage,username,false);
 		}
@@ -67,6 +68,20 @@ public class OrderController {
 		model.addAttribute(chosenUser);
 		model.addAttribute("username", username);
 		return "orderForm";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public String acomplishOrder(
+			@RequestParam("orderIdentifier") String orderIdentifier,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "username", required = false) String username,
+			RedirectAttributes redirectAttributes,
+			Model model) {
+		
+			orderService.acomplish(orderIdentifier);
+			redirectAttributes.addAttribute("page", page);
+			redirectAttributes.addAttribute("username", username);
+			return "redirect:/order";
 	}
 
 	private List<Integer> createNavPages(EntityPage<Order> paginateOrders) {
@@ -83,7 +98,7 @@ public class OrderController {
 				.map(e -> userMapper.convertEntityToDTO(e)).collect(Collectors.toList());
 	}
 	
-	private boolean isUserSelected(String uName) {
-		return uName != null && !uName.isEmpty();
+	private boolean isContainValue(String s) {
+		return s != null && !s.isEmpty();
 	}
 }

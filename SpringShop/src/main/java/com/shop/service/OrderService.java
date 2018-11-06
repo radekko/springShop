@@ -12,4 +12,5 @@ public interface OrderService {
 	List<User> getUsersWhichMakeOrder();
 	EntityPage<Order> getPaginateOrders(int page, int maxOrdersOnPage, boolean isRealized);
 	EntityPage<Order> getPaginateOrdersForUser(int page, int maxOrdersOnPage, String username, boolean isRealized);
+	void acomplish(String orderIdentifier);
 }

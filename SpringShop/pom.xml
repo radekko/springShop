@@ -22,8 +22,9 @@
 		<spring-security.version>4.0.4.RELEASE</spring-security.version>
 
 		<!-- Hibernate / JPA -->
-		<hibernate.version>4.2.1.Final</hibernate.version>
+		<hibernate.version>5.1.9.Final</hibernate.version>
 		<hibernate.validate.version>6.0.2.Final</hibernate.validate.version>
+		<postgresql.version>42.2.2.jre7</postgresql.version>
 
 		<!-- Logging -->
 		<logback.version>1.0.13</logback.version>
@@ -110,11 +111,10 @@
 			<artifactId>hibernate-validator-annotation-processor</artifactId>
 			<version>${hibernate.validate.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.4-1200-jdbc41</version>
+			<version>${postgresql.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.javassist</groupId>

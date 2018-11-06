@@ -1,7 +1,6 @@
 package com.shop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +25,7 @@ public class LoginController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String loginPage(Model model, RedirectAttributes redirectAttributes) {
-		switch (authenticationService.getMainRole(SecurityContextHolder.getContext().getAuthentication())) {
+		switch (authenticationService.getMainRole()) {
 		case ROLE_ADMIN:
 			return "redirect:" + AFTER_LOGIN_AS_ADMIN;
 		case ROLE_USER:
