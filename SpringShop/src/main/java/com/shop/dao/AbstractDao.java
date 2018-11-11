@@ -15,7 +15,7 @@ public class AbstractDao<PK extends Serializable, T> extends AbstractQuery<T>{
 	}
 	
 	public T selectUniqueEntityWithWhere(String columnName, String searchValue) {
-		return em.createQuery(selectWhere(columnName,searchValue)).getSingleResult();
+		return em.createQuery(selectWhere(columnName,searchValue)).getResultList().get(0);
 	}
 
 	public List<T> selectListOfEntityWithWhere(String columnName, String searchValue){

@@ -79,6 +79,6 @@ public class OrderDaoImpl extends AbstractDao<Integer, Order> implements OrderDa
 					cb.equal(root.get(groupEntity.getClassNameStartWithLowerCase()), groupEntity));
 		}
 		query.where(cb.and(predicates.toArray(new Predicate[] {})));
-		return em.createQuery(query).getSingleResult();
+		return em.createQuery(query).getResultList().get(0);
 	}
 }

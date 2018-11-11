@@ -18,7 +18,7 @@
 
 
 		<!-- Spring -->
-		<spring-framework.version>4.2.3.RELEASE</spring-framework.version>
+		<spring-framework.version>4.3.11.RELEASE</spring-framework.version>
 		<spring-security.version>4.0.4.RELEASE</spring-security.version>
 
 		<!-- Hibernate / JPA -->

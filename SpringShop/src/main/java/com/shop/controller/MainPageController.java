@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shop.mappers.Mapper;
@@ -21,7 +21,7 @@ import com.shop.service.CategoryService;
 import com.shop.service.OfferService;
 
 @Controller
-@RequestMapping(value = "/main/displayOffer")
+@RequestMapping(path = "/main/displayOffer")
 public class MainPageController {
 	
 	private OfferService offerService;
@@ -43,7 +43,7 @@ public class MainPageController {
 		this.mapper = mapper;
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	public String afterSelectCategory(
 	    @RequestParam(value = "categoryName", required = false) String categoryName,
 	    @RequestParam(value = "page", required = false, defaultValue = "1") int page,

@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,7 +23,7 @@ import com.shop.pagination.NavigationPagesCreator;
 import com.shop.service.OrderService;
 
 @Controller
-@RequestMapping(value = "/order")
+@RequestMapping(path = "/order")
 public class OrderController {
 
 	private OrderService orderService;
@@ -45,7 +46,7 @@ public class OrderController {
 		this.userMapper = userMapper;
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	public String displayOrders(
 			@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
@@ -70,7 +71,7 @@ public class OrderController {
 		return "orderForm";
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	public String acomplishOrder(
 			@RequestParam("orderIdentifier") String orderIdentifier,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
