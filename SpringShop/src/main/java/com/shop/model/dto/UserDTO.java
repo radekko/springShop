@@ -1,4 +1,4 @@
-package com.shop.model.entity.domain;
+package com.shop.model.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

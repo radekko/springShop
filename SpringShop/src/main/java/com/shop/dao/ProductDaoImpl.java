@@ -11,8 +11,8 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
-import com.shop.model.entity.persistent.IEntity;
-import com.shop.model.entity.persistent.Product;
+import com.shop.model.entity.IEntity;
+import com.shop.model.entity.Product;
 import com.shop.pagination.EntityPage;
 
 @Repository

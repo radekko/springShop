@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.mappers.Mapper;
-import com.shop.model.entity.domain.OrderDTO;
-import com.shop.model.entity.domain.UserDTO;
-import com.shop.model.entity.persistent.Order;
-import com.shop.model.entity.persistent.User;
+import com.shop.model.dto.OrderDTO;
+import com.shop.model.dto.UserDTO;
+import com.shop.model.entity.Order;
+import com.shop.model.entity.User;
 import com.shop.pagination.EntityPage;
 import com.shop.pagination.NavigationPagesCreator;
 import com.shop.service.OrderService;
@@ -57,7 +57,7 @@ public class OrderController {
 		UserDTO chosenUser = getChosenUser(username);
 		
 		prepareModel(model, paginateOrders, username, chosenUser);
-		return "orderForm";
+		return "admin/orderForm";
 	}
 
 	@GetMapping(path = "/accomplished")
@@ -71,21 +71,21 @@ public class OrderController {
 		UserDTO chosenUser = getChosenUser(username);
 		
 		prepareModel(model, paginateOrders, username, chosenUser);
-		return "accomplishedOrderForm";
+		return "admin/accomplishedOrderForm";
 	}
 	
 	@PostMapping
 	public String accomplishOrder(
-			@RequestParam("orderIdentifier") String orderIdentifier,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-			@RequestParam(value = "username", required = false) String username,
-			RedirectAttributes redirectAttributes,
-			Model model) {
+		@RequestParam("orderIdentifier") String orderIdentifier,
+		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+		@RequestParam(value = "username", required = false) String username,
+		RedirectAttributes redirectAttributes,
+		Model model) {
 		
-			orderService.acomplish(orderIdentifier);
-			redirectAttributes.addAttribute("page", page);
-			redirectAttributes.addAttribute("username", username);
-			return "redirect:/order";
+		orderService.acomplish(orderIdentifier);
+		redirectAttributes.addAttribute("page", page);
+		redirectAttributes.addAttribute("username", username);
+		return "redirect:/order";	
 	}
 	
 	private void prepareModel(Model model, EntityPage<Order> paginateOrders, String username, UserDTO chosenUser) {

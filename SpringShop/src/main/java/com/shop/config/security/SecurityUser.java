@@ -1,4 +1,4 @@
-package com.shop.config;
+package com.shop.config.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.shop.model.entity.persistent.User;
+import com.shop.model.entity.User;
 
 public class SecurityUser implements UserDetails {
 

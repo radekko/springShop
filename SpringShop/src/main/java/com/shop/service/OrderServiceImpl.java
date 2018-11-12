@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shop.dao.OrderDao;
 import com.shop.dao.ProductDao;
 import com.shop.dao.UserDao;
-import com.shop.model.entity.domain.LineItemDTO;
-import com.shop.model.entity.persistent.LineItem;
-import com.shop.model.entity.persistent.Order;
-import com.shop.model.entity.persistent.User;
+import com.shop.model.dto.LineItemDTO;
+import com.shop.model.entity.LineItem;
+import com.shop.model.entity.Order;
+import com.shop.model.entity.User;
 import com.shop.pagination.EntityPage;
 
 @Service
@@ -45,13 +45,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public void saveOrder(List<LineItemDTO> orderList, String generatedNumber) {
 		User supportedUser = userDao.getByUsername(authenticationService.getCurrentLoggedUsername());
-		Order order =  new Order();
-		order.setUser(supportedUser);
-		order.setOrderIdentifier(generatedNumber);
-		
-		for(LineItemDTO item: orderList)
-			order.addToSetOfLineItems(convertLineItemDTOtoLineItem(item));
-		
+		Order order = prepareOrder(orderList, generatedNumber, supportedUser);
 		orderDao.save(order);
 	}
 
@@ -65,6 +59,16 @@ public class OrderServiceImpl implements OrderService{
 		orderDao.changeRealizedFlag(orderIdentifier,true);
 	}
 	
+	private Order prepareOrder(List<LineItemDTO> orderList, String generatedNumber, User supportedUser) {
+		Order order =  new Order();
+		order.setUser(supportedUser);
+		order.setOrderIdentifier(generatedNumber);
+		
+		for(LineItemDTO item: orderList)
+			order.addToSetOfLineItems(convertLineItemDTOtoLineItem(item));
+		return order;
+	}
+	
 	private LineItem convertLineItemDTOtoLineItem(LineItemDTO itemDTO) {
 		LineItem item = new LineItem();
 		item.setProductAmount(itemDTO.getAmount());
@@ -73,5 +77,4 @@ public class OrderServiceImpl implements OrderService{
 		return item;
 	}
 
-	
 }

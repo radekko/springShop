@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.shop.model.entity.domain.LineItemDTO;
+import com.shop.model.dto.LineItemDTO;
 
 @Service
 @Transactional

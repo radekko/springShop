@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.shop.model.entity.domain.LineItemDTO;
-import com.shop.model.entity.domain.OrderDTO;
-import com.shop.model.entity.persistent.LineItem;
-import com.shop.model.entity.persistent.Order;
+import com.shop.model.dto.LineItemDTO;
+import com.shop.model.dto.OrderDTO;
+import com.shop.model.entity.LineItem;
+import com.shop.model.entity.Order;
 
 @Component
 public class OrderMapper implements Mapper<Order, OrderDTO> {

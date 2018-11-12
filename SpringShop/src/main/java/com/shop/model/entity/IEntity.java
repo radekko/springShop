@@ -1,4 +1,4 @@
-package com.shop.model.entity.persistent;
+package com.shop.model.entity;
 
 public interface IEntity {
 	

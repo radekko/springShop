@@ -1,4 +1,4 @@
-package com.shop.model.entity.domain;
+package com.shop.model.dto;
 
 import java.io.Serializable;
 

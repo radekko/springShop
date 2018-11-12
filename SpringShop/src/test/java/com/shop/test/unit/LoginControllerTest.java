@@ -15,7 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.shop.config.Role;
+import com.shop.config.security.Role;
 import com.shop.controller.LoginController;
 import com.shop.service.AuthenticationService;
 

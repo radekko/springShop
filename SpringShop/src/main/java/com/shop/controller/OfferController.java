@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shop.mappers.Mapper;
-import com.shop.model.entity.domain.LineItemDTO;
-import com.shop.model.entity.persistent.Category;
-import com.shop.model.entity.persistent.Product;
+import com.shop.model.dto.LineItemDTO;
+import com.shop.model.entity.Category;
+import com.shop.model.entity.Product;
 import com.shop.pagination.EntityPage;
 import com.shop.pagination.NavigationPagesCreator;
 import com.shop.service.CategoryService;
@@ -22,7 +22,7 @@ import com.shop.service.OfferService;
 
 @Controller
 @RequestMapping(path = "/main/displayOffer")
-public class MainPageController {
+public class OfferController {
 	
 	private OfferService offerService;
 	private CategoryService categoryService;
@@ -35,7 +35,7 @@ public class MainPageController {
 	private int maxProductOnPage;
 	
 	@Autowired
-	public MainPageController(OfferService offerService, CategoryService categoryService,
+	public OfferController(OfferService offerService, CategoryService categoryService,
 			NavigationPagesCreator navPagesCreator, Mapper<Product, LineItemDTO> mapper) {
 		this.offerService = offerService;
 		this.categoryService = categoryService;
@@ -44,14 +44,15 @@ public class MainPageController {
 	}
 
 	@GetMapping
-	public String afterSelectCategory(
+	public String displayMainPage(
 	    @RequestParam(value = "categoryName", required = false) String categoryName,
 	    @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 	    Model model){
 		
+		Category category = new Category();
+		
 		if(isCategorySelected(categoryName)) {
-			model.addAttribute(new Category(categoryName));
-			
+			category.setCategoryName(categoryName);
 			EntityPage<Product> paginateOffer = offerService.getPaginateOfferForClient(page,categoryName,maxProductOnPage);
 			
 			model.addAttribute("offer", createOfferToDisplay(paginateOffer));
@@ -59,11 +60,10 @@ public class MainPageController {
 			model.addAttribute("categoryName", categoryName);
 			model.addAttribute(new LineItemDTO());
 		}
-		else
-			model.addAttribute(new Category());
 		
+		model.addAttribute(category);
 		model.addAttribute("categoriesList", categoryService.getAllCategories());
-		return "mainForm";
+		return "user/offerForm";
 	}
 
 	private boolean isCategorySelected(String cName) {

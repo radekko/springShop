@@ -21,11 +21,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.shop.controller.MainPageController;
+import com.shop.controller.OfferController;
 import com.shop.mappers.Mapper;
-import com.shop.model.entity.domain.OrderDTO;
-import com.shop.model.entity.persistent.Order;
-import com.shop.model.entity.persistent.Product;
+import com.shop.model.dto.OrderDTO;
+import com.shop.model.entity.Order;
+import com.shop.model.entity.Product;
 import com.shop.pagination.EntityPage;
 import com.shop.pagination.NavigationPagesCreator;
 import com.shop.service.CartService;
@@ -51,7 +51,7 @@ public class MainPageControllerTest {
 	private Mapper<Order, OrderDTO> mapper;
 	
 	@InjectMocks
-	private MainPageController mainPageController;
+	private OfferController mainPageController;
 
 	private MockMvc mockMvc;
 	
@@ -70,7 +70,7 @@ public class MainPageControllerTest {
 		
 		mockMvc.perform(get("/main/displayOffer")
 			.param("categoryName", "categoryName"))
-			.andExpect(view().name("mainForm"))
+			.andExpect(view().name("user/offerForm"))
 			.andExpect(model().attributeExists("offer"))
 			.andExpect(model().attributeExists("navigationPages"));
 	}

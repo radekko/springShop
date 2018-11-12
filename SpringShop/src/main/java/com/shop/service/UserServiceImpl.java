@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shop.dao.UserDao;
-import com.shop.model.entity.persistent.User;
+import com.shop.model.dto.UserDTO;
+import com.shop.model.entity.User;
 
 @Service
 @Transactional
@@ -23,7 +24,9 @@ public class UserServiceImpl implements UserService, Serializable {
 	}
 	
 	@Override
-	public boolean storeUserIfNotExist(User user) {
+	public boolean storeUserIfNotExist(UserDTO userDTO) {
+		User user = convertUserDTOtoUser(userDTO);
+		
 		if (userDao.findIfUserExist(user))
 			return false;
 
@@ -36,5 +39,12 @@ public class UserServiceImpl implements UserService, Serializable {
 	public User getByUsername(String userName) {
 		return userDao.getByUsername(userName);
 	}
-
+	
+	private User convertUserDTOtoUser(UserDTO userDTO) {
+		User user = new User();
+		user.setUsername(userDTO.getUsername());
+		user.setPassword(userDTO.getPassword());
+		user.setEmail(userDTO.getEmail());
+		return user;
+	}
 }

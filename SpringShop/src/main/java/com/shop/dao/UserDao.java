@@ -2,7 +2,7 @@ package com.shop.dao;
 
 import java.util.List;
 
-import com.shop.model.entity.persistent.User;
+import com.shop.model.entity.User;
 
 public interface UserDao {
 	void saveUser(User user);

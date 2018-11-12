@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.shop.model.entity.domain.UserDTO;
+import com.shop.model.dto.UserDTO;
 import com.shop.service.AuthenticationService;
 
 @Controller

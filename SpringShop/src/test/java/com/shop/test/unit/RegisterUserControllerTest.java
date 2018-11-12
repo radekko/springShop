@@ -20,7 +20,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.shop.controller.RegisterUserController;
-import com.shop.model.entity.persistent.User;
+import com.shop.model.dto.UserDTO;
 import com.shop.service.UserService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -49,7 +49,7 @@ public class RegisterUserControllerTest {
 	
 	@Test
 	public void testRegisterIsSuccess() throws Exception {
-		given(userService.storeUserIfNotExist(any(User.class))).willReturn(true);
+		given(userService.storeUserIfNotExist(any(UserDTO.class))).willReturn(true);
 		
 		mockMvc.perform(post("/register")
 				.param("save", "Save Changes")
@@ -77,7 +77,7 @@ public class RegisterUserControllerTest {
 	
 	@Test
 	public void testRegisterIsFailedBecauseOfDuplication() throws Exception {
-		given(userService.storeUserIfNotExist(any(User.class))).willReturn(false);
+		given(userService.storeUserIfNotExist(any(UserDTO.class))).willReturn(false);
 		
 		mockMvc.perform(post("/register")
 				.param("save", "Save Changes")

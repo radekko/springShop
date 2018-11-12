@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.shop.config.SecurityUser;
-import com.shop.model.entity.persistent.User;
+import com.shop.config.security.SecurityUser;
+import com.shop.model.entity.User;
 
 @Service
 @Transactional

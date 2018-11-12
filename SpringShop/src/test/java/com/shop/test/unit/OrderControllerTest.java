@@ -22,8 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.shop.controller.OrderController;
 import com.shop.mappers.Mapper;
-import com.shop.model.entity.domain.OrderDTO;
-import com.shop.model.entity.persistent.Order;
+import com.shop.model.dto.OrderDTO;
+import com.shop.model.entity.Order;
 import com.shop.pagination.EntityPage;
 import com.shop.pagination.NavigationPagesCreator;
 import com.shop.service.OrderService;
@@ -57,7 +57,7 @@ public class OrderControllerTest {
 		.willReturn(preparePaginateOrders());
 		
 		mockMvc.perform(get("/order"))
-			.andExpect(view().name("orderForm"))
+			.andExpect(view().name("admin/orderForm"))
 			.andExpect(model().attributeExists("orderDTO"))
 			.andExpect(model().attributeExists("navigationPages"));
 	}

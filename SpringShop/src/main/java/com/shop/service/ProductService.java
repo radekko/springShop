@@ -2,8 +2,8 @@ package com.shop.service;
 
 import java.util.List;
 
-import com.shop.model.entity.persistent.Category;
-import com.shop.model.entity.persistent.Product;
+import com.shop.model.entity.Category;
+import com.shop.model.entity.Product;
 import com.shop.pagination.EntityPage;
 
 public interface ProductService {

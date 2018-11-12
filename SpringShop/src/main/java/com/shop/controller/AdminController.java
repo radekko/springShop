@@ -11,7 +11,7 @@ public class AdminController {
 	
 	@GetMapping
 	public String displayAdminPage(){
-		return "adminForm";
+		return "admin/adminForm";
 	}
 	
 	@GetMapping(params = "ordersToAccept")

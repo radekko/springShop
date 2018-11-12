@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.shop.model.entity.domain.LineItemDTO;
+import com.shop.model.dto.LineItemDTO;
 import com.shop.service.CartService;
 import com.shop.service.CartServiceImpl;
 import com.shop.service.OrderService;

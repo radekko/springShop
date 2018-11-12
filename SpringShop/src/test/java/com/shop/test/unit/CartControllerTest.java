@@ -23,7 +23,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.shop.controller.CartController;
-import com.shop.model.entity.domain.LineItemDTO;
+import com.shop.model.dto.LineItemDTO;
 import com.shop.service.CartService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -49,7 +49,7 @@ public class CartControllerTest {
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(model().attributeExists("orders", "totalPrice"))
-		.andExpect(view().name("cartForm"));
+		.andExpect(view().name("user/cartForm"));
 	}
 	
 	@Test
@@ -87,7 +87,6 @@ public class CartControllerTest {
 		.andExpect(view().name("redirect:/main/displayOffer"));
 	}
 	
-	
 	@Test
 	public void testBackToOfferAfterPresButtonBack() throws Exception{
 		mockMvc.perform(get("/main/displayCart").param("back", "Back to offer"))
@@ -101,7 +100,7 @@ public class CartControllerTest {
 		mockMvc.perform(get("/main/displayCart").param("clear", "Clear cart"))
 		.andDo(print())
 		.andExpect(status().isOk())
-		.andExpect(view().name("cartForm"));
+		.andExpect(view().name("user/cartForm"));
 	}
 	
 	@Test

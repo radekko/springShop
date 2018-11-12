@@ -1,6 +1,6 @@
 package com.shop.service;
 
-import com.shop.model.entity.persistent.Product;
+import com.shop.model.entity.Product;
 import com.shop.pagination.EntityPage;
 
 public interface OfferService {

@@ -1,4 +1,4 @@
-package com.shop.config;
+package com.shop.config.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

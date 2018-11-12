@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.shop.model.entity.domain.LineItemDTO;
+import com.shop.model.dto.LineItemDTO;
 import com.shop.service.CartService;
 
 @Controller
@@ -48,13 +48,12 @@ public class CartController {
 		redirectAttributes.addAttribute("page", page);
 		return "redirect:/main/displayOffer";
 	}
-	
 
 	@GetMapping(path = "/displayCart")
 	public String displayCart(Model model) {
 		model.addAttribute("orders", cartService.getSortedCart());
 		model.addAttribute("totalPrice",cartService.computeTotalPriceOfCart());
-		return "cartForm";
+		return "user/cartForm";
 	}
 	
 	@GetMapping(params = "order", path = "/displayCart")
@@ -67,7 +66,7 @@ public class CartController {
 	@GetMapping(params = "clear", path = "/displayCart")
     public String clearCart() {
 		cartService.clearCart();
-        return "cartForm";
+        return "user/cartForm";
     }
 	
 	@GetMapping(params = "back", path = "/displayCart")

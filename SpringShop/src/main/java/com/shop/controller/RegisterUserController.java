@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.shop.model.entity.domain.UserDTO;
-import com.shop.model.entity.persistent.User;
+import com.shop.model.dto.UserDTO;
 import com.shop.service.UserService;
 
 @Controller
@@ -34,23 +33,11 @@ public class RegisterUserController {
 	public String registerUser(@ModelAttribute("userDTO") @Valid UserDTO userDTO, BindingResult errors, Model model) {
 		if (errors.hasErrors())
 			return "registerForm";
-
-		User user = convertUserDTOtoUser(userDTO);
 		
-		if(userService.storeUserIfNotExist(user))
+		if(userService.storeUserIfNotExist(userDTO))
 			return "successRegistered";
-		else {
-			model.addAttribute("alreadyExist", true);
-			return "registerForm";
-		}
+		
+		model.addAttribute("alreadyExist", true);
+		return "registerForm";
 	}
-	
-	private User convertUserDTOtoUser(UserDTO userDTO) {
-		User user = new User();
-		user.setUsername(userDTO.getUsername());
-		user.setPassword(userDTO.getPassword());
-		user.setEmail(userDTO.getEmail());
-		return user;
-	}
-
 }

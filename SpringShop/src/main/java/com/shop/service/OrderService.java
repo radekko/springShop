@@ -2,9 +2,9 @@ package com.shop.service;
 
 import java.util.List;
 
-import com.shop.model.entity.domain.LineItemDTO;
-import com.shop.model.entity.persistent.Order;
-import com.shop.model.entity.persistent.User;
+import com.shop.model.dto.LineItemDTO;
+import com.shop.model.entity.Order;
+import com.shop.model.entity.User;
 import com.shop.pagination.EntityPage;
 
 public interface OrderService {

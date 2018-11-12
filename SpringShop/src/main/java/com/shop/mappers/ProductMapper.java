@@ -2,8 +2,8 @@ package com.shop.mappers;
 
 import org.springframework.stereotype.Component;
 
-import com.shop.model.entity.domain.LineItemDTO;
-import com.shop.model.entity.persistent.Product;
+import com.shop.model.dto.LineItemDTO;
+import com.shop.model.entity.Product;
 
 @Component
 public class ProductMapper implements Mapper<Product, LineItemDTO> {

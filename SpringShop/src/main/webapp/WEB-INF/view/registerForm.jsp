@@ -37,7 +37,8 @@
 	</form:form>
 	<c:if test="${not empty alreadyExist}">
 		<td>User with chosen nickname already exist in database. Chose another.</td>
-	</c:if>  
+	</c:if>
+	<br/>
 	<a href="<c:url value="/" />">Back to login page</a><br/> 
 </body>
 </html>

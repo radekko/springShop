@@ -8,7 +8,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import com.shop.model.entity.persistent.User;
+import com.shop.model.entity.User;
 
 @Repository
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {

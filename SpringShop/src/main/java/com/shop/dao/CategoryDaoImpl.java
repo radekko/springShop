@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.shop.model.entity.persistent.Category;
+import com.shop.model.entity.Category;
 
 @Repository
 public class CategoryDaoImpl extends AbstractDao<Integer, Category> implements CategoryDao {

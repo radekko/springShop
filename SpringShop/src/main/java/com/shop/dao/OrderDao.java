@@ -1,7 +1,7 @@
 package com.shop.dao;
 
-import com.shop.model.entity.persistent.IEntity;
-import com.shop.model.entity.persistent.Order;
+import com.shop.model.entity.IEntity;
+import com.shop.model.entity.Order;
 import com.shop.pagination.EntityPage;
 
 public interface OrderDao {

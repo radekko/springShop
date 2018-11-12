@@ -1,4 +1,4 @@
-package com.shop.config;
+package com.shop.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
