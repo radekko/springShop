@@ -22,7 +22,7 @@ import com.shop.service.AuthenticationService;
 @RunWith(MockitoJUnitRunner.class)
 public class LoginControllerTest{
 
-	private static final String AFTER_LOGIN_AS_ADMIN = "/order";
+	private static final String AFTER_LOGIN_AS_ADMIN = "/admin";
 	private static final String AFTER_LOGIN_AS_USER = "/main/displayOffer";
 	
 	@Mock

@@ -45,34 +45,37 @@ public class OrderController {
 		this.orderMapper = orderMapper;
 		this.userMapper = userMapper;
 	}
-
+	
 	@GetMapping
-	public String displayOrders(
+	public String displayOrdersToAccomplish(
+			@RequestParam(value = "username", required = false) String username,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			Model model) {
+	
+		boolean isRealized = false;
+		EntityPage<Order> paginateOrders = getOrdersToDisplay(username, page, isRealized);
+		UserDTO chosenUser = getChosenUser(username);
+		
+		prepareModel(model, paginateOrders, username, chosenUser);
+		return "orderForm";
+	}
+
+	@GetMapping(path = "/accomplished")
+	public String displayOrdersAccomplished(
 			@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			Model model) {
 
-		EntityPage<Order> paginateOrders;
-		UserDTO chosenUser = new UserDTO();
+		boolean isRealized = true;
+		EntityPage<Order> paginateOrders = getOrdersToDisplay(username, page, isRealized);
+		UserDTO chosenUser = getChosenUser(username);
 		
-		if(isContainValue(username)) {
-			chosenUser.setUsername(username);
-			paginateOrders = orderService.getPaginateOrdersForUser(page, maxOrdersOnPage,username,false);
-		}
-		else
-			paginateOrders = orderService.getPaginateOrders(page, maxOrdersOnPage,false);
-			
-		model.addAttribute("totalOrders",paginateOrders.getTotalRecords());
-		model.addAttribute("orderDTO", mapEntityPageToDTO(paginateOrders));
-		model.addAttribute("navigationPages", createNavPages(paginateOrders));
-		model.addAttribute("usersList",getUsersWhichMakeAnyOrder());
-		model.addAttribute(chosenUser);
-		model.addAttribute("username", username);
-		return "orderForm";
+		prepareModel(model, paginateOrders, username, chosenUser);
+		return "accomplishedOrderForm";
 	}
 	
 	@PostMapping
-	public String acomplishOrder(
+	public String accomplishOrder(
 			@RequestParam("orderIdentifier") String orderIdentifier,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "username", required = false) String username,
@@ -84,7 +87,37 @@ public class OrderController {
 			redirectAttributes.addAttribute("username", username);
 			return "redirect:/order";
 	}
+	
+	private void prepareModel(Model model, EntityPage<Order> paginateOrders, String username, UserDTO chosenUser) {
+		model.addAttribute("totalOrders",paginateOrders.getTotalRecords());
+		model.addAttribute("orderDTO", mapEntityPageToDTO(paginateOrders));
+		model.addAttribute("navigationPages", createNavPages(paginateOrders));
+		model.addAttribute("usersList",getUsersWhichMakeAnyOrder());
+		model.addAttribute(chosenUser);
+		model.addAttribute("username", username);
+	}
+	
+	private UserDTO getChosenUser(String username) {
+		UserDTO chosenUser = new UserDTO();
+		
+		if(checkIfUserWasSelected(username))
+			chosenUser.setUsername(username);
+		return chosenUser;
+	}
 
+	private boolean checkIfUserWasSelected(String username) {
+		if(isContainValue(username))
+			return true;
+		return false;
+	}
+	
+	private EntityPage<Order> getOrdersToDisplay(String username, int page, boolean isRealized) {
+		if(isContainValue(username))
+			return orderService.getPaginateOrdersForUser(page, maxOrdersOnPage,username,isRealized);
+		else
+			return orderService.getPaginateOrders(page, maxOrdersOnPage,isRealized);
+	}
+	
 	private List<Integer> createNavPages(EntityPage<Order> paginateOrders) {
 		return navPagesCreator.create(paginateOrders, maxNavigationPages);
 	}

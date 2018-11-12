@@ -34,6 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		/main/displayCart
 		/login
 		/main/displayOffer
+		/order/accomplished
+		/admin
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -43,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			authorizeRequests()
 				.antMatchers("/register","/login","/","/403").permitAll()
 				.antMatchers("/main/**").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-				.antMatchers("/order").access("hasRole('ROLE_ADMIN')")
+				.antMatchers("/order/**","/admin/**").access("hasRole('ROLE_ADMIN')")
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()

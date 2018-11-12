@@ -15,7 +15,7 @@ import com.shop.service.AuthenticationService;
 public class LoginController {
 
 	private AuthenticationService authenticationService;
-	private static final String AFTER_LOGIN_AS_ADMIN = "/order";
+	private static final String AFTER_LOGIN_AS_ADMIN = "/admin";
 	private static final String AFTER_LOGIN_AS_USER = "/main/displayOffer";
 			
 	@Autowired

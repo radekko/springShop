@@ -4,12 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Orders</title>
+<title>Accomplished Orders</title>
 </head>
+
 <h6><a href="<c:url value='/admin' />">Back</a></h6>
 <h3>Select user:</h3>
 
-<form:form modelAttribute="userDTO" action="order" method="GET">
+<form:form modelAttribute="userDTO" action="accomplished" method="GET">
   <form:select path="username">
   	<form:option value="" label="--All--"/>
     <form:options items="${usersList}"></form:options>
@@ -48,10 +49,6 @@
 						</tr>
 					</c:forEach>
 				</tr>
-				<form:form method="POST">
-					<td><input type="submit" value="Accomplished" /></td>
-					<td style="display:none"><input type="hidden" name="orderIdentifier" value="${order.orderIdentifier}"></td>
-				</form:form>
 				<tr>
 					<td>&nbsp;</td>
 				</tr>
